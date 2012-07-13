@@ -61,11 +61,13 @@ namespace MasterOfCentauri.Camera
 
         public Matrix get_transformation()
         {
-            _transform =       // Thanks to o KB o for this solution
-              Matrix.CreateTranslation(new Vector3(-_pos.X, -_pos.Y, 0)) *
-                                         Matrix.CreateRotationZ(Rotation) *
-                                         Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *
-                                         Matrix.CreateTranslation(new Vector3((_viewportWidth) - (_pos.X * _zoom), (_viewportHeight) - (_pos.Y * _zoom), 0));
+            _transform = Matrix.CreateTranslation(new Vector3(-ViewPortWidth * 0.5f - _pos.X, -ViewPortHeight * 0.5f - _pos.Y, 0)) * Matrix.CreateScale(
+                new Vector3((_zoom * _zoom * _zoom),
+                (_zoom * _zoom * _zoom), 0))
+            * Matrix.CreateRotationZ(_rotation)
+               * Matrix.CreateTranslation(new Vector3(
+                ViewPortWidth * 0.5f, ViewPortHeight * 0.5f, 0));
+
             return _transform;
         }
     }

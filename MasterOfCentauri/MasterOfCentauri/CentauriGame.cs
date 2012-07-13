@@ -45,7 +45,7 @@ namespace MasterOfCentauri
         /// </summary>
         public override void Initialize()
         {
-           base.Initialize();
+            base.Initialize();
         }
 
         /// <summary>
@@ -67,9 +67,9 @@ namespace MasterOfCentauri
             {
                 // Make the screen transparent.
                 Background = new Color(0, 0, 0, 0),
-                
+
             };
-            
+
             var buttontest = new Button
             {
                 Width = 80,
@@ -84,6 +84,7 @@ namespace MasterOfCentauri
                 VerticalAlignment = VerticalAlignment.Stretch,
                 Background = new Color(100, 56, 56, 56)
             };
+
 
             var mainTabPanel = new TabControl
             {
@@ -100,22 +101,8 @@ namespace MasterOfCentauri
             mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Star map" }, TabPage = test });
             mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Planet map" }, TabPage = planetMap });
 
-
-            var paneltest = new Canvas
-            {
-                Margin = new Vector4F(8),
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Top,
-                Width = 120,
-                Height = 120,
-                
-                Background = new Color(255, 25, 25, 25)
-
-            };
-            //paneltest.Children.Add(buttontest);
             _screen.Children.Add(mainTabPanel);
-            //_screen.Children.Add(paneltest);
-            
+
             // Add the screen to the UI service.
             _uiService.Screens.Add(_screen);
 
@@ -137,7 +124,7 @@ namespace MasterOfCentauri
         public override void Draw(GameTime gameTime)
         {
             _screen.Draw(gameTime);
-            
+
             base.Draw(gameTime);
         }
     }
