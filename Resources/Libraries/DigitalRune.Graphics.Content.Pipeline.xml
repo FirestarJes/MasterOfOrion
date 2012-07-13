@@ -1,0 +1,1292 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DigitalRune.Graphics.Content.Pipeline</name>
+    </assembly>
+    <members>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent">
+            <summary>
+            Stores the processed data for a <strong>Submesh</strong> asset.
+            </summary>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent.VertexBuffer">
+            <summary>
+            Gets or sets the vertex buffer associated with this submesh.
+            </summary>
+            <value>The vertex buffer associated with this submesh.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent.StartVertex">
+            <summary>
+            Gets or sets the index of the first vertex in the vertex buffer that belongs to this submesh 
+            (a.k.a base vertex or vertex offset).
+            </summary>
+            <value>The index of the first vertex in the vertex buffer.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent.VertexCount">
+            <summary>
+            Gets or sets the number of vertices used in this submesh.
+            </summary>
+            <value>The number of vertices used in this submesh.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent.IndexBuffer">
+            <summary>
+            Gets or sets the index buffer associated with this submesh.
+            </summary>
+            <value>The index buffer associated with this submesh.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent.StartIndex">
+            <summary>
+            Gets or sets the location in the index buffer at which to start reading vertices.
+            </summary>
+            <value>The location in the index buffer at which to start reading vertices.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent.PrimitiveCount">
+            <summary>
+            Gets or sets the number of primitives to render for this submesh.
+            </summary>
+            <value>The number of primitives in this submesh.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent.ExternalMaterial">
+            <summary>
+            Gets or sets the external material of this submesh.
+            </summary>
+            <value>The external material of this submesh.</value>
+            <remarks>
+            The material is assigned to the submesh using the model description (XML file). The material
+            is defined in an external material definition (XML file). Materials can be shared between
+            models. If <see cref="P:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent.ExternalMaterial"/> is set, the property <see cref="P:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent.LocalMaterial"/>
+            can be ignored.
+            </remarks>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent.LocalMaterial">
+            <summary>
+            Gets or sets the local material of this submesh, which is used if the model description (XML
+            file) is missing or incomplete.
+            </summary>
+            <value>
+            The local material of this submesh, which is used if the model description (XML file) is 
+            missing or incomplete.
+            </value>
+            <remarks>
+            This property is only used, if <see cref="P:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent.ExternalMaterial"/> is <see langword="null"/>.
+            </remarks>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent.UserData">
+            <summary>
+            Gets or sets a user-defined object.
+            </summary>
+            <value>A user-defined object.</value>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRMeshInstanceContent">
+            <summary>
+            Stores processing data for a <strong>MeshInstance</strong>.
+            </summary>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent">
+            <summary>
+            Stores the processed data for a <strong>SceneNode</strong> asset.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent"/> class.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.GetChildren">
+            <summary>
+            Gets the children of the given scene node.
+            </summary>
+            <returns>
+            The children of scene node or an empty <see cref="T:System.Collections.Generic.IEnumerable`1"/> if 
+            <see cref="P:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.Children"/> is <see langword="null"/>.
+            </returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.GetRoot">
+            <summary>
+            Gets the root node.
+            </summary>
+            <returns>The root node.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.GetAncestors">
+            <summary>
+            Gets the ancestors of the given scene node.
+            </summary>
+            <returns>The ancestors of this scene node.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.GetSelfAndAncestors">
+            <summary>
+            Gets the scene node and its ancestors scene.
+            </summary>
+            <returns>The scene node and its ancestors of the scene.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.GetDescendants">
+            <overloads>
+            <summary>
+            Gets the descendants of the given node.
+            </summary>
+            </overloads>
+            <summary>
+            Gets the descendants of the given node using a depth-first search.
+            </summary>
+            <returns>
+            The descendants of this node in depth-first order.
+            </returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.GetDescendants(System.Boolean)">
+            <summary>
+            Gets the descendants of the given node using a depth-first or a breadth-first search.
+            </summary>
+            <param name="depthFirst">
+            If set to <see langword="true"/> then a depth-first search for descendants will be made; 
+            otherwise a breadth-first search will be made.
+            </param>
+            <returns>
+            The descendants of this node.
+            </returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.GetSubtree">
+            <overloads>
+            <summary>
+            Gets the subtree (the given node and all of its descendants).
+            </summary>
+            </overloads>
+            <summary>
+            Gets the subtree (the given node and all of its descendants) using a depth-first 
+            search.
+            </summary>
+            <returns>
+            The subtree (the given node and all of its descendants) in depth-first order.
+            </returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.GetSubtree(System.Boolean)">
+            <summary>
+            Gets the subtree (the given node and all of its descendants) using a depth-first or a 
+            breadth-first search.
+            </summary>
+            <param name="depthFirst">
+            If set to <see langword="true"/> then a depth-first search for descendants will be made; 
+            otherwise a breadth-first search will be made.
+            </param>
+            <returns>
+            The subtree (the given node and all of its descendants).
+            </returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.GetLeaves">
+            <summary>
+            Gets the leaves of the scene node.
+            </summary>
+            <returns>The leaves of the scene node.</returns>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.Parent">
+            <summary>
+            Gets or sets the parent of this node.
+            </summary>
+            <value>The parent of this node.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.Children">
+            <summary>
+            Gets or sets the children of this node.
+            </summary>
+            <value>The children of this node.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.PoseLocal">
+            <summary>
+            Gets or sets the pose (position and orientation) relative to the parent node.
+            </summary>
+            <value>The pose (position and orientation) relative to the parent node.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.ScaleLocal">
+            <summary>
+            Gets or sets the scale.
+            </summary>
+            <value>The scale.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.PoseWorld">
+            <summary>
+            Gets or sets the pose (position and orientation) relative to world space.
+            </summary>
+            <value>The pose (position and orientation) relative to world space.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent.UserData">
+            <summary>
+            Gets or sets a user-defined tag object.
+            </summary>
+            <value>User-defined tag object.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMeshInstanceContent.Mesh">
+            <summary>
+            Gets or sets the mesh.
+            </summary>
+            <value>The mesh.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMeshInstanceContent.InputMesh">
+            <summary>
+            Gets or sets the imported <see cref="T:Microsoft.Xna.Framework.Content.Pipeline.Graphics.MeshContent"/>.
+            </summary>
+            <value>The imported <see cref="T:Microsoft.Xna.Framework.Content.Pipeline.Graphics.MeshContent"/>.</value>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRModelProcessor">
+            <summary>
+            Processes a game asset mesh to a model content that is optimal for runtime.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRModelProcessor.Process(Microsoft.Xna.Framework.Content.Pipeline.Graphics.NodeContent,Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)">
+            <summary>
+            Converts mesh content to model content.
+            </summary>
+            <param name="input">The root node content.</param>
+            <param name="context">Contains any required custom process parameters.</param>
+            <returns>The model content.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRModelProcessor.LoadModelDescription">
+            <summary>
+            Loads the model description (XML file).
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRModelProcessor.BuildMaterial(System.Object)">
+            <summary>
+            Builds the material.
+            </summary>
+            <param name="material">
+            The external material (<see cref="T:System.String"/>) or the local material 
+            (<see cref="T:Microsoft.Xna.Framework.Content.Pipeline.Graphics.MaterialContent"/>).
+            </param>
+            <returns>
+            The processed material.
+            </returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRModelProcessor.OnBuildMaterial(Microsoft.Xna.Framework.Content.Pipeline.ExternalReference{DigitalRune.Graphics.Content.Pipeline.DRMaterialContent},Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)">
+            <summary>
+            Called by the framework when the a material asset needs to be built.
+            </summary>
+            <param name="material">The material asset.</param>
+            <param name="context">The context of this processor.</param>
+            <returns>A reference to the processed material.</returns>
+            <remarks>
+            This method is called when the model uses a material defined in an XML file. 
+            </remarks>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRModelProcessor.OnConvertMaterial(Microsoft.Xna.Framework.Content.Pipeline.Graphics.MaterialContent,Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)">
+            <summary>
+            Called by the framework when the <see cref="T:Microsoft.Xna.Framework.Content.Pipeline.Graphics.MaterialContent"/> property of a 
+            <see cref="T:Microsoft.Xna.Framework.Content.Pipeline.Graphics.GeometryContent"/> object is encountered in the input node collection.
+            </summary>
+            <param name="material">The input material content.</param>
+            <param name="context">The context of this processor.</param>
+            <returns>The converted material content.</returns>
+            <remarks>
+            This method is <strong>not</strong> called when the model uses a material defined in an 
+            external XML file. The method <see cref="M:DigitalRune.Graphics.Content.Pipeline.DRModelProcessor.OnBuildMaterial(Microsoft.Xna.Framework.Content.Pipeline.ExternalReference{DigitalRune.Graphics.Content.Pipeline.DRMaterialContent},Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)"/> is called for external 
+            materials.
+            </remarks>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRMaterialContent">
+            <summary>
+            Stores the processed data for a <strong>Material</strong> asset.
+            </summary>  
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialContent.Definition">
+            <summary>
+            Gets or sets the imported material definition (XML file).
+            </summary>
+            <value>The imported material definition (XML file).</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialContent.Passes">
+            <summary>
+            Gets or sets the effect bindings per render pass.
+            </summary>
+            <value>The effect bindings per render pass.</value>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DREffectType">
+            <summary>
+            Specifies the effect type.
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.DREffectType.AlphaTestEffect">
+            <summary>
+            The predefined effect that supports alpha testing.
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.DREffectType.BasicEffect">
+            <summary>
+            The predefined basic rendering effect.
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.DREffectType.DualTextureEffect">
+            <summary>
+            The predefined effect that supports two-layer multitexturing.
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.DREffectType.EnvironmentMapEffect">
+            <summary>
+            The predefined effect that supports environment mapping.
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.DREffectType.SkinnedEffect">
+            <summary>
+            The predefined effect for rendering skinned models.
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.DREffectType.CustomEffect">
+            <summary>
+            A custom effect.
+            </summary>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRTextureFormat">
+            <summary>
+            Defines the texture format.
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.DRTextureFormat.NoChange">
+            <summary>
+            The texture format of the input texture is not changed by the content processor.
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.DRTextureFormat.Color">
+            <summary>
+            The texture format of the input texture is converted to <see cref="F:Microsoft.Xna.Framework.Graphics.SurfaceFormat.Color"/>
+            (32-bit ARGB format with alpha, 8 bits per channel) by the content processor.
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.DRTextureFormat.Dxt">
+            <summary>
+            The texture format of the input texture is converted to an appropriate DXT compression by 
+            the content processor. (If the input texture contains fractional alpha values, it is 
+            converted to DXT5 format; otherwise it is converted to DXT1.)
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.DRTextureFormat.Normal">
+            <summary>
+            The texture format of the input texture is converted to DXT5nm by the content processor.
+            (This format reduces compression artifacts when storing normal maps. The x-component of the
+            normal is stored in the Alpha channel and the y-component is stored in the Green channel.
+            The z-component needs to be reconstructed in the pixel shader.)
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.DRTextureFormat.NormalInvertY">
+            <summary>
+            The texture format of the input texture is converted to DXT5nm by the content processor.
+            (This format reduces compression artifacts when storing normal maps. The x-component of the
+            normal is stored in the Alpha channel and the <strong>inverted</strong> y-component is 
+            stored in the Green channel. The z-component needs to be reconstructed in the pixel shader.)
+            </summary>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRModelContent">
+            <summary>
+            Stores the processed data for a <strong>Model</strong> asset.
+            </summary>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.AnimationSplitter">
+            <summary>
+            Splits an animation into separate animations based on an XML file defining the splits.
+            </summary>
+            <remarks>
+            <para>
+            Some FBX exporters support only a single animation (take) per model. One solution to support 
+            multiple animations per model is to concatenate all animations into a single long one. A 
+            separate, manually created XML file defines the animation sections.
+            </para>
+            <example>
+            The XML file allows to specify the start and end times in "seconds" or in "frames". The file 
+            must use this format:
+            <code lang="xml">
+            <![CDATA[
+            <?xml version="1.0" encoding="utf-8"?>
+            <Animations Framerate="24">   <!-- Framerate only needed if you want to specify start and end in frames. -->
+              <!-- Using time in seconds: -->
+              <Animation Name="Walk" StartTime="0" EndTime="1.5"/>
+            
+              <!-- Or using frames: -->
+              <Animation Name="Walk2" StartFrame="45" EndFrame="60"/>
+            </Animations>
+            ]]>
+            </code>
+            </example>
+            <para>
+            The method <see cref="M:DigitalRune.Graphics.Content.Pipeline.AnimationSplitter.Split(Microsoft.Xna.Framework.Content.Pipeline.Graphics.AnimationContentDictionary,System.String,Microsoft.Xna.Framework.Content.Pipeline.ContentIdentity,Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)"/> 
+            parses the XML split definition file, removes the original animation and cuts it into separate
+            animations.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.AnimationSplitter.Split(Microsoft.Xna.Framework.Content.Pipeline.Graphics.AnimationContentDictionary,System.String,Microsoft.Xna.Framework.Content.Pipeline.ContentIdentity,Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)">
+            <overloads>
+            <summary>
+            Splits the animation in the specified animation dictionary into several separate animations.
+            </summary>
+            </overloads>
+            <summary>
+            Splits the animation in the specified animation dictionary into several separate animations.
+            </summary>
+            <param name="animationDictionary">The animation dictionary.</param>
+            <param name="splitFile">
+            The path of the XML file defining the splits. This path is relative to the folder of the 
+            model file. Usually it is simply the filename, e.g. "Dude_AnimationSplits.xml".
+            </param>
+            <param name="contentIdentity">The content identity.</param>
+            <param name="context">The content processor context.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="contentIdentity"/> or <paramref name="context"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.AnimationSplitter.Split(Microsoft.Xna.Framework.Content.Pipeline.Graphics.AnimationContentDictionary,System.Collections.Generic.IList{DigitalRune.Graphics.Content.Pipeline.AnimationSplitDefinition},Microsoft.Xna.Framework.Content.Pipeline.ContentIdentity,Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)">
+            <summary>
+            Splits the animation in the specified animation dictionary into several separate animations.
+            </summary>
+            <param name="animationDictionary">The animation dictionary.</param>
+            <param name="splits">The animation split definitions.</param>
+            <param name="contentIdentity">The content identity.</param>
+            <param name="context">The content processor context.</param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="contentIdentity"/> or <paramref name="context"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.AnimationSplitter.ParseAnimationSplitDefinitions(System.Xml.Linq.XElement,Microsoft.Xna.Framework.Content.Pipeline.ContentIdentity,Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)">
+            <summary>
+            Parses the animation split definitions defined by the specified XML element.
+            </summary>
+            <param name="animationsElement">The XML element that defines the animation splits.</param>
+            <param name="contentIdentity">The content identity.</param>
+            <param name="context">The context.</param>
+            <returns>The list of animation split definitions.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="animationsElement"/>, <paramref name="contentIdentity"/>, or 
+            <paramref name="context"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeWriter">
+            <summary>
+            Writes a <see cref="T:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent"/> to binary format that can be read by 
+            <strong>SceneNodeReader</strong> to load a <strong>SceneNode</strong>.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeWriter.GetRuntimeType(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime target type.
+            </summary>
+            <param name="targetPlatform">The target platform.</param>
+            <returns>The qualified name.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeWriter.GetRuntimeReader(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime loader for this type.
+            </summary>
+            <param name="targetPlatform">Name of the platform.</param>
+            <returns>Name of the runtime loader.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSceneNodeWriter.Write(Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler.ContentWriter,DigitalRune.Graphics.Content.Pipeline.DRSceneNodeContent)">
+            <summary>
+            Compiles a strongly typed object into binary format.
+            </summary>
+            <param name="output">The content writer serializing the value.</param>
+            <param name="value">The value to write.</param>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.Meshes.DRMaterialWriter">
+            <summary>
+            Writes a <see cref="T:DigitalRune.Graphics.Content.Pipeline.DRMaterialContent"/> to binary format that can be read by the 
+            <strong>MaterialReader</strong> to load a <strong>Material</strong>.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.Meshes.DRMaterialWriter.GetRuntimeType(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime target type.
+            </summary>
+            <param name="targetPlatform">The target platform.</param>
+            <returns>The qualified name.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.Meshes.DRMaterialWriter.GetRuntimeReader(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime loader for this type.
+            </summary>
+            <param name="targetPlatform">Name of the platform.</param>
+            <returns>Name of the runtime loader.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.Meshes.DRMaterialWriter.Write(Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler.ContentWriter,DigitalRune.Graphics.Content.Pipeline.DRMaterialContent)">
+            <summary>
+            Compiles a strongly typed object into binary format.
+            </summary>
+            <param name="output">The content writer serializing the value.</param>
+            <param name="value">The value to write.</param>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DREffectBindingContent">
+            <summary>
+            Stores the processed data for an <strong>EffectBinding</strong> asset.
+            </summary>  
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DREffectBindingContent.EffectType">
+            <summary>
+            Gets or sets the type of the effect.
+            </summary>
+            <value>The type of the effect.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DREffectBindingContent.EnvironmentMap">
+            <summary>
+            Gets or sets the current environment map texture.
+            </summary>
+            <value>The current environment map texture.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DREffectBindingContent.Texture">
+            <summary>
+            Gets or sets the current texture.
+            </summary>
+            <value>The current texture.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DREffectBindingContent.Texture2">
+            <summary>
+            Gets or sets the current overlay texture.
+            </summary>
+            <value>The current overlay texture.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DREffectBindingContent.Effect">
+            <summary>
+            Gets or sets the imported effect.
+            </summary>
+            <value>The imported effect.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DREffectBindingContent.CompiledEffect">
+            <summary>
+            Gets or sets the processed effect.
+            </summary>
+            <value>The processed effect.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DREffectBindingContent.EffectAsset">
+            <summary>
+            Gets or sets the name of the effect, if an external asset is referenced.
+            </summary>
+            <value>The name of the effect, if an external asset is referenced.</value>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRMeshWriter">
+            <summary>
+            Writes a <see cref="T:DigitalRune.Graphics.Content.Pipeline.DRMeshContent"/> to binary format that can be read by the
+            <strong>MeshReader</strong> to load a <strong>Mesh</strong>
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRMeshWriter.GetRuntimeType(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime target type.
+            </summary>
+            <param name="targetPlatform">The target platform.</param>
+            <returns>The qualified name.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRMeshWriter.GetRuntimeReader(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime loader for this type.
+            </summary>
+            <param name="targetPlatform">Name of the platform.</param>
+            <returns>Name of the runtime loader.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRMeshWriter.Write(Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler.ContentWriter,DigitalRune.Graphics.Content.Pipeline.DRMeshContent)">
+            <summary>
+            Compiles a strongly typed object into binary format.
+            </summary>
+            <param name="output">The content writer serializing the value.</param>
+            <param name="value">The value to write.</param>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.AnimationMerger">
+            <summary>
+            Merges the animations of several animation files (e.g. .fbx) into a given NodeContent.
+            </summary>
+            <remarks>
+            See http://blogs.msdn.com/b/shawnhar/archive/2010/06/18/merging-animation-files.aspx for more
+            information.
+            </remarks>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.AnimationMerger.Merge(System.String,Microsoft.Xna.Framework.Content.Pipeline.Graphics.AnimationContentDictionary,Microsoft.Xna.Framework.Content.Pipeline.ContentIdentity,Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)">
+            <summary>
+            Merges the specified animation files to the specified animation dictionary.
+            </summary>
+            <param name="animationFiles">
+            The animation files as a string separated by semicolon (relative to the folder of the model 
+            file). For example: "run.fbx;jump.fbx;turn.fbx".
+            </param>
+            <param name="animationDictionary">The animation dictionary.</param>
+            <param name="contentIdentity">The content identity.</param>
+            <param name="context">The content processor context.</param>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor">
+            <summary>
+            Processes a model texture.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor.Process(Microsoft.Xna.Framework.Content.Pipeline.Graphics.TextureContent,Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)">
+            <summary>
+            Processes a texture.
+            </summary>
+            <param name="texture">The texture content to process.</param>
+            <param name="context">Context for the specified processor.</param>
+            <returns>The converted texture content.</returns>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor.ColorKeyColor">
+            <summary>
+            Gets or sets the color used when color keying for a texture is enabled. When color keying, 
+            all pixels of a specified color are replaced with transparent black.
+            </summary>
+            <value>Color value of the material to replace with transparent black.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor.ColorKeyEnabled">
+            <summary>
+            Gets or sets a value indicating whether color keying of a texture is enabled.
+            </summary>
+            <value>
+            <see langword="true"/> if color keying is enabled; <see langword="false"/> otherwise.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor.GenerateMipmaps">
+            <summary>
+            Gets or sets a value indicating whether a full chain of mipmaps is generated from the input 
+            texture. Existing mipmaps of the texture are not replaced.
+            </summary>
+            <value>
+            <see langword="true"/> if mipmap generation is enabled; <see langword="false"/> otherwise.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor.InputGamma">
+            <summary>
+            Gets or sets the gamma of the input texture.
+            </summary>
+            <value>The gamma of the input texture. The default value is 2.2.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor.OutputGamma">
+            <summary>
+            Gets or sets the gamma of the output texture.
+            </summary>
+            <value>The gamma of the output texture. The default value is 2.2f.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor.PremultiplyAlpha">
+            <summary>
+            Gets or sets a value indicating whether the texture is converted to premultiplied alpha format.
+            </summary>
+            <value>
+            <see langword="true"/> if alpha premultiply is enabled; otherwise, <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor.ResizeToPowerOfTwo">
+            <summary>
+            Gets or sets a value indicating whether the texture is resized to the next largest power of 
+            two.
+            </summary>
+            <value>
+            <see langword="true"/> if resizing is enabled; <see langword="false"/> otherwise.
+            </value>
+            <remarks>
+            Typically used to maximize compatability with a graphics card because many graphics cards 
+            do not support a material size that is not a power of two. If 
+            <see cref="P:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor.ResizeToPowerOfTwo"/> is enabled, textures are resized to the next largest power 
+            of two.
+            </remarks>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor.Format">
+            <summary>
+            Gets or sets the texture format of output.
+            </summary>
+            <value>The texture format of the output.</value>
+            <remarks>
+            The input format can either be left unchanged from the source asset, converted to a 
+            corresponding <see cref="T:Microsoft.Xna.Framework.Color"/>, or compressed using the appropriate 
+            <see cref="F:DigitalRune.Graphics.Content.Pipeline.DRTextureFormat.Dxt"/> format.
+            </remarks>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor.ReferenceAlpha">
+            <summary>
+            Gets or sets the reference alpha value, which is used in the alpha test.
+            </summary>
+            <value>The reference alpha value, which is used in the alpha test.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor.ScaleAlphaToCoverage">
+            <summary>
+            Gets or sets a value indicating whether the alpha of the lower mipmap levels should be 
+            scaled to achieve the same alpha test coverage as in the source image.
+            </summary>
+            <value>
+            <see langword="true"/> to scale the alpha values of the lower mipmap levels; otherwise, 
+            <see langword="false"/>.
+            </value>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor">
+            <summary>
+            Builds a material, which can be used for rendering a model.
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.DefaultPass">
+            <summary>
+            The name of the default render pass.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.Process(Microsoft.Xna.Framework.Content.Pipeline.Graphics.MaterialContent,Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)">
+            <summary>
+            Processes the specified input data and returns the result.
+            </summary>
+            <param name="input">Existing content object being processed.</param>
+            <param name="context">Contains any required custom process parameters.</param>
+            <returns>A typed object representing the processed input.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.OnBuildEffect(Microsoft.Xna.Framework.Content.Pipeline.ExternalReference{Microsoft.Xna.Framework.Content.Pipeline.Graphics.EffectContent},Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)">
+            <summary>
+            Builds effect content.
+            </summary>
+            <param name="effect">An external reference to the effect content.</param>
+            <param name="context">Context for the specified processor.</param>
+            <returns>A platform-specific compiled binary effect.</returns>
+            <remarks>
+            If the input to process is of type <see cref="T:Microsoft.Xna.Framework.Content.Pipeline.Graphics.EffectMaterialContent"/>, this function will 
+            be called to request that the <see cref="T:Microsoft.Xna.Framework.Content.Pipeline.Graphics.EffectContent"/> be built. The 
+            <see cref="T:Microsoft.Xna.Framework.Content.Pipeline.Processors.EffectProcessor"/> is used to process the <see cref="T:Microsoft.Xna.Framework.Content.Pipeline.Graphics.EffectContent"/>. Subclasses 
+            of <see cref="T:Microsoft.Xna.Framework.Content.Pipeline.Processors.MaterialProcessor"/> can override this function to modify the parameters used 
+            to build <see cref="T:Microsoft.Xna.Framework.Content.Pipeline.Graphics.EffectContent"/>. For example, a different version of this function 
+            could request a different processor for the <see cref="T:Microsoft.Xna.Framework.Content.Pipeline.Graphics.EffectContent"/>. 
+            </remarks>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.OnBuildTexture(System.String,Microsoft.Xna.Framework.Content.Pipeline.ExternalReference{Microsoft.Xna.Framework.Content.Pipeline.Graphics.TextureContent},Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)">
+            <summary>
+            Builds texture content.
+            </summary>
+            <param name="textureName">
+            The name of the texture. This should correspond to the key used to store the texture in
+            <see cref="P:Microsoft.Xna.Framework.Content.Pipeline.Graphics.MaterialContent.Textures"/>.
+            </param>
+            <param name="texture">
+            The asset to build. This should be a member of <see cref="P:Microsoft.Xna.Framework.Content.Pipeline.Graphics.MaterialContent.Textures"/>. The
+            opaque data dictionary stored in <paramref name="texture"/> may contain parameters for the 
+            <see cref="T:DigitalRune.Graphics.Content.Pipeline.DRTextureProcessor"/>.
+            </param>
+            <param name="context">Context for the specified processor.</param>
+            <returns>The reference to the built texture.</returns>
+            <remarks>
+            <paramref name="textureName"/> can be used to determine which processor to use. For example,
+            if a texture is being used as a normal map, the user may not want to use DXT compression.
+            </remarks>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.ColorKeyColor">
+            <summary>
+            Gets or sets the color used when color keying for a texture is enabled. When color keying, 
+            all pixels of a specified color are replaced with transparent black.
+            </summary>
+            <value>Color value of the material to replace with transparent black.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.ColorKeyEnabled">
+            <summary>
+            Gets or sets a value indicating whether color keying of a model is enabled.
+            </summary>
+            <value>
+            <see langword="true"/> if color keying is enabled; <see langword="false"/> otherwise.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.GenerateMipmaps">
+            <summary>
+            Gets or sets a value indicating whether a full chain of mipmaps is generated from the source 
+            material. Existing mipmaps of the material are not replaced.
+            </summary>
+            <value>
+            <see langword="true"/> if mipmap generation is enabled; <see langword="false"/> otherwise.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.InputTextureGamma">
+            <summary>
+            Gets or sets the gamma of the input textures.
+            </summary>
+            <value>The gamma of the input textures. The default value is 2.2.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.OutputTextureGamma">
+            <summary>
+            Gets or sets the gamma of the output textures.
+            </summary>
+            <value>The gamma of the output textures. The default value is 2.2.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.PremultiplyTextureAlpha">
+            <summary>
+            Gets or sets a value indicating whether alpha premultiply of textures is enabled.
+            </summary>
+            <value>
+            <see langword="true"/> if alpha premultiply is enabled; otherwise, <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.ResizeTexturesToPowerOfTwo">
+            <summary>
+            Gets or sets a value indicating whether resizing of textures are enabled.
+            </summary>
+            <value>
+            <see langword="true"/> if resizing is enabled; <see langword="false"/> otherwise.
+            </value>
+            <remarks>
+            Typically used to maximize compatability with a graphics card because many graphics cards 
+            do not support a material size that is not a power of two. If 
+            <see cref="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.ResizeTexturesToPowerOfTwo"/> is enabled, textures are resized to the next 
+            largest power of two.
+            </remarks>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.TextureFormat">
+            <summary>
+            Gets or sets the texture format of output materials.
+            </summary>
+            <value>The texture format of the output.</value>
+            <remarks>
+            Materials can either be left unchanged from the source asset, converted to a corresponding 
+            <see cref="T:Microsoft.Xna.Framework.Color"/>, or compressed using the appropriate 
+            <see cref="F:DigitalRune.Graphics.Content.Pipeline.DRTextureFormat.Dxt"/> format.
+            </remarks>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.ReferenceAlpha">
+            <summary>
+            Gets or sets the reference alpha value, which is used in the alpha test.
+            </summary>
+            <value>The reference alpha value, which is used in the alpha test.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.ScaleTextureAlphaToCoverage">
+            <summary>
+            Gets or sets a value indicating whether the alpha of the textures should be scaled to 
+            achieve the same alpha test coverage as in the source images.
+            </summary>
+            <value>
+            <see langword="true"/> to scale the alpha values of the textures; otherwise, 
+            <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.DefaultEffectType">
+            <summary>
+            Gets or sets the type of the default effect.
+            </summary>
+            <value>The type of the default effect.</value>
+            <remarks>
+            If the model does not contain effect code or reference a effect file, then the default 
+            effect file will be used. If the type is <see cref="F:DigitalRune.Graphics.Content.Pipeline.DREffectType.CustomEffect"/>, then
+            <see cref="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.DefaultEffectFile"/> must be set.
+            </remarks>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.DefaultEffectFile">
+            <summary>
+            Gets or sets the path of the default DirectX effect file.
+            </summary>
+            <value>The path of the default DirectX effect file.</value>
+            <remarks>
+            If the model does not contain effect code or reference a effect file, then the default 
+            effect file will be used. If <see cref="P:DigitalRune.Graphics.Content.Pipeline.DRMaterialProcessor.DefaultEffectType"/> is set to 
+            <see cref="F:DigitalRune.Graphics.Content.Pipeline.DREffectType.CustomEffect"/>, then this property must specify a DirectX effect
+            file. (The path of the filename is relative to the content root directory.)
+            </remarks>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.ContentHelper">
+            <summary>
+            Provides helper methods for content processing.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.ContentHelper.PrintContentTree(Microsoft.Xna.Framework.Content.Pipeline.Graphics.NodeContent,Microsoft.Xna.Framework.Content.Pipeline.ContentProcessorContext)">
+            <summary>
+            Visualizes the tree structure of the specified content node.
+            </summary>
+            <param name="node">The content node.</param>
+            <param name="context">Contains any required custom process parameters.</param>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.ContentHelper.IsValidTypeForEffectParameter(System.Object)">
+            <summary>
+            Determines whether the type of the given object is a valid effect parameter type.
+            </summary>
+            <param name="effectParameter">The effect parameter.</param>
+            <returns>
+            <see langword="true"/> if the type is valid; otherwise, <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.ContentHelper.CopyContentItem(Microsoft.Xna.Framework.Content.Pipeline.ContentItem,Microsoft.Xna.Framework.Content.Pipeline.ContentItem)">
+            <summary>
+            Copies the properties of a <see cref="T:Microsoft.Xna.Framework.Content.Pipeline.ContentItem"/>.
+            </summary>
+            <param name="source">The source item.</param>
+            <param name="target">The target item.</param>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.ContentHelper.CopyMaterialContent(Microsoft.Xna.Framework.Content.Pipeline.Graphics.MaterialContent,Microsoft.Xna.Framework.Content.Pipeline.Graphics.MaterialContent)">
+            <summary>
+            Copies the properties of a <see cref="T:Microsoft.Xna.Framework.Content.Pipeline.Graphics.MaterialContent"/>.
+            </summary>
+            <param name="source">The source item.</param>
+            <param name="target">The target item.</param>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.ContentHelper.FindFile(System.String,Microsoft.Xna.Framework.Content.Pipeline.ContentIdentity)">
+            <summary>
+            Tries to locate the specified file.
+            </summary>
+            <param name="fileName">
+            The name of the file. May include a relative or absolute path.
+            </param>
+            <param name="identity">The content identity.</param>
+            <returns>The full path and file name.</returns>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRSubmeshWriter">
+            <summary>
+            Writes a <see cref="T:DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent"/> to binary format that can be read by the 
+            <strong>SubmeshReader</strong> to load a <strong>Submesh</strong>.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSubmeshWriter.GetRuntimeType(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime target type.
+            </summary>
+            <param name="targetPlatform">The target platform.</param>
+            <returns>The qualified name.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSubmeshWriter.GetRuntimeReader(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime loader for this type.
+            </summary>
+            <param name="targetPlatform">Name of the platform.</param>
+            <returns>Name of the runtime loader.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRSubmeshWriter.Write(Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler.ContentWriter,DigitalRune.Graphics.Content.Pipeline.DRSubmeshContent)">
+            <summary>
+            Compiles a strongly typed object into binary format.
+            </summary>
+            <param name="output">The content writer serializing the value.</param>
+            <param name="value">The value to write.</param>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRMeshInstanceWriter">
+            <summary>
+            Writes a <see cref="T:DigitalRune.Graphics.Content.Pipeline.DRMeshInstanceContent"/> to binary format that can be read by the 
+            <strong>MeshInstanceReader</strong> to load a <strong>MeshInstance</strong>.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRMeshInstanceWriter.GetRuntimeType(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime target type.
+            </summary>
+            <param name="targetPlatform">The target platform.</param>
+            <returns>The qualified name.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRMeshInstanceWriter.GetRuntimeReader(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime loader for this type.
+            </summary>
+            <param name="targetPlatform">Name of the platform.</param>
+            <returns>Name of the runtime loader.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRMeshInstanceWriter.Write(Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler.ContentWriter,DigitalRune.Graphics.Content.Pipeline.DRMeshInstanceContent)">
+            <summary>
+            Compiles a strongly typed object into binary format.
+            </summary>
+            <param name="output">The content writer serializing the value.</param>
+            <param name="value">The value to write.</param>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.XmlHelper">
+            <summary>
+            Provides helper methods for parsing XML.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.XmlHelper.GetMandatoryAttribute(System.Xml.Linq.XElement,System.String,Microsoft.Xna.Framework.Content.Pipeline.ContentIdentity)">
+            <summary>
+            Gets the mandatory attribute from the specified XML element.
+            </summary>
+            <param name="element">The XML element.</param>
+            <param name="name">The name of the attribute.</param>
+            <param name="identity">The content identity.</param>
+            <returns>The attribute value.</returns>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="element"/> or <paramref name="name"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="name"/> is empty.
+            </exception>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.XmlHelper.ToParameterValue(System.Xml.Linq.XAttribute,System.Object,Microsoft.Xna.Framework.Content.Pipeline.ContentIdentity)">
+            <summary>
+            Converts the specified <see cref="T:System.Xml.Linq.XAttribute"/> to an effect parameter value.
+            </summary>
+            <param name="attribute">The XML attribute to parse. Can be <see langword="null"/>.</param>
+            <param name="defaultValue">
+            The default value, used if <paramref name="attribute"/> is null or empty.
+            </param>
+            <param name="identity">The content identity.</param>
+            <returns>The effect parameter value.</returns>
+            <exception cref="T:Microsoft.Xna.Framework.Content.Pipeline.InvalidContentException">
+            Error parsing <paramref name="attribute"/>.
+            </exception>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.XmlHelper.ToColor(System.Xml.Linq.XAttribute,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Content.Pipeline.ContentIdentity)">
+            <summary>
+            Converts the specified <see cref="T:System.Xml.Linq.XAttribute"/> to a color value.
+            </summary>
+            <param name="attribute">The XML attribute to parse. Can be <see langword="null"/>.</param>
+            <param name="defaultValue">
+            The default value, used if <paramref name="attribute"/> is null or empty.
+            </param>
+            <param name="identity">The content identity.</param>
+            <returns>The color value.</returns>
+            <exception cref="T:Microsoft.Xna.Framework.Content.Pipeline.InvalidContentException">
+            Error parsing <paramref name="attribute"/>.
+            </exception>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.XmlHelper.ToVector3(System.Xml.Linq.XAttribute,Microsoft.Xna.Framework.Vector3,Microsoft.Xna.Framework.Content.Pipeline.ContentIdentity)">
+            <summary>
+            Converts to the specified <see cref="T:System.Xml.Linq.XAttribute"/> to a <see cref="T:Microsoft.Xna.Framework.Vector3"/>.
+            </summary>
+            <param name="attribute">The XML attribute to parse. Can be <see langword="null"/>.</param>
+            <param name="defaultValue">
+            The default value, used if <paramref name="attribute"/> is null or empty.
+            </param>
+            <param name="identity">The content identity.</param>
+            <returns>The 3D vector.</returns>
+            <exception cref="T:Microsoft.Xna.Framework.Content.Pipeline.InvalidContentException">
+            Error parsing <paramref name="attribute"/>.
+            </exception>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.XmlHelper.ToTextureFormat(System.Xml.Linq.XAttribute,DigitalRune.Graphics.Content.Pipeline.DRTextureFormat,Microsoft.Xna.Framework.Content.Pipeline.ContentIdentity)">
+            <summary>
+            Converts the specified <see cref="T:System.Xml.Linq.XAttribute"/> to a <see cref="T:DigitalRune.Graphics.Content.Pipeline.DRTextureFormat"/> value.
+            </summary>
+            <param name="attribute">The XML attribute to parse. Can be <see langword="null"/>.</param>
+            <param name="defaultValue">
+            The default value, used if <paramref name="attribute"/> is null or empty.
+            </param>
+            <param name="identity">The content identity.</param>
+            <returns>The texture format.</returns>
+            <exception cref="T:Microsoft.Xna.Framework.Content.Pipeline.InvalidContentException">
+            Error parsing <paramref name="attribute"/>.
+            </exception>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.XmlHelper.GetExceptionMessage(System.Xml.Linq.XAttribute,System.String,System.Object[])">
+            <summary>
+            Gets the message text including line info for exceptions that occur when parsing XML.
+            </summary>
+            <param name="attribute">The current attribute.</param>
+            <param name="format">The format string.</param>
+            <param name="args">An object array that contains zero or more objects to format.</param>
+            <returns>The exception message including line info.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.XmlHelper.GetExceptionMessage(System.Xml.Linq.XElement,System.String,System.Object[])">
+            <summary>
+            Gets the message text including line info for exceptions that occur when parsing XML.
+            </summary>
+            <param name="element">The current element.</param>
+            <param name="format">The format string.</param>
+            <param name="args">An object array that contains zero or more objects to format.</param>
+            <returns>The exception message including line info.</returns>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.AnimationSplitDefinition">
+            <summary>
+            Defines a region in the original (merged) animation.
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.AnimationSplitDefinition.Name">
+            <summary>
+            The name of the animation.
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.AnimationSplitDefinition.StartTime">
+            <summary>
+            The start time.
+            </summary>
+        </member>
+        <member name="F:DigitalRune.Graphics.Content.Pipeline.AnimationSplitDefinition.EndTime">
+            <summary>
+            The end time.
+            </summary>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DREffectBindingWriter">
+            <summary>
+            Writes an <see cref="T:DigitalRune.Graphics.Content.Pipeline.DREffectBindingContent"/> to a binary format that can be read by the 
+            <strong>EffectBindingReader</strong> to load an <strong>EffectBinding</strong>.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DREffectBindingWriter.GetRuntimeType(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime target type.
+            </summary>
+            <param name="targetPlatform">The target platform.</param>
+            <returns>The qualified name.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DREffectBindingWriter.GetRuntimeReader(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime loader for this type.
+            </summary>
+            <param name="targetPlatform">Name of the platform.</param>
+            <returns>Name of the runtime loader.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DREffectBindingWriter.Write(Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler.ContentWriter,DigitalRune.Graphics.Content.Pipeline.DREffectBindingContent)">
+            <summary>
+            Compiles a strongly typed object into binary format.
+            </summary>
+            <param name="output">The content writer serializing the value.</param>
+            <param name="value">The value to write.</param>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.TextureHelper">
+            <summary>
+            Provides methods for processing textures.
+            </summary>
+            <remarks>
+            <strong>Important:</strong> The <see cref="T:DigitalRune.Graphics.Content.Pipeline.TextureHelper"/> assumes that the texture content 
+            is stored as <strong>PixelBitmapContent&lt;Vector4&gt;</strong>.
+            </remarks>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.TextureHelper.GammaToLinear(Microsoft.Xna.Framework.Content.Pipeline.Graphics.TextureContent,System.Single)">
+            <summary>
+            Converts the specified texture from gamma space to linear space.
+            </summary>
+            <param name="texture">The texture.</param>
+            <param name="gamma">The gamma value.</param>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.TextureHelper.LinearToGamma(Microsoft.Xna.Framework.Content.Pipeline.Graphics.TextureContent,System.Single)">
+            <summary>
+            Converts the specified texture from linear space to gamma space.
+            </summary>
+            <param name="texture">The texture.</param>
+            <param name="gamma">The gamma value.</param>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.TextureHelper.ColorKey(Microsoft.Xna.Framework.Content.Pipeline.Graphics.TextureContent,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Applies color keying to the specified texture.
+            </summary>
+            <param name="texture">The texture.</param>
+            <param name="colorKeyColor">Color of the color key.</param>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.TextureHelper.PremultiplyAlpha(Microsoft.Xna.Framework.Content.Pipeline.Graphics.TextureContent)">
+            <summary>
+            Premultiplies the alpha value of the specified texture.
+            </summary>
+            <param name="texture">The texture.</param>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.TextureHelper.ResizeToPowerOfTwo(Microsoft.Xna.Framework.Content.Pipeline.Graphics.TextureContent)">
+            <summary>
+            Changes width and height of the specified texture to the next greater power of two.
+            </summary>
+            <param name="texture">The texture.</param>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.TextureHelper.HasFractionalAlpha(Microsoft.Xna.Framework.Content.Pipeline.Graphics.TextureContent)">
+            <summary>
+            Determines whether the specified texture has fractional values (anything less than 1)
+            in the alpha channel.
+            </summary>
+            <param name="texture">The texture.</param>
+            <returns>
+            <see langword="true"/> if the alpha channel contains values less than 1; 
+            otherwise, <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.TextureHelper.AlphaTestCoverage(Microsoft.Xna.Framework.Content.Pipeline.Graphics.PixelBitmapContent{Microsoft.Xna.Framework.Vector4},System.Single)">
+            <summary>
+            Determines the alpha test coverage of the specified bitmap.
+            </summary>
+            <param name="bitmap">The bitmap.</param>
+            <param name="referenceAlpha">The reference value used in the alpha test.</param>
+            <returns>The alpha test coverage of the highest mipmap level.</returns>
+            <remarks>
+            The alpha test coverage is the relative amount of pixel that pass the alpha test. This 
+            method assumes that pixels with an alpha value greater or equal to 
+            <paramref name="referenceAlpha"/> pass the alpha test.
+            </remarks>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.TextureHelper.ScaleAlphaToCoverage(Microsoft.Xna.Framework.Content.Pipeline.Graphics.TextureContent,System.Single)">
+            <summary>
+            Scales the alpha values to create an equal alpha test coverage across all mipmap levels.
+            </summary>
+            <param name="texture">The texture.</param>
+            <param name="referenceAlpha">The reference alpha.</param>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.TextureHelper.ScaleAlphaToCoverage(Microsoft.Xna.Framework.Content.Pipeline.Graphics.PixelBitmapContent{Microsoft.Xna.Framework.Vector4},System.Single,System.Single)">
+            <summary>
+            Scales the alpha values of the bitmap to create the desired alpha test coverage.
+            </summary>
+            <param name="bitmap">The bitmap.</param>
+            <param name="referenceAlpha">The reference alpha.</param>
+            <param name="coverage">The desired alpha test coverage.</param>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.TextureHelper.DecodeNormalMap(Microsoft.Xna.Framework.Content.Pipeline.Graphics.TextureContent)">
+            <summary>
+            Decodes the specified normal map. Encoded values are [0, 1]. Decoded values are [-1, 1].
+            </summary>
+            <param name="texture">The texture.</param>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.TextureHelper.ProcessNormalMap(Microsoft.Xna.Framework.Content.Pipeline.Graphics.TextureContent,System.Boolean)">
+            <summary>
+            Prepares a normal map for compression using DXT5 (a.k.a. DXT5nm).
+            </summary>
+            <param name="texture">The original normal map.</param>
+            <param name="invertY"><see langword="true"/> to invert the y-component.</param>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRModelWriter">
+            <summary>
+            Writes a <see cref="T:DigitalRune.Graphics.Content.Pipeline.DRModelContent"/> to binary format that can be read by the
+            <strong>ModelReader</strong> to load a <strong>Mesh</strong>.
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRModelWriter.GetRuntimeType(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime target type.
+            </summary>
+            <param name="targetPlatform">The target platform.</param>
+            <returns>The qualified name.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRModelWriter.GetRuntimeReader(Microsoft.Xna.Framework.Content.Pipeline.TargetPlatform)">
+            <summary>
+            Gets the assembly qualified name of the runtime loader for this type.
+            </summary>
+            <param name="targetPlatform">Name of the platform.</param>
+            <returns>Name of the runtime loader.</returns>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRModelWriter.Write(Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler.ContentWriter,DigitalRune.Graphics.Content.Pipeline.DRModelContent)">
+            <summary>
+            Compiles a strongly typed object into binary format.
+            </summary>
+            <param name="output">The content writer serializing the value.</param>
+            <param name="value">The value to write.</param>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRMeshContent">
+            <summary>
+            Stores the processed data for a <strong>Mesh</strong> asset.
+            </summary>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMeshContent.BoundingShape">
+            <summary>
+            Gets or sets the bounding shape for this mesh.
+            </summary>
+            <value>The bounding shape for this mesh.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMeshContent.Submeshes">
+            <summary>
+            Gets or sets the submeshes associated with this mesh.
+            </summary>
+            <value>The submeshes associated with this mesh.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMeshContent.Name">
+            <summary>
+            Gets or sets the mesh name.
+            </summary>
+            <value>The mesh name.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMeshContent.Skeleton">
+            <summary>
+            Gets or sets the skeleton.
+            </summary>
+            <value>The skeleton.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMeshContent.Animations">
+            <summary>
+            Gets or sets the animations.
+            </summary>
+            <value>The animations. Can be <see langword="null"/> if there are no animations.</value>
+        </member>
+        <member name="P:DigitalRune.Graphics.Content.Pipeline.DRMeshContent.UserData">
+            <summary>
+            Gets or sets a user-defined object.
+            </summary>
+            <value>User-defined object.</value>
+        </member>
+        <member name="T:DigitalRune.Graphics.Content.Pipeline.DRMaterialImporter">
+            <summary>
+            Imports a material definition (XML file).
+            </summary>
+        </member>
+        <member name="M:DigitalRune.Graphics.Content.Pipeline.DRMaterialImporter.Import(System.String,Microsoft.Xna.Framework.Content.Pipeline.ContentImporterContext)">
+            <summary>
+            Called by the framework when importing a game asset. This is the method called by XNA when
+            an asset is to be imported into an object that can be recognized by the Content Pipeline.
+            </summary>
+            <param name="fileName">Name of a game asset file.</param>
+            <param name="context">
+            Contains information for importing a game asset, such as a logger interface.
+            </param>
+            <returns>Resulting game asset.</returns>
+        </member>
+    </members>
+</doc>
