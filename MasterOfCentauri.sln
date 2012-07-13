@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterOfCentauri", "MasterOfCentauri\MasterOfCentauri\MasterOfCentauri.csproj", "{7136DA28-94BB-4DFF-96E8-229E884BF736}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterOfCentauriContent", "MasterOfCentauri\MasterOfCentauriContent\MasterOfCentauriContent.contentproj", "{5D8FE255-7ED7-4BEF-8917-00D271660573}"
@@ -16,6 +16,7 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{7136DA28-94BB-4DFF-96E8-229E884BF736}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{7136DA28-94BB-4DFF-96E8-229E884BF736}.Debug|Any CPU.Build.0 = Debug|x86
 		{7136DA28-94BB-4DFF-96E8-229E884BF736}.Debug|x86.ActiveCfg = Debug|x86
 		{7136DA28-94BB-4DFF-96E8-229E884BF736}.Debug|x86.Build.0 = Debug|x86
 		{7136DA28-94BB-4DFF-96E8-229E884BF736}.Release|Any CPU.ActiveCfg = Release|x86

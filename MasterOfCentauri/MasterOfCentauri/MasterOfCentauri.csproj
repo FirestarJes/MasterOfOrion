@@ -141,6 +141,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="UIControls\MapRender.cs" />
+    <Compile Include="UIControls\PlanetMapControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -84,7 +84,22 @@ namespace MasterOfCentauri
                 VerticalAlignment = VerticalAlignment.Stretch,
                 Background = new Color(100, 56, 56, 56)
             };
-           
+
+            var mainTabPanel = new TabControl
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch
+            };
+
+            var planetMap = new UIControls.PlanetMapControl(Game.Services)
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+            };
+
+            mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Star map" }, TabPage = test });
+            mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Planet map" }, TabPage = planetMap });
+
 
             var paneltest = new Canvas
             {
@@ -97,9 +112,9 @@ namespace MasterOfCentauri
                 Background = new Color(255, 25, 25, 25)
 
             };
-            paneltest.Children.Add(buttontest);
-            _screen.Children.Add(test);
-            _screen.Children.Add(paneltest);
+            //paneltest.Children.Add(buttontest);
+            _screen.Children.Add(mainTabPanel);
+            //_screen.Children.Add(paneltest);
             
             // Add the screen to the UI service.
             _uiService.Screens.Add(_screen);
