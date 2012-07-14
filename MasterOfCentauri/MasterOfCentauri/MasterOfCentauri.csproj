@@ -142,6 +142,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="UIControls\Base\ClickableContentControl.cs" />
+    <Compile Include="UIControls\ConsoleWindow.cs" />
     <Compile Include="UIControls\MapRender.cs" />
     <Compile Include="UIControls\Planet.cs" />
     <Compile Include="UIControls\PlanetMapControl.cs" />

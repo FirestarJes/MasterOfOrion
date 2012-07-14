@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MasterOfCentauri.Model;
+using MasterOfCentauri.UIControls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -30,6 +31,7 @@ namespace MasterOfCentauri
         private readonly SpriteBatch _spritebatch;
         // The UI screen renders our controls, such as text labels, buttons, etc.
         private UIScreen _screen;
+        private ConsoleWindow _console;
 
         public CentauriGame(Game game)
             : base(game)
@@ -148,7 +150,10 @@ namespace MasterOfCentauri
             mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Star map" }, TabPage = test });
             mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Planet map" }, TabPage = planetMap });
 
+            _console = new ConsoleWindow();
+            
             _screen.Children.Add(mainTabPanel);
+            _screen.Children.Add(_console);
 
             // Add the screen to the UI service.
             _uiService.Screens.Add(_screen);
@@ -162,11 +167,15 @@ namespace MasterOfCentauri
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add your update code here
-
-
+            if (_inputService.IsPressed(Keys.Insert, false))
+            {
+                _console.IsVisible = !_console.IsVisible;
+                _inputService.IsKeyboardHandled = true;
+            }
             base.Update(gameTime);
         }
+
+
 
         public override void Draw(GameTime gameTime)
         {
