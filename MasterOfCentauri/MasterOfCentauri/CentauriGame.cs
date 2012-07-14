@@ -31,6 +31,7 @@ namespace MasterOfCentauri
         private readonly IAnimationService _animationService;
         private readonly SpriteBatch _spritebatch;
         private readonly ConsoleManager _consoleManager;
+        private readonly ContentController _content;
 
         // The UI screen renders our controls, such as text labels, buttons, etc.
         private UIScreen _screen;
@@ -43,7 +44,8 @@ namespace MasterOfCentauri
             _uiService = (IUIService)game.Services.GetService(typeof(IUIService));
             _animationService = (IAnimationService)game.Services.GetService(typeof(IAnimationService));
             _spritebatch = (SpriteBatch)game.Services.GetService(typeof(SpriteBatch));
-            _consoleManager = (ConsoleManager) game.Services.GetService(typeof (ConsoleManager));
+            _consoleManager = (ConsoleManager)game.Services.GetService(typeof(ConsoleManager));
+            _content = (ContentController)game.Services.GetService(typeof(ContentController));
         }
 
         /// <summary>
@@ -77,19 +79,10 @@ namespace MasterOfCentauri
 
             };
 
-            var buttontest = new Button
-            {
-                Width = 80,
-                Height = 30,
-                X = 10,
-                Y = 80
-            };
-
-            var test = new UIControls.MapRender(Game.Services)
+            var maprender = new UIControls.MapRender(Game.Services)
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
-                Background = new Color(100, 56, 56, 56)
             };
 
 
@@ -152,7 +145,7 @@ namespace MasterOfCentauri
                                                                   }}
             };
 
-            mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Star map" }, TabPage = test });
+            mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Star map" }, TabPage = maprender });
             mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Planet map" }, TabPage = planetMap });
 
             _console = new ConsoleWindow(_consoleManager);

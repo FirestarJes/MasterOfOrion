@@ -135,8 +135,10 @@
     <Compile Include="CentauriGame.cs" />
     <Compile Include="GameScreens\GameScreenBase.cs" />
     <Compile Include="Managers\ConsoleManager.cs" />
+    <Compile Include="Managers\ContentController.cs" />
     <Compile Include="Managers\GameScreenManager.cs" />
     <Compile Include="Managers\IConsoleCommandHost.cs" />
+    <Compile Include="Model\Galaxy.cs" />
     <Compile Include="Model\Gamesetup.cs" />
     <Compile Include="Model\PlanetMapViewModel.cs" />
     <Compile Include="Model\Ship.cs" />

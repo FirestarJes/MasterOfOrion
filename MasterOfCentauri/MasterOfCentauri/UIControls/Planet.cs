@@ -6,13 +6,14 @@ using MasterOfCentauri.Model;
 using MasterOfCentauri.UIControls.Base;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MasterOfCentauri.Managers;
 
 namespace MasterOfCentauri.UIControls
 {
     public class Planet : ClickableContentControl
     {
         protected readonly float Scale;
-        protected ContentManager ContentManager;
+        private ContentController _content;
         protected Image ImageControl;
 
         public Planet(IServiceProvider services, PlanetMapPlanetViewModel viewModel)
@@ -22,8 +23,8 @@ namespace MasterOfCentauri.UIControls
 
             ImageControl = new Image();
 
-            ContentManager = ((ContentManager)services.GetService(typeof(ContentManager)));
-            ImageControl.Texture = ContentManager.Load<Texture2D>(@"PlanetView\Planet1");
+            _content = (ContentController)services.GetService(typeof(ContentController));
+            ImageControl.Texture = _content.GetContent<Texture2D>(@"PlanetView\Planet1");
             Content = ImageControl;
             RenderScale = new Vector2F(Scale);
             

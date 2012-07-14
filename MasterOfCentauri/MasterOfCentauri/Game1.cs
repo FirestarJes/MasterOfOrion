@@ -26,6 +26,7 @@ namespace MasterOfCentauri
         private UIManager _uiManager;
         private AnimationManager _animationManager;
         private ConsoleManager _consoleManager;
+        private ContentController _contentController;
 
         private readonly TimeSpan SampleInterval = new TimeSpan(0, 0, 0, 1);
         private TimeSpan _sampleTime;
@@ -77,6 +78,9 @@ namespace MasterOfCentauri
 
             _consoleManager = new ConsoleManager();
             Services.AddService(typeof(ConsoleManager), _consoleManager);
+
+            _contentController = new ContentController(GraphicsDevice, Content);
+            Services.AddService(typeof(ContentController), _contentController);
 
             // ----- Add GameComponents
             // The component that shows the individual screen.
@@ -138,7 +142,7 @@ namespace MasterOfCentauri
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            //GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             _sampleTime += gameTime.ElapsedGameTime;

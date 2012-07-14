@@ -17,18 +17,18 @@ namespace MasterOfCentauri.UIControls
         private readonly IServiceProvider _services;
         Texture2D _sun;
         Texture2D _ring;
-        ContentManager _content;
         UIControl _sunControl;
         UIControl _ringControl;
         Canvas _panel;
         private TextBlock _testLabel;
         private ConsoleManager _console;
+        private ContentController _content;
 
         public PlanetMapControl(IServiceProvider services)
         {
             _services = services;
             Name = "PlanetMap";
-            _content = ((ContentManager)services.GetService(typeof(ContentManager)));
+            _content = (ContentController)services.GetService(typeof(ContentController));
             _console = ((ConsoleManager)services.GetService(typeof(ConsoleManager)));
             Background = Color.Black;
             ClipContent = true;
@@ -40,8 +40,8 @@ namespace MasterOfCentauri.UIControls
 
         protected override void OnLoad()
         {
-            _sun = _content.Load<Texture2D>(@"PlanetView\Sun");
-            _ring = _content.Load<Texture2D>(@"PlanetView\PlanetRings");
+            _sun = _content.GetContent<Texture2D>(@"PlanetView\Sun");
+            _ring = _content.GetContent<Texture2D>(@"PlanetView\PlanetRings");
             
             _panel = new Canvas { HorizontalAlignment = DigitalRune.Game.UI.HorizontalAlignment.Stretch, VerticalAlignment = DigitalRune.Game.UI.VerticalAlignment.Stretch };
             LoadContent();
