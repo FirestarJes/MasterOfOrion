@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DigitalRune.Game.UI.Consoles;
+using MasterOfCentauri.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MasterOfCentauri.Camera
 {
-    class Camera2D
+    class Camera2D : IConsoleCommandHost
     {
         protected float _zoom; // Camera Zoom
         public Matrix _transform; // Matrix Transform
@@ -16,11 +18,13 @@ namespace MasterOfCentauri.Camera
         protected int _viewportWidth;
         protected int _viewportHeight;
 
-        public Camera2D()
+        public Camera2D(ConsoleManager console)
         {
             _zoom = 1.0f;
             _rotation = 0.0f;
             _pos = Vector2.Zero;
+
+            console.HookInto(this);
         }
 
         public float Zoom
@@ -70,5 +74,9 @@ namespace MasterOfCentauri.Camera
 
             return _transform;
         }
+
+        public IEnumerable<ConsoleCommand> Commands { get { return Enumerable.Empty<ConsoleCommand>(); } }
+        public string Name { get { return "Camera"; } }
+        public event EventHandler RemoveCommands;
     }
 }

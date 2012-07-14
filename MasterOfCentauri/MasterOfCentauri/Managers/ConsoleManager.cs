@@ -106,13 +106,19 @@ namespace MasterOfCentauri.Managers
             if(strings.Length > 2)
             {
                 mimimum = float.Parse(strings[2]);
-                maximum = float.Parse(strings[2]);
+                maximum = float.Parse(strings[3]);
             }
 
             if (mimimum == 0f)
                 mimimum = startValue - (startValue);
             if (mimimum == 0f)
                 maximum = startValue + (startValue);
+
+            if (mimimum == 0 && maximum == 0)
+            {
+                mimimum = -100;
+                maximum = 100;
+            }
 
             if(strings.Length > 4)
             {

@@ -5,6 +5,7 @@ using System.Text;
 using DigitalRune.Game.UI;
 using DigitalRune.Game.UI.Controls;
 using DigitalRune.Game.UI.Rendering;
+using MasterOfCentauri.Managers;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -39,7 +40,7 @@ namespace MasterOfCentauri.UIControls
       _parallax1SpeedMod = 1.5f;
       _parallax2SpeedMod = 2f;
       _content = ((ContentManager)services.GetService(typeof(ContentManager)));
-      cam = new Camera.Camera2D();
+      cam = new Camera.Camera2D((ConsoleManager)services.GetService(typeof(ConsoleManager)));
       _inputService = (IInputService)services.GetService(typeof(IInputService));
      
     }
