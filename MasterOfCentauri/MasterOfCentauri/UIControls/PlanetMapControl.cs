@@ -19,6 +19,7 @@ namespace MasterOfCentauri.UIControls
         UIControl _sunControl;
         UIControl _ringControl;
         Canvas _panel;
+        private TextBlock _testLabel;
         private float base_radius = 1210f;
 
         public PlanetMapControl(IServiceProvider services)
@@ -40,11 +41,12 @@ namespace MasterOfCentauri.UIControls
             _panel = new Canvas { HorizontalAlignment = DigitalRune.Game.UI.HorizontalAlignment.Stretch, VerticalAlignment = DigitalRune.Game.UI.VerticalAlignment.Stretch };
             _sunControl = new Image() { Texture = _sun, X = -_sun.Width / 2, Y = -_sun.Height / 2 };
             _ringControl = new Image() { Texture = _ring, Width=1218, Height=1218 };
-
+            _testLabel = new TextBlock() {Y = 500, X = 100, Text= "No Planet Selected", Font = "Fonts/Arial"};
 
             Content = _panel;
             _panel.Children.Add(_sunControl);
             _panel.Children.Add(_ringControl);
+            _panel.Children.Add(_testLabel);
 
             var ringNumber = 1;
             foreach(var ring in ViewData.Rings)
@@ -55,7 +57,10 @@ namespace MasterOfCentauri.UIControls
 
                 foreach(var planet in ring.Planets)
                 {
-                    _panel.Children.Add(new Planet(_services, @"PlanetView\Planet1", planet.Scale) { CenterX = GetX(baseDegrees, ringRadius), CenterY = GetY(baseDegrees, ringRadius) });
+                    var control = new Planet(_services, planet) {CenterX = GetX(baseDegrees, ringRadius), CenterY = GetY(baseDegrees, ringRadius)};
+                    control.Clicked += Clicked;
+                    _panel.Children.Add(control);
+                    
                     baseDegrees += 4;
                 }
 
@@ -63,6 +68,12 @@ namespace MasterOfCentauri.UIControls
             }
 
             base.OnLoad();
+        }
+
+        private void Clicked(object sender, EventArgs eventArgs)
+        {
+            var planet = (Planet) sender;
+            _testLabel.Text = planet.ViewModel.Name;
         }
 
         private float GetY(float degrees, float radius)
