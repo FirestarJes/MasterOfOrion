@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MasterOfCentauri.Model;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -96,6 +97,52 @@ namespace MasterOfCentauri
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
+                ViewData = new PlanetMapViewModel() { Rings = new[]
+                                                                  {
+                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                                                                   {
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 1", Scale = 1},
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 1 - Moon", Scale = 0.4f},
+                                                                                                                   }},
+                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                                                                   {
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 2", Scale = 0.5f},
+                                                                                                                   }},
+                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                                                                   {
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 3", Scale = 0.7f},
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 3 - Moon 1", Scale = 0.3f},
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 3 - Moon 2", Scale = 0.3f},
+                                                                                                                   }},
+                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                                                                   {
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 4", Scale = 0.2f},
+                                                                                                                   }},
+                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                                                                   {
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 5", Scale = 0.9f},
+                                                                                                                   }},
+                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                                                                   {
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 6", Scale = 0.6f},
+                                                                                                                   }},
+                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                                                                   {
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 7", Scale = 0.3f},
+                                                                                                                   }},
+                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                                                                   {
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 8", Scale = 0.5f},
+                                                                                                                   }},
+                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                                                                   {
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 9", Scale = 0.8f},
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 9 - Moon 1", Scale = 0.2f},
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 9 - Moon 2", Scale = 0.2f},
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 9 - Moon 3", Scale = 0.2f},
+                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 9 - Moon 4", Scale = 0.3f},
+                                                                                                                   }}
+                                                                  }}
             };
 
             mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Star map" }, TabPage = test });

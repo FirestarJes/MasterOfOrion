@@ -87,15 +87,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlanetView\PlanetRing.png">
-      <Name>PlanetRing</Name>
+    <Compile Include="PlanetView\Planet1.png">
+      <Name>Planet1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlanetView\Planet1.png">
-      <Name>Planet1</Name>
+    <Compile Include="PlanetView\PlanetRings.png">
+      <Name>PlanetRings</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
