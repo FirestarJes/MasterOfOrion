@@ -101,6 +101,7 @@ namespace MasterOfCentauri
 
             var planetMap = new UIControls.PlanetMapControl(Game.Services)
             {
+                Opacity = 5,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
                 ViewData = new PlanetMapViewModel() { Rings = new[]

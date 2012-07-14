@@ -27,12 +27,13 @@ namespace MasterOfCentauri.UIControls
         public PlanetMapControl(IServiceProvider services)
         {
             _services = services;
-            Name = "PlanetMapControl";
+            Name = "PlanetMap";
             _content = ((ContentManager)services.GetService(typeof(ContentManager)));
             _console = ((ConsoleManager)services.GetService(typeof(ConsoleManager)));
             Background = Color.Black;
             ClipContent = true;
             BaseRadius = 1210f;
+            BaseDegrees = 60;
         }
 
         public PlanetMapViewModel ViewData { get; set; }
@@ -68,7 +69,7 @@ namespace MasterOfCentauri.UIControls
             {
                 var scale = ((ringNumber + 1))/10f;
                 var ringRadius = BaseRadius*scale;
-                float baseDegrees = 60;
+                float baseDegrees = BaseDegrees;
 
                 foreach (var planet in ring.Planets)
                 {
@@ -100,6 +101,8 @@ namespace MasterOfCentauri.UIControls
         {
             var planet = (Planet) sender;
             _testLabel.Text = planet.ViewModel.Name;
+
+            _console.WriteLine(planet.ViewModel.Name + " Selected");
         }
 
         private float GetY(float degrees, float radius)
@@ -124,6 +127,7 @@ namespace MasterOfCentauri.UIControls
         }
 
         public float BaseRadius { get; set; }
+        public float BaseDegrees { get; set; }
 
         public event EventHandler RemoveCommands;
     }

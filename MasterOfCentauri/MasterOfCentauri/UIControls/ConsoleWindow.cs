@@ -14,7 +14,7 @@ namespace MasterOfCentauri.UIControls
         {
             Title = "Console";
             Width = 480;
-            Height = 240;
+            Height = 600;
 
             Content = consoleManager.Console;
 
