@@ -35,22 +35,22 @@ namespace MasterOfCentauri.UIControls
         {
             get
             {
-                return X + (Width / 2f) * Scale;
+                return X + (ImageControl.Texture.Width / 2f) * Scale;
             } 
             set
             {
-                X = value - Width / 2f * Scale;
+                X = value - ImageControl.Texture.Width / 2f * Scale;
             }
         }
         public float CenterY
         {
             get
             {
-                return Y + Height / 2f * Scale;
+                return Y + ImageControl.Texture.Height / 2f * Scale;
             }
             set
             {
-                Y = value - Height / 2f * Scale;
+                Y = value - ImageControl.Texture.Height / 2f * Scale;
             }
         }
     }
