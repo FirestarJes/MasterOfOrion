@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MasterOfCentauri.Managers;
 using MasterOfCentauri.Model;
 using MasterOfCentauri.UIControls;
 using Microsoft.Xna.Framework;
@@ -29,6 +30,8 @@ namespace MasterOfCentauri
         private readonly IUIService _uiService;
         private readonly IAnimationService _animationService;
         private readonly SpriteBatch _spritebatch;
+        private readonly ConsoleManager _consoleManager;
+
         // The UI screen renders our controls, such as text labels, buttons, etc.
         private UIScreen _screen;
         private ConsoleWindow _console;
@@ -40,6 +43,7 @@ namespace MasterOfCentauri
             _uiService = (IUIService)game.Services.GetService(typeof(IUIService));
             _animationService = (IAnimationService)game.Services.GetService(typeof(IAnimationService));
             _spritebatch = (SpriteBatch)game.Services.GetService(typeof(SpriteBatch));
+            _consoleManager = (ConsoleManager) game.Services.GetService(typeof (ConsoleManager));
         }
 
         /// <summary>
@@ -150,7 +154,7 @@ namespace MasterOfCentauri
             mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Star map" }, TabPage = test });
             mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Planet map" }, TabPage = planetMap });
 
-            _console = new ConsoleWindow();
+            _console = new ConsoleWindow(_consoleManager);
             
             _screen.Children.Add(mainTabPanel);
             _screen.Children.Add(_console);

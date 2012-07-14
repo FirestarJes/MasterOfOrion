@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MasterOfCentauri.Managers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -24,6 +25,7 @@ namespace MasterOfCentauri
         private InputManager _inputManager;
         private UIManager _uiManager;
         private AnimationManager _animationManager;
+        private ConsoleManager _consoleManager;
 
         private readonly TimeSpan SampleInterval = new TimeSpan(0, 0, 0, 1);
         private TimeSpan _sampleTime;
@@ -72,6 +74,9 @@ namespace MasterOfCentauri
             // Add the animation service.
             _animationManager = new AnimationManager();
             Services.AddService(typeof(IAnimationService), _animationManager);
+
+            _consoleManager = new ConsoleManager();
+            Services.AddService(typeof(ConsoleManager), _consoleManager);
 
             // ----- Add GameComponents
             // The component that shows the individual screen.

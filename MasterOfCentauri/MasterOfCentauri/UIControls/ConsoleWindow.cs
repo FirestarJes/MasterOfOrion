@@ -1,6 +1,8 @@
-﻿using DigitalRune.Game.UI;
+﻿using System;
+using DigitalRune.Game.UI;
 using DigitalRune.Game.UI.Consoles;
 using DigitalRune.Game.UI.Controls;
+using MasterOfCentauri.Managers;
 using Microsoft.Xna.Framework.Input;
 
 namespace MasterOfCentauri.UIControls
@@ -8,24 +10,13 @@ namespace MasterOfCentauri.UIControls
     // Displays an interactive console.
     public class ConsoleWindow : Window
     {
-        public ConsoleWindow()
+        public ConsoleWindow(ConsoleManager consoleManager)
         {
             Title = "Console";
             Width = 480;
             Height = 240;
-            var console = new Console
-            {
-                HorizontalAlignment = HorizontalAlignment.Stretch,
-                VerticalAlignment = VerticalAlignment.Stretch,
-            };
-            Content = console;
 
-            // Print a message in the console.
-            console.WriteLine("Enter 'help' to see all available commands.");
-
-            // Register a new command 'close', which closes the ConsoleWindow.
-            var closeCommand = new ConsoleCommand("close", "Close console.", _ => Close());
-            console.Interpreter.Commands.Add(closeCommand);
+            Content = consoleManager.Console;
 
             IsVisible = false;
             CanResize = true;
