@@ -11,10 +11,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using DigitalRune.Game.Input;
 using DigitalRune.Mathematics.Algebra;
+using MasterOfCentauri.UIControls.Base;
 
 namespace MasterOfCentauri.UIControls
 {
-    class MapRender : DigitalRune.Game.UI.Controls.UIControl
+    class MapRender : UIControl
     {
         SpriteBatch _spritebatch;
         Texture2D _black;
@@ -25,11 +26,12 @@ namespace MasterOfCentauri.UIControls
         private Camera.Camera2D cam;
         private Vector2 _mousePos;
         private Vector2 _mousePosMoved;
-        private readonly IInputService _inputService;
         private ContentController _content;
         private GalaxyManager _galaxyManager;
         private Model.Galaxy _testGalaxy;
         private string teststring;
+        protected bool IsClicked { get; set; }
+        protected bool IsDown { get; set; }
 
         public MapRender(IServiceProvider services)
         {
@@ -39,7 +41,6 @@ namespace MasterOfCentauri.UIControls
             HorizontalAlignment = HorizontalAlignment.Stretch;
             VerticalAlignment = VerticalAlignment.Stretch;
             _spritebatch = (SpriteBatch)services.GetService(typeof(SpriteBatch));
-            _inputService = (IInputService)services.GetService(typeof(IInputService));
             _content = (ContentController)services.GetService(typeof(ContentController));
             _galaxyManager = (GalaxyManager)services.GetService(typeof(GalaxyManager));
             cam = new Camera.Camera2D((ConsoleManager)services.GetService(typeof(ConsoleManager)));
@@ -130,13 +131,15 @@ namespace MasterOfCentauri.UIControls
             _spritebatch.End();
         }
 
+
+
         protected override void OnHandleInput(DigitalRune.Game.UI.Controls.InputContext context)
         {
             //onlyhandle input if not other control has handled it.
-            
-            if (!_inputService.IsMouseOrTouchHandled && IsMouseOver)
+
+            if (!InputService.IsMouseOrTouchHandled && IsMouseOver)
             {
-                Vector2 TransformedMousePos = Vector2.Transform(new Vector2(context.MousePosition.X - ActualX, context.MousePosition.Y - ActualY)  ,Matrix.Invert(cam.get_transformation()));
+                Vector2 TransformedMousePos = Vector2.Transform(new Vector2(context.MousePosition.X - ActualX, context.MousePosition.Y - ActualY), Matrix.Invert(cam.get_transformation()));
                 Vector2 TransformedMouseDeltaPos = Vector2.Transform(new Vector2((context.MousePosition.X - context.MousePositionDelta.X) - ActualX, (context.MousePosition.Y - context.MousePositionDelta.Y) - ActualY), Matrix.Invert(cam.get_transformation()));
 
                 _mousePos = new Vector2(TransformedMousePos.X, TransformedMousePos.Y);
@@ -144,20 +147,27 @@ namespace MasterOfCentauri.UIControls
                 var _mousePosMovedDelta = TransformedMousePos - TransformedMouseDeltaPos;
 
                 //Here we can handle all checks against world coordinates.
-                if (_inputService.MouseWheelDelta != 0)
+                if (InputService.MouseWheelDelta != 0)
                 {
-                   
-                    cam.Zoom += _inputService.MouseWheelDelta > 1 ? 0.1f : -0.1f;
-                    
-                }   
-                if (_inputService.IsDown(MouseButtons.Left))
+                    cam.Zoom += InputService.MouseWheelDelta > 1 ? 0.1f : -0.1f;
+                    InputService.IsMouseOrTouchHandled = true;
+                }
+                if (InputService.IsDown(MouseButtons.Left))
+                {
+                    if (cam.Move(-_mousePosMovedDelta))
+                    {
+                        scrollX += context.MousePositionDelta.X;
+                        scrollY += context.MousePositionDelta.Y;
+                        InputService.IsMouseOrTouchHandled = true;
+                    }
+                }
+                if (InputService.IsDoubleClick(MouseButtons.Left))
                 {
                     foreach (Model.Star star in _testGalaxy.Stars)
                     {
-                        if (star.BoundingBox.Intersects(new  Rectangle((int)TransformedMousePos.X, (int)TransformedMousePos.Y, 1, 1)))
+                        if (star.BoundingBox.Intersects(new Rectangle((int)TransformedMousePos.X, (int)TransformedMousePos.Y, 1, 1)))
                         {
-                            teststring = "Clicked Star";
-                            cam.Pos = new Vector2(star.X, star.Y) ;
+                            teststring = "double Clicked Star";
                             break;
                         }
                         else
@@ -165,14 +175,36 @@ namespace MasterOfCentauri.UIControls
                             teststring = "empty";
                         }
                     }
-                    if (cam.Move(-_mousePosMovedDelta))
+                    InputService.IsMouseOrTouchHandled = true;
+                    return;
+                }
+
+                IsClicked = false;
+
+                if (InputService.IsDown(MouseButtons.Left) && IsMouseOver && IsDown == false)
+                {
+                    InputService.IsMouseOrTouchHandled = true;
+                    IsClicked = true;
+                }
+
+                IsDown = InputService.IsDown(MouseButtons.Left);
+
+                if (IsClicked)
+                {
+                    foreach (Model.Star star in _testGalaxy.Stars)
                     {
-                        scrollX += context.MousePositionDelta.X;
-                        scrollY += context.MousePositionDelta.Y;
+                        if (star.BoundingBox.Intersects(new Rectangle((int)TransformedMousePos.X, (int)TransformedMousePos.Y, 1, 1)))
+                        {
+                            teststring = "Clicked Star";
+                            break;
+                        }
+                        else
+                        {
+                            teststring = "empty";
+                        }
                     }
                 }
             }
-
             base.OnHandleInput(context);
         }
 

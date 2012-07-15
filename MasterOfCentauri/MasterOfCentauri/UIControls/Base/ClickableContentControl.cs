@@ -7,6 +7,7 @@ namespace MasterOfCentauri.UIControls.Base
     public class ClickableContentControl : ContentControl
     {
         public EventHandler Clicked;
+        public EventHandler DoubleClicked;
 
         protected override void OnHandleInput(InputContext context)
         {
@@ -24,6 +25,9 @@ namespace MasterOfCentauri.UIControls.Base
 
             if (IsClicked && Clicked != null)
                 Clicked(this, EventArgs.Empty);
+
+            if (InputService.IsDoubleClick(MouseButtons.Left) && DoubleClicked != null)
+                DoubleClicked(this, EventArgs.Empty);
         }
 
         protected bool IsClicked { get; set; }
