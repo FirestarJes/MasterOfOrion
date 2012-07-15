@@ -136,12 +136,15 @@
     <Compile Include="GameScreens\GameScreenBase.cs" />
     <Compile Include="Managers\ConsoleManager.cs" />
     <Compile Include="Managers\ContentController.cs" />
+    <Compile Include="Managers\GalaxyManager.cs" />
     <Compile Include="Managers\GameScreenManager.cs" />
     <Compile Include="Managers\IConsoleCommandHost.cs" />
     <Compile Include="Model\Galaxy.cs" />
+    <Compile Include="Model\GalaxySector.cs" />
     <Compile Include="Model\Gamesetup.cs" />
     <Compile Include="Model\PlanetMapViewModel.cs" />
     <Compile Include="Model\Ship.cs" />
+    <Compile Include="Model\Star.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
@@ -150,6 +153,7 @@
     <Compile Include="UIControls\MapRender.cs" />
     <Compile Include="UIControls\Planet.cs" />
     <Compile Include="UIControls\PlanetMapControl.cs" />
+    <Compile Include="Util\MersenneRandom.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

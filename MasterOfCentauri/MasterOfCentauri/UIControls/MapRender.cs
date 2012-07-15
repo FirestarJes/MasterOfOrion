@@ -28,6 +28,8 @@ namespace MasterOfCentauri.UIControls
         private Vector2 _mousePosMoved;
         private readonly IInputService _inputService;
         private ContentController _content;
+        private GalaxyManager _galaxyManager;
+        private Model.Galaxy _testGalaxy;
 
     public MapRender(IServiceProvider services)
     {
@@ -39,17 +41,18 @@ namespace MasterOfCentauri.UIControls
       _spritebatch =  (SpriteBatch)services.GetService(typeof(SpriteBatch));
       _inputService = (IInputService)services.GetService(typeof(IInputService));
       _content = (ContentController)services.GetService(typeof(ContentController));
+      _galaxyManager = (GalaxyManager)services.GetService(typeof(GalaxyManager));
       cam = new Camera.Camera2D((ConsoleManager)services.GetService(typeof(ConsoleManager)));
 
       _parallax1SpeedMod = 1.5f;
       _parallax2SpeedMod = 2f;
       cam.MaxZoom = 2.0f;
       cam.MinZoom = 0.1f;
-      cam.MaxX = 1000;
-      cam.MaxY = 720;
+      cam.MaxX = 10000;
+      cam.MaxY = 10000;
       cam.MinX = 0;
       cam.MinY = 0;
-     
+      _testGalaxy = _galaxyManager.GenerateSpiralGalaxy(4, 10000, 10000, 4000);
     }
     protected override void OnLoad()
     {
@@ -75,11 +78,6 @@ namespace MasterOfCentauri.UIControls
         cam.ViewPortHeight = (int)ActualHeight;
         cam.ViewPortWidth = (int)ActualWidth;
 
-        if (_black == null)
-        {
-           
-        }
-
         Rectangle originalViewport = graphicsDevice.Viewport.Bounds;
         Rectangle viewport = new Rectangle((int)ActualX, (int)ActualY, (int)ActualWidth, (int)ActualHeight);
         if (viewport.Width == 0 || viewport.Height == 0)
@@ -95,11 +93,22 @@ namespace MasterOfCentauri.UIControls
         _spritebatch.Draw(_textureBackground, new Rectangle(0,0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(1 * (int)-scrollX), (int)(1 * (int)-scrollY), _textureBackground.Width, _textureBackground.Height), Color.White);
         _spritebatch.Draw(_textureParallax, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(_parallax1SpeedMod * (int)-scrollX), (int)(_parallax1SpeedMod * (int)-scrollY), _textureParallax.Width, _textureParallax.Height), Color.White);
         _spritebatch.Draw(_textureParallax2, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(_parallax2SpeedMod * (int)-scrollX), (int)(_parallax2SpeedMod * (int)-scrollY), _textureParallax2.Width, _textureParallax2.Height), Color.White);
+        _spritebatch.DrawString(arialFont, "mousepos in world coords" + (int)_mousePos.X + " (X) - " + (int)_mousePos.Y + " (Y)", Vector2.Zero, Color.White);
         _spritebatch.End();
 
-        _spritebatch.Begin(SpriteSortMode.BackToFront , BlendState.AlphaBlend, null, null, null, null, cam.get_transformation());
-        _spritebatch.Draw(testTexture, new Rectangle(0, 0, testTexture.Width, testTexture.Height), Color.White);
-        _spritebatch.Draw(testTexture, new Rectangle(1000, 0, testTexture.Width, testTexture.Height), Color.White);
+        //render the current sectors being displayed
+        _spritebatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation());
+        Texture2D starTexture = _content.GetContent<Texture2D>(@"stars\StarDisk_144");
+        foreach (Model.GalaxySector sec in _testGalaxy.Sectors)
+        {
+            //if (sec.BoundingBox.Intersects(cam.getBoundingBox()))
+            //{
+                foreach (Model.Star star in sec.Stars)
+                {
+                    _spritebatch.Draw(starTexture, star.BoundingBox, Color.White);
+                }
+            //}
+        }
         _spritebatch.End();
 
         graphicsDevice.Viewport = new Viewport(originalViewport);
