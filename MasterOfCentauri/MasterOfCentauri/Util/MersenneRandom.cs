@@ -123,7 +123,7 @@ namespace MasterOfOrion.Classes.Misc
 			return (int)(this.NextDouble() * maxValue);
 		}
 
-		public int Next(int minValue, int maxValue)
+		public override int Next(int minValue, int maxValue)
 		{
 			if (maxValue < minValue)
 			{

@@ -9,8 +9,9 @@ namespace MasterOfCentauri.Model
     class GalaxySector
     {
         private int _x, _y, _width, _height;
-        private List<Star> _stars;
+        
         private Rectangle _boundingBox;
+        private List<Star> _stars;
 
         public List<Star> Stars
         {
@@ -57,5 +58,7 @@ namespace MasterOfCentauri.Model
                 _boundingBox = value;
             }
         }
+
+        
     }
 }

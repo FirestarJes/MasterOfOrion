@@ -81,9 +81,11 @@ namespace MasterOfCentauri
             Services.AddService(typeof(ConsoleManager), _consoleManager);
 
             _contentController = new ContentController(GraphicsDevice, Content);
+            _contentController.LoadStarTextureAtlas("galaxy");
+            _contentController.LoadStarTextureAtlas("galaxy2");
             Services.AddService(typeof(ContentController), _contentController);
 
-            _galaxyManager = new GalaxyManager();
+            _galaxyManager = new GalaxyManager(Services);
             Services.AddService(typeof(GalaxyManager), _galaxyManager);
 
             // ----- Add GameComponents
@@ -122,22 +124,25 @@ namespace MasterOfCentauri
         protected override void Update(GameTime gameTime)
         {
             var deltaTime = gameTime.ElapsedGameTime;
+            if (IsActive)
+            {
+                // Update input manager. The input manager gets the device states and performs other work.
+                _inputManager.Update(deltaTime);
 
-            // Update input manager. The input manager gets the device states and performs other work.
-            _inputManager.Update(deltaTime);
+                // Update UI manager. The UI manager updates all registered UIScreens and handles
+                // button clicks, etc.
+                _uiManager.Update(deltaTime);
 
-            // Update UI manager. The UI manager updates all registered UIScreens and handles
-            // button clicks, etc.
-            _uiManager.Update(deltaTime);
+                // Update game components.
+                base.Update(gameTime);
 
-            // Update game components.
-            base.Update(gameTime);
+                // Update the animations. The animations results are stored internally but not yet applied.
+                _animationManager.Update(deltaTime);
 
-            // Update the animations. The animations results are stored internally but not yet applied.
-            _animationManager.Update(deltaTime);
-
-            // Apply the animations. This method changes the animated objects.
-            _animationManager.ApplyAnimations();
+                // Apply the animations. This method changes the animated objects.
+                _animationManager.ApplyAnimations();
+            }
+           
         }
 
         /// <summary>

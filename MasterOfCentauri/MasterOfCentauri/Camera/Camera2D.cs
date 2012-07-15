@@ -18,8 +18,7 @@ namespace MasterOfCentauri.Camera
         protected float _rotation; // Camera Rotation
         protected int _viewportWidth;
         protected int _viewportHeight;
-        protected int _minX, _minY, _maxX, _maxY;
-        
+        public Rectangle? _limits;
 
         public Camera2D(ConsoleManager console)
         {
@@ -31,10 +30,20 @@ namespace MasterOfCentauri.Camera
             console.HookInto(this);
         }
 
+        public Rectangle? Limits
+        {
+            set
+            {
+                _limits = value;
+                ValidatePosition();
+            }
+        }
+
+
         public float Zoom
         {
             get { return _zoom; }
-            set { _zoom = value; if (_zoom <_minZoom) _zoom = _minZoom; } // Negative zoom will flip image
+            set { _zoom = value; if (_zoom < _minZoom) _zoom = _minZoom; ValidateZoom(); ValidatePosition(); } // Negative zoom will flip image
         }
 
         public float MaxZoom
@@ -49,33 +58,6 @@ namespace MasterOfCentauri.Camera
             set { _minZoom = value; }
         }
 
-        public int MinX
-        {
-            get { return _minX ; }
-            set { _minX = value; }
-        }
-
-        public int MinY
-        {
-            get { return _minY; }
-            set { _minY = value; }
-        }
-
-
-        public int MaxX
-        {
-            get { return _maxX; }
-            set { _maxX = value; }
-        }
-
-
-        public int MaxY
-        {
-            get { return _maxY; }
-            set { _maxY = value; }
-        }
-
-
         public float Rotation
         {
             get { return _rotation; }
@@ -86,28 +68,7 @@ namespace MasterOfCentauri.Camera
         public bool Move(Vector2 amount)
         {
             _pos += amount;
-
-            if (_pos.X > _maxX)
-            {
-                _pos.X = _maxX;
-                return false;
-            }
-            if (_pos.X < _minX)
-            {
-                _pos.X = _minX;
-                return false;
-            }
-            if (_pos.Y > _maxY)
-            {
-                _pos.Y = _maxY;
-                return false;
-            }
-            if (_pos.Y < _minY)
-            {
-                _pos.Y = _minY;
-                return false;
-            }
-            return true;
+            return ValidatePosition();
         }
         // Get set position
         public Vector2 Pos
@@ -115,15 +76,10 @@ namespace MasterOfCentauri.Camera
             get { return _pos; }
             set
             {
-                if (value.X > _maxX)
-                    value.X = _maxX;
-                if (value.X < _minX)
-                    value.X = _minX;
-                if (value.Y > _maxY)
-                    value.Y = _maxY;
-                if (value.Y < _minY)
-                    value.Y = _minY;
-                _pos = value; }
+                _pos = value;
+                ValidateZoom();
+                ValidatePosition();
+            }
         }
 
         public int ViewPortWidth
@@ -138,15 +94,55 @@ namespace MasterOfCentauri.Camera
             set { _viewportHeight = value; }
         }
 
+        public Matrix ViewMatrix
+        {
+            get
+            {
+                return get_transformation();
+            }
+        }
+
+        private void ValidateZoom()
+        {
+            if (_limits.HasValue)
+            {
+                float minZoomX = (float)ViewPortWidth / _limits.Value.Width;
+                float minZoomY = (float)ViewPortHeight / _limits.Value.Height;
+                _zoom = MathHelper.Max(_zoom, MathHelper.Max(minZoomX, minZoomY));
+            }
+        }
+
+
+        private bool ValidatePosition()
+        {
+            if (_limits.HasValue)
+            {
+                Vector2 cameraWorldMin = Vector2.Transform(Vector2.Zero, Matrix.Invert(ViewMatrix));
+                Vector2 cameraSize = new Vector2(ViewPortWidth, ViewPortHeight) / _zoom;
+                Vector2 limitWorldMin = new Vector2(_limits.Value.Left, _limits.Value.Top);
+                Vector2 limitWorldMax = new Vector2(_limits.Value.Right, _limits.Value.Bottom);
+                Vector2 positionOffset = _pos - cameraWorldMin;
+                _pos = Vector2.Clamp(cameraWorldMin, limitWorldMin, limitWorldMax - cameraSize) + positionOffset;
+                if (cameraWorldMin.X < limitWorldMin.X)
+                    return false;
+                if (cameraWorldMin.Y < limitWorldMin.Y)
+                    return false;
+                if (cameraWorldMin.X > limitWorldMax.X - cameraSize.X)
+                    return false;
+                if (cameraWorldMin.Y > limitWorldMax.Y - cameraSize.Y)
+                    return false;
+            }
+            return true;
+        }
+
         public Matrix get_transformation()
         {
-            _transform = Matrix.CreateTranslation(new Vector3(-ViewPortWidth * 0.5f - _pos.X, -ViewPortHeight * 0.5f - _pos.Y, 0)) * Matrix.CreateScale(
-                new Vector3((_zoom),
-                (_zoom), 1))
-            * Matrix.CreateRotationZ(_rotation)
-               * Matrix.CreateTranslation(new Vector3(
-                ViewPortWidth * 0.5f, ViewPortHeight * 0.5f, 0));
 
+            _transform =       
+              Matrix.CreateTranslation(new Vector3(-_pos.X, -_pos.Y, 0)) *
+                                         Matrix.CreateRotationZ(Rotation) *
+                                         Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *
+                                         Matrix.CreateTranslation(new Vector3(ViewPortWidth * 0.5f, ViewPortHeight * 0.5f, 0));
             return _transform;
         }
 
@@ -154,6 +150,7 @@ namespace MasterOfCentauri.Camera
         {
             return new Rectangle((int)_pos.X, (int)_pos.Y, (int)(ViewPortWidth / _zoom), (int)(ViewPortHeight / _zoom));
         }
+
         public IEnumerable<ConsoleCommand> Commands { get { return Enumerable.Empty<ConsoleCommand>(); } }
         public string Name { get { return "Camera"; } }
         public event EventHandler RemoveCommands;

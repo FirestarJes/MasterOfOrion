@@ -149,9 +149,10 @@ namespace MasterOfCentauri
             mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Planet map" }, TabPage = planetMap });
 
             _console = new ConsoleWindow(_consoleManager);
-            
+
             _screen.Children.Add(mainTabPanel);
             _screen.Children.Add(_console);
+            //_screen.Children.Add(maprender);
 
             // Add the screen to the UI service.
             _uiService.Screens.Add(_screen);
