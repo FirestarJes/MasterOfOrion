@@ -59,7 +59,7 @@ namespace MasterOfCentauri.Model
             {
                 if (_boundingBox == null)
                 {
-                    _boundingBox = new Rectangle(X, Y, 20, 20);
+                    _boundingBox = new Rectangle(X, Y, 256, 256);
                 }
                 return _boundingBox; 
             }

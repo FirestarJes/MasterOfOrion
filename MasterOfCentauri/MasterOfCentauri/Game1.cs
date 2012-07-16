@@ -81,8 +81,7 @@ namespace MasterOfCentauri
             Services.AddService(typeof(ConsoleManager), _consoleManager);
 
             _contentController = new ContentController(GraphicsDevice, Content);
-            _contentController.LoadStarTextureAtlas("galaxy");
-            _contentController.LoadStarTextureAtlas("galaxy2");
+            _contentController.LoadContent();
             Services.AddService(typeof(ContentController), _contentController);
 
             _galaxyManager = new GalaxyManager(Services);

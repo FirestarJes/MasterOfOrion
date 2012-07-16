@@ -47,11 +47,11 @@ namespace MasterOfCentauri.UIControls
 
             _parallax1SpeedMod = 1.5f;
             _parallax2SpeedMod = 2f;
-            cam.MaxZoom = 2.0f;
-            cam.MinZoom = 0.1f;
-            cam.Limits = new Rectangle(-3000, -3000, 16000, 16000);
-            cam.Pos = new Vector2(5000, 5000);
-            _testGalaxy = _galaxyManager.GenerateSpiralGalaxy(4, 10000, 10000, 8000);
+            cam.MaxZoom = 1.0f;
+            cam.MinZoom = 0.07f;
+            cam.Limits = new Rectangle(-3000, -3000, 10000*256, 10000*256);
+            cam.Pos = new Vector2(0, 0);
+            _testGalaxy = _galaxyManager.GenerateSpiralGalaxy(4, 1000, 1000, 8000);
             //_testGalaxy = _galaxyManager.GenerateIrregularGalaxy(300, 1000);
             cam.Zoom = 1.0f;
         }
@@ -127,7 +127,7 @@ namespace MasterOfCentauri.UIControls
             }
             Util.TextureAtlas atlas2 = _content.getStarAtlasFromTextureName(@"stars\red.png");
             starTexture = _content.GetContent<Texture2D>(@"starfields/test");
-            _spritebatch.Draw(starTexture, new Rectangle(0, 0, 20, 20), Color.White);
+            _spritebatch.Draw(starTexture, new Rectangle(0, 0, 256, 256), Color.White);
             _spritebatch.End();
         }
 
@@ -149,7 +149,8 @@ namespace MasterOfCentauri.UIControls
                 //Here we can handle all checks against world coordinates.
                 if (InputService.MouseWheelDelta != 0)
                 {
-                    cam.Zoom += InputService.MouseWheelDelta > 1 ? 0.1f : -0.1f;
+                    cam.Zoom += InputService.MouseWheelDelta > 1 ? 0.01f : -0.04f;
+                    teststring = "" + cam.Zoom;
                     InputService.IsMouseOrTouchHandled = true;
                 }
                 if (InputService.IsDown(MouseButtons.Left))
@@ -167,12 +168,12 @@ namespace MasterOfCentauri.UIControls
                     {
                         if (star.BoundingBox.Intersects(new Rectangle((int)TransformedMousePos.X, (int)TransformedMousePos.Y, 1, 1)))
                         {
-                            teststring = "double Clicked Star";
+                            //teststring = "double Clicked Star";
                             break;
                         }
                         else
                         {
-                            teststring = "empty";
+                            //teststring = "empty";
                         }
                     }
                     InputService.IsMouseOrTouchHandled = true;
@@ -195,12 +196,12 @@ namespace MasterOfCentauri.UIControls
                     {
                         if (star.BoundingBox.Intersects(new Rectangle((int)TransformedMousePos.X, (int)TransformedMousePos.Y, 1, 1)))
                         {
-                            teststring = "Clicked Star";
+                            //teststring = "Clicked Star";
                             break;
                         }
                         else
                         {
-                            teststring = "empty";
+                            //teststring = "empty";
                         }
                     }
                 }

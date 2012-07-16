@@ -13,8 +13,8 @@ namespace MasterOfCentauri.Managers
         private MersenneRandom _rand = new MersenneRandom((uint)DateTime.Now.Ticks);
         private readonly ContentController _content;
         //Constants
-        const int STAR_WIDTH = 20; //This is the stars width including halo in worldunits
-        const int MinDistanceBetweenStars = 35; //in worldunits so that stars aren't placed to close
+        const int STAR_WIDTH = 256; //This is the stars width including halo in worldunits
+        const int MinDistanceBetweenStars = 256*4; //in worldunits so that stars aren't placed to close
         const int MaxAttemptsToPlaceStar = 100;
 
         public GalaxyManager(IServiceProvider services)
@@ -24,6 +24,8 @@ namespace MasterOfCentauri.Managers
 
         public Model.Galaxy GenerateSpiralGalaxy(int arms, int width, int height, int numStars)
         {
+            width = width * STAR_WIDTH;
+            height = height * STAR_WIDTH;
             Model.Galaxy gal = new Model.Galaxy();
             gal.Height = height;
             gal.Width = width;
@@ -113,7 +115,7 @@ namespace MasterOfCentauri.Managers
                 }
 
                 //Create Star
-                string starTexture = _rand.NextDouble() > 0.5 ? "stars\\neutron01.png" : "stars\\red.png";
+                string starTexture = _rand.NextDouble() > 0.5 ? "StarDisk_133" : "StarDisk_136";
                 sec.Stars.Add(new Model.Star { X = (int)x, Y = (int)y, BoundingBox = new Microsoft.Xna.Framework.Rectangle((int)x, (int)y, STAR_WIDTH, STAR_WIDTH), StarTexture = starTexture });
                 gal.Stars.Add(new Model.Star { X = (int)x, Y = (int)y, BoundingBox = new Microsoft.Xna.Framework.Rectangle((int)x, (int)y, STAR_WIDTH, STAR_WIDTH), StarTexture = starTexture });
                 attempts = 0;
@@ -185,7 +187,7 @@ namespace MasterOfCentauri.Managers
 
                 //Create Star
                 attempts = 0;
-                string starTexture = _rand.NextDouble() > 0.5 ? "stars\\neutron01.png" : "stars\\red.png";
+                string starTexture = _rand.NextDouble() > 0.5 ? "StarDisk_133" : "StarDisk_136";
                 sec.Stars.Add(new Model.Star { X = (int)x, Y = (int)y, BoundingBox = new Microsoft.Xna.Framework.Rectangle((int)x, (int)y, STAR_WIDTH, STAR_WIDTH), StarTexture = starTexture });
                 gal.Stars.Add(new Model.Star { X = (int)x, Y = (int)y, BoundingBox = new Microsoft.Xna.Framework.Rectangle((int)x, (int)y, STAR_WIDTH, STAR_WIDTH), StarTexture = starTexture });
             }

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.IO;
 using Microsoft.Xna.Framework;
+using sspack;
 
 namespace MasterOfCentauri.Managers
 {
@@ -14,11 +15,10 @@ namespace MasterOfCentauri.Managers
         GraphicsDevice _graph;
         ContentManager _content;
         Dictionary<string, object> _contentDic;
-        Dictionary<string, Util.TextureAtlas> _textureAtlases;
         List<Util.TextureAtlas> _starTextureAtlases;
         List<Util.TextureAtlas> _gasTextureAtlases;
         
-
+        const string _BASE_MOD_DIR = "mods";
 
         public ContentController(GraphicsDevice graph, ContentManager content)
         {
@@ -43,77 +43,43 @@ namespace MasterOfCentauri.Managers
             }
         }
 
-        public Util.TextureAtlas getTextureAtlas(string atlasName)
+        public void LoadContent()
         {
-            if (_textureAtlases.ContainsKey(atlasName))
-            {
-                return _textureAtlases[atlasName];
-            }
-            else
-            {
-                _textureAtlases.Add(atlasName, LoadTextureAtlas(atlasName));
-                return _textureAtlases[atlasName];
-            }
+            LoadStarTextures();
         }
-
-
-        private Util.TextureAtlas LoadTextureAtlas(string atlasName)
+        
+        private void LoadStarTextures()
         {
-            Util.TextureAtlas atlas = new Util.TextureAtlas();
-
-            StreamReader sr = new StreamReader(_content.RootDirectory + "\\TextureAtlases\\galaxy.atlas");
-            atlas.AtlasCoords = new Dictionary<string, Rectangle>();
-            atlas.AtlasTexture = GetContent<Texture2D>(atlasName);
-            string line = sr.ReadLine();
-            do
+            ImagePacker packer = new ImagePacker();
+            List<string> files = new List<string>();
+            Dictionary<string, Rectangle> map = new Dictionary<string, Rectangle>();
+            System.Drawing.Bitmap packedImage = new System.Drawing.Bitmap(Constants.DefaultMaximumSheetWidth, Constants.DefaultMaximumSheetHeight); 
+            foreach (string file in Directory.EnumerateFiles(Path.Combine(_content.RootDirectory, "base", "stars"), "*.png"))
             {
-                string textureName = line.Split(' ')[0];
-                atlas.AtlasCoords.Add(textureName, new Rectangle(int.Parse(line.Split(' ')[1].Split(';')[0]), int.Parse(line.Split(' ')[1].Split(';')[1]), 256, 256));
-
-                line = sr.ReadLine();
+                files.Add(file);
             }
-            while (!string.IsNullOrEmpty(line));
-            return atlas;
-        }
-
-        public void LoadStarTextureAtlas(string atlasName)
-        {
-            Util.TextureAtlas atlas = new Util.TextureAtlas();
-
-            StreamReader sr = new StreamReader(_content.RootDirectory + "\\TextureAtlases\\" + atlasName + ".atlas");
-            atlas.AtlasCoords = new Dictionary<string, Rectangle>();
-            atlas.AtlasTexture = GetContent<Texture2D>(@"Stars\" + atlasName);
-            atlas.Name = atlasName;
-            string line = sr.ReadLine();
-            do
+            if (Directory.Exists(Path.Combine(_content.RootDirectory, _BASE_MOD_DIR, "testmod", "stars")))
             {
-                string textureName = line.Split(' ')[0];
-                atlas.AtlasCoords.Add(textureName, new Rectangle(int.Parse(line.Split(' ')[1].Split(';')[0]), int.Parse(line.Split(' ')[1].Split(';')[1]), 256, 256));
-
-                line = sr.ReadLine();
+                foreach (string file in Directory.EnumerateFiles(Path.Combine(_content.RootDirectory, _BASE_MOD_DIR, "testmod", "stars"), "*.png"))
+                {
+                    files.Add(file);
+                }
             }
-            while (!string.IsNullOrEmpty(line));
+          
+            packer.PackImage(files, false, true, Constants.DefaultMaximumSheetWidth, Constants.DefaultMaximumSheetHeight, Constants.DefaultImagePadding, true, out packedImage, out map);
+            Util.TextureAtlas atlas = new Util.TextureAtlas();
+            atlas.AtlasCoords = map;
+            atlas.Name = "Stars";
+            int bufferSize = packedImage.Height * packedImage.Width * 4; 
+            System.IO.MemoryStream memoryStream =  new System.IO.MemoryStream(bufferSize);  
+	        packedImage.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);  
+	 
+	        // Creates a texture from IO.Stream - our memory stream  
+	        Texture2D texture = Texture2D.FromStream(_graph, memoryStream);
+            atlas.AtlasTexture = texture;
             _starTextureAtlases.Add(atlas);
         }
 
-        public void LoadGasTextureAtlas(string atlasName)
-        {
-            Util.TextureAtlas atlas = new Util.TextureAtlas();
-
-            StreamReader sr = new StreamReader(_content.RootDirectory + "\\TextureAtlases\\" + atlasName + ".atlas");
-            atlas.AtlasCoords = new Dictionary<string, Rectangle>();
-            atlas.AtlasTexture = GetContent<Texture2D>(atlasName);
-            string line = sr.ReadLine();
-            do
-            {
-                string textureName = line.Split(' ')[0];
-                atlas.AtlasCoords.Add(textureName, new Rectangle(int.Parse(line.Split(' ')[1].Split(';')[0]), int.Parse(line.Split(' ')[1].Split(';')[1]), 256, 256));
-
-                line = sr.ReadLine();
-            }
-            while (!string.IsNullOrEmpty(line));
-            _gasTextureAtlases.Add(atlas);
-        }
 
         public void GenerateStarsAtlasFromFolder(string folder)
         {
