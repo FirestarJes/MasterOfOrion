@@ -1,0 +1,98 @@
+<PlanetTypes>
+	<PlanetType>
+		<ID>PLANET_TERRAN</ID> <!-- The id of this planettype, is used as a reference in other files -->
+		<Name>#PLANET_TERRAN</Name> <!-- entry in strings.xml for translation -->
+		<Flavor>#PLANET_TERRAN_FLAVOR</Flavor> <!-- entry in strings.xml for flavor text for this planettype -->
+		<IsUnique>False</IsUnique> <!-- Whether this is a unique planet type, unique planet types will only allow one of them in the galaxy -->
+		<BasePopulation> <!-- The limites of the base population of this planetype in x millions -->
+			<Min>80</Min>
+			<Max>100</Max>
+		</BasePopulation>
+		<BaseProductionPerPop> <!-- The base of how much production is generated per population, in x millions -->
+			<Min>2</Min>
+			<Max>10</Max>
+		</BaseProductionPerPop>
+		<BasePopGrowth> <!-- The base population growth for this planettype -->
+			<Min>2</Min>
+			<Max>10</Max>
+		</BasePopGrowth>
+		<AttributeProbabilites> <!-- this is a list of all attributes that can appear on this planettype, found in planet_attributes.xml, currently a planet can only have on attribute -->
+			<AttributeProbability>
+				<AttributeID>ATTR_RICH</AttributeID> <!-- The id of the attribute in planet_attributes.xml -->
+				<Probability>10</Probability> <!-- the probability that this attribute will appear on the planet -->
+			</AttributeProbability>
+			<AttributeProbability>
+				<AttributeID>ATTR_NONE</AttributeID>
+				<Probability>70</Probability>
+			</AttributeProbability>
+			<AttributeProbability>
+				<AttributeID>ATTR_RANDOM</AttributeID>
+				<Probability>20</Probability>
+			</AttributeProbability>
+		</AttributeProbabilites>
+	</PlanetType>
+	<PlanetType>
+		<ID>PLANET_DEAD</ID>
+		<Name>#PLANET_DEAD</Name>
+		<IsUnique>False</IsUnique>
+		<Flavor>#PLANET_DEAD_FLAVOR</Flavor>
+		<BasePopulation>
+			<Min>10</Min>
+			<Max>30</Max>
+		</BasePopulation>
+		<BaseProductionPerPop>
+			<Min>1</Min>
+			<Max>5</Max>
+		</BaseProductionPerPop>
+		<BasePopGrowth>
+			<Min>0,5</Min>
+			<Max>2</Max>
+		</BasePopGrowth>
+		<AttributeProbabilites>
+			<AttributeProbability>
+				<AttributeID>ATTR_POOR</AttributeID>
+				<Probability>40</Probability>
+			</AttributeProbability>
+			<AttributeProbability>
+				<AttributeID>ATTR_NONE</AttributeID>
+				<Probability>70</Probability>
+			</AttributeProbability>
+			<AttributeProbability>
+				<AttributeID>ATTR_RANDOM</AttributeID>
+				<Probability>20</Probability>
+			</AttributeProbability>
+		</AttributeProbabilites>
+	</PlanetType>
+	<PlanetType>
+		<ID>PLANET_TOXIC</ID>
+		<Name>#PLANET_DEAD</Name>
+		<IsUnique>False</IsUnique>
+		<Flavor>#PLANET_DEAD_FLAVOR</Flavor>
+		<BasePopulation>
+			<Min>10</Min>
+			<Max>30</Max>
+		</BasePopulation>
+		<BaseProductionPerPop>
+			<Min>1</Min>
+			<Max>5</Max>
+		</BaseProductionPerPop>
+		<BasePopGrowth>
+			<Min>0,5</Min>
+			<Max>2</Max>
+		</BasePopGrowth>
+		<AttributeProbabilites>
+			<AttributeProbability>
+				<AttributeID>ATTR_POOR</AttributeID>
+				<Probability>40</Probability>
+			</AttributeProbability>
+			<AttributeProbability>
+				<AttributeID>ATTR_NONE</AttributeID>
+				<Probability>70</Probability>
+			</AttributeProbability>
+			<AttributeProbability>
+				<AttributeID>ATTR_RANDOM</AttributeID>
+				<Probability>20</Probability>
+			</AttributeProbability>
+		</AttributeProbabilites>
+	</PlanetType>
+</PlanetTypes>

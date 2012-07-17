@@ -29,6 +29,7 @@ namespace MasterOfCentauri.UIControls
         private ContentController _content;
         private GalaxyManager _galaxyManager;
         private Model.Galaxy _testGalaxy;
+        private GraphicsDevice _graphicsDevice;
         private string teststring;
         protected bool IsClicked { get; set; }
         protected bool IsDown { get; set; }
@@ -49,7 +50,7 @@ namespace MasterOfCentauri.UIControls
             _parallax2SpeedMod = 2f;
             cam.MaxZoom = 1.0f;
             cam.MinZoom = 0.07f;
-            cam.Limits = new Rectangle(-3000, -3000, 10000*256, 10000*256);
+            cam.Limits = new Rectangle(-3000, -3000, 1000*256, 1000*256);
             cam.Pos = new Vector2(0, 0);
             _testGalaxy = _galaxyManager.GenerateSpiralGalaxy(4, 1000, 1000, 8000);
             //_testGalaxy = _galaxyManager.GenerateIrregularGalaxy(300, 1000);
@@ -75,6 +76,7 @@ namespace MasterOfCentauri.UIControls
         {
             IUIRenderer renderer = Screen.Renderer;
             GraphicsDevice graphicsDevice = renderer.GraphicsDevice;
+
 
             cam.ViewPortHeight = (int)ActualHeight;
             cam.ViewPortWidth = (int)ActualWidth;
@@ -113,7 +115,7 @@ namespace MasterOfCentauri.UIControls
         private void RenderStars()
         {
             //render the current sectors being displayed
-            _spritebatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation());
+            _spritebatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, cam.get_transformation() * Matrix.CreateScale(ActualWidth / cam.ViewPortWidth, ActualHeight / cam.ViewPortHeight, 1f));
             Texture2D starTexture;
             foreach (Model.Star star in _testGalaxy.Stars)
             {
@@ -139,8 +141,8 @@ namespace MasterOfCentauri.UIControls
 
             if (!InputService.IsMouseOrTouchHandled && IsMouseOver)
             {
-                Vector2 TransformedMousePos = Vector2.Transform(new Vector2(context.MousePosition.X - ActualX, context.MousePosition.Y - ActualY), Matrix.Invert(cam.get_transformation()));
-                Vector2 TransformedMouseDeltaPos = Vector2.Transform(new Vector2((context.MousePosition.X - context.MousePositionDelta.X) - ActualX, (context.MousePosition.Y - context.MousePositionDelta.Y) - ActualY), Matrix.Invert(cam.get_transformation()));
+                Vector2 TransformedMousePos = Vector2.Transform(new Vector2(context.MousePosition.X - ActualX, context.MousePosition.Y - ActualY), Matrix.Invert(cam.get_transformation() * Matrix.CreateScale(ActualWidth/ cam.ViewPortWidth, ActualHeight / cam.ViewPortHeight, 1f)));
+                Vector2 TransformedMouseDeltaPos = Vector2.Transform(new Vector2((context.MousePosition.X - context.MousePositionDelta.X) - ActualX, (context.MousePosition.Y - context.MousePositionDelta.Y) - ActualY), Matrix.Invert(cam.get_transformation() * Matrix.CreateScale(ActualWidth / cam.ViewPortWidth, ActualHeight / cam.ViewPortHeight, 1f)));
 
                 _mousePos = new Vector2(TransformedMousePos.X, TransformedMousePos.Y);
                 _mousePosMoved = TransformedMouseDeltaPos;

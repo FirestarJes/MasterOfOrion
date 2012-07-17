@@ -1,0 +1,42 @@
+<StarTypes>
+	<StarType>
+		<ID>STAR_NEUTRON</ID> <!-- This is the ID of this startype, used to reference this startype in other files, must be unique but can be overriden in a mod -->
+		<Name>#STAR_STRING_1</Name> <!--Entry in the strings.xml file, which is used for translations --> 
+		<Flavor>#STAR_FLAVOR_1</Flavor>  <!--Entry in the strings.xml file, which is used for translations, used for flavor text describing a star system --> 
+		<Graphics>StarDisk_133</Graphics> <!--This the name of the texture used for this star, must be located in (base/Stars) or (*modname*/Stars), if this is not found the first file from base/stars will be used-->
+		<PlanetProbabilities>
+			<PlanetProbability>
+				<PlanetTypeID>PLANET_TERRAN</PlanetTypeID> <!--This the ID of the planet type (located in planettypes.xml) if this ID is not found in that file, the entry is discarded -->
+				<Probability>10</Probability> <!--This the probability that this planet type will appear, this is a ratio of all the probabilites added together and can go past 100 -->
+			</PlanetProbability>
+			<PlanetProbability>
+				<PlanetTypeID>PLANET_DEAD</PlanetTypeID>
+				<Probability>30</Probability>
+			</PlanetProbability>
+			<PlanetProbability>
+				<PlanetTypeID>PLANET_RANDOM</PlanetTypeID> <!--This is a reserved type, which will select a random planet from all planettypes except the ones alreadt defined -->
+				<Probability>60</Probability>
+			</PlanetProbability>
+		</PlanetProbabilities>
+	</StarType>
+	<StarType>
+		<ID>STAR_YELLOW</ID>
+		<Name>#STAR_STRING_YELLOW</Name>
+		<Flavor>#STAR_FLAVOR_YELLOW</Flavor>  <!--Entry in the strings.xml file, which is used for translations, used for flavor text describing a star system --> 
+		<Graphics>StarDisk_133</Graphics> <!--This the name of the texture used for this star, must be located in (base/Stars) or (*modname*/Stars), if this is not found the first file from base/stars will be used-->
+		<PlanetProbabilities>
+			<PlanetProbability>
+				<PlanetTypeID>PLANET_TERRAN</PlanetTypeID> <!--This the ID of the planet type (located in planettypes.xml) if this ID is not found in that file, the entry is discarded -->
+				<Probability>10</Probability> <!--This the probability that this planet type will appear, this is a ratio of all the probabilites added together and can go past 100 -->
+			</PlanetProbability>
+			<PlanetProbability>
+				<PlanetTypeID>PLANET_TOXIC</PlanetTypeID>
+				<Probability>30</Probability>
+			</PlanetProbability>
+			<PlanetProbability>
+				<PlanetTypeID>PLANET_RANDOM</PlanetTypeID> <!--This is a reserved type, which will select a random planet from all planettypes except the ones alreadt defined -->
+				<Probability>60</Probability>
+			</PlanetProbability>
+		</PlanetProbabilities>
+	</StarType>
+</StarTypes>

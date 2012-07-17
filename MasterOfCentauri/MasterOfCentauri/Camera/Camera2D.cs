@@ -142,13 +142,8 @@ namespace MasterOfCentauri.Camera
               Matrix.CreateTranslation(new Vector3(-_pos.X, -_pos.Y, 0)) *
                                          Matrix.CreateRotationZ(Rotation) *
                                          Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *
-                                         Matrix.CreateTranslation(new Vector3(ViewPortWidth * 0.5f, ViewPortHeight * 0.5f, 0));
+                                         Matrix.CreateTranslation(new Vector3(ViewPortWidth * 0.5f, ViewPortHeight * 0.5f, 0)) ;
             return _transform;
-        }
-
-        public Rectangle getBoundingBox()
-        {
-            return new Rectangle((int)_pos.X, (int)_pos.Y, (int)(ViewPortWidth / _zoom), (int)(ViewPortHeight / _zoom));
         }
 
         public IEnumerable<ConsoleCommand> Commands { get { return Enumerable.Empty<ConsoleCommand>(); } }
