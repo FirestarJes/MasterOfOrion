@@ -13,8 +13,8 @@ namespace MasterOfCentauri.Managers
         private MersenneRandom _rand = new MersenneRandom((uint)DateTime.Now.Ticks);
         private readonly ContentController _content;
         //Constants
-        const int STAR_WIDTH = 256; //This is the stars width including halo in worldunits
-        const int MinDistanceBetweenStars = 256*4; //in worldunits so that stars aren't placed to close
+        const int STAR_WIDTH = 64; //This is the stars width including halo in worldunits
+        const int MinDistanceBetweenStars = STAR_WIDTH * 4; //in worldunits so that stars aren't placed to close
         const int MaxAttemptsToPlaceStar = 100;
 
         public GalaxyManager(IServiceProvider services)
@@ -128,6 +128,7 @@ namespace MasterOfCentauri.Managers
         public Model.Galaxy  GenerateIrregularGalaxy(int numStars, int width)
         {
 
+            width = width * STAR_WIDTH;
             Model.Galaxy gal = new Model.Galaxy();
             gal.Height = width;
             gal.Width = width;

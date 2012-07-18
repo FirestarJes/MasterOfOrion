@@ -16,8 +16,10 @@ namespace MasterOfCentauri.Camera
         public Matrix _transform; // Matrix Transform
         public Vector2 _pos; // Camera Position
         protected float _rotation; // Camera Rotation
-        protected int _viewportWidth;
-        protected int _viewportHeight;
+        protected int _camViewportWidth;
+        protected int _camViewportHeight;
+        protected int _worldWidth;
+        protected int _worldHeight;
         public Rectangle? _limits;
 
         public Camera2D(ConsoleManager console)
@@ -43,7 +45,7 @@ namespace MasterOfCentauri.Camera
         public float Zoom
         {
             get { return _zoom; }
-            set { _zoom = value; if (_zoom < _minZoom) _zoom = _minZoom; ValidateZoom(); ValidatePosition(); } // Negative zoom will flip image
+            set { _zoom = value; if (_zoom < _minZoom) _zoom = _minZoom; if (_zoom > _maxZoom) _zoom = _maxZoom; ValidateZoom(); ValidatePosition(); } // Negative zoom will flip image
         }
 
         public float MaxZoom
@@ -82,16 +84,28 @@ namespace MasterOfCentauri.Camera
             }
         }
 
-        public int ViewPortWidth
+        public int CamViewPortWidth
         {
-            get { return _viewportWidth; }
-            set { _viewportWidth = value; }
+            get { return _camViewportWidth; }
+            set { _camViewportWidth = value; }
         }
 
-        public int ViewPortHeight
+        public int CamViewPortHeight
         {
-            get { return _viewportHeight ; }
-            set { _viewportHeight = value; }
+            get { return _camViewportHeight ; }
+            set { _camViewportHeight = value; }
+        }
+
+        public int CamWorldWidth
+        {
+            get { return _worldWidth; }
+            set { _worldWidth = value; }
+        }
+
+        public int CamWorldHeight
+        {
+            get { return _worldHeight; }
+            set { _worldHeight = value; }
         }
 
         public Matrix ViewMatrix
@@ -102,12 +116,24 @@ namespace MasterOfCentauri.Camera
             }
         }
 
+        public float GetCamScaleX()
+        {
+            float scaleToFitWidth = (float)CamViewPortWidth / (float)CamWorldWidth;
+            return scaleToFitWidth;
+        }
+
+        public float GetCamScaleY()
+        {
+            float scaleToFitHeight = (float)CamViewPortHeight / (float)CamWorldHeight;
+            return scaleToFitHeight;
+        }
+
         private void ValidateZoom()
         {
             if (_limits.HasValue)
             {
-                float minZoomX = (float)ViewPortWidth / _limits.Value.Width;
-                float minZoomY = (float)ViewPortHeight / _limits.Value.Height;
+                float minZoomX = (float)CamWorldWidth / _limits.Value.Width;
+                float minZoomY = (float)CamWorldHeight / _limits.Value.Height;
                 _zoom = MathHelper.Max(_zoom, MathHelper.Max(minZoomX, minZoomY));
             }
         }
@@ -118,7 +144,7 @@ namespace MasterOfCentauri.Camera
             if (_limits.HasValue)
             {
                 Vector2 cameraWorldMin = Vector2.Transform(Vector2.Zero, Matrix.Invert(ViewMatrix));
-                Vector2 cameraSize = new Vector2(ViewPortWidth, ViewPortHeight) / _zoom;
+                Vector2 cameraSize = new Vector2(CamWorldWidth, CamWorldHeight) / _zoom;
                 Vector2 limitWorldMin = new Vector2(_limits.Value.Left, _limits.Value.Top);
                 Vector2 limitWorldMax = new Vector2(_limits.Value.Right, _limits.Value.Bottom);
                 Vector2 positionOffset = _pos - cameraWorldMin;
@@ -142,7 +168,7 @@ namespace MasterOfCentauri.Camera
               Matrix.CreateTranslation(new Vector3(-_pos.X, -_pos.Y, 0)) *
                                          Matrix.CreateRotationZ(Rotation) *
                                          Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *
-                                         Matrix.CreateTranslation(new Vector3(ViewPortWidth * 0.5f, ViewPortHeight * 0.5f, 0)) ;
+                                         Matrix.CreateTranslation(new Vector3(CamWorldWidth * 0.5f, CamWorldHeight * 0.5f, 0)) ;
             return _transform;
         }
 
