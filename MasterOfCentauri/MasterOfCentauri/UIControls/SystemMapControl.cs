@@ -5,6 +5,7 @@ using DigitalRune.Game.UI.Consoles;
 using DigitalRune.Mathematics.Algebra;
 using MasterOfCentauri.Managers;
 using MasterOfCentauri.Model;
+using MasterOfCentauri.Model.SystemMap;
 using Microsoft.Xna.Framework.Graphics;
 using DigitalRune.Game.UI.Controls;
 using Microsoft.Xna.Framework.Content;
@@ -36,7 +37,7 @@ namespace MasterOfCentauri.UIControls
             BaseDegrees = 60;
         }
 
-        public PlanetMapViewModel ViewData { get; set; }
+        public SystemMapViewModel ViewData { get; set; }
 
         protected override void OnLoad()
         {

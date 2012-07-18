@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MasterOfCentauri.Managers;
 using MasterOfCentauri.Model;
+using MasterOfCentauri.Model.PlanetMap;
 using MasterOfCentauri.Model.SystemMap;
 using MasterOfCentauri.UIControls;
 using Microsoft.Xna.Framework;
@@ -146,8 +147,19 @@ namespace MasterOfCentauri
                                                                   }}
             };
 
+            var planetMap = new PlanetMapControl(Game.Services)
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                ViewData = new PlanetMapViewModel()
+                               {
+                                   Name = "Earth"
+                               }
+            };
+
             mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Star map" }, TabPage = maprender });
-            mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Planet map" }, TabPage = systemMap });
+            mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "System map" }, TabPage = systemMap });
+            mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Planet map" }, TabPage = planetMap });
 
             _console = new ConsoleWindow(_consoleManager);
 

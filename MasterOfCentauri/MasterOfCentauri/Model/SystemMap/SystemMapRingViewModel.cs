@@ -2,9 +2,9 @@ using System.Linq;
 
 namespace MasterOfCentauri.Model.SystemMap
 {
-    public class PlanetMapRingViewModel
+    public class SystemMapRingViewModel
     {
-        public PlanetMapPlanetViewModel[] Planets { get; set; }
+        public SystemMapPlanetViewModel[] Planets { get; set; }
 
         public override string ToString()
         {
