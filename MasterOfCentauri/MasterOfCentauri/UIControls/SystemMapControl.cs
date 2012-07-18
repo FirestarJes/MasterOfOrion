@@ -40,8 +40,8 @@ namespace MasterOfCentauri.UIControls
 
         protected override void OnLoad()
         {
-            _sun = _content.GetContent<Texture2D>(@"PlanetView\Sun");
-            _ring = _content.GetContent<Texture2D>(@"PlanetView\PlanetRings");
+            _sun = _content.GetContent<Texture2D>(@"SystemMap\Sun");
+            _ring = _content.GetContent<Texture2D>(@"SystemMap\PlanetRings");
             
             _panel = new Canvas { HorizontalAlignment = DigitalRune.Game.UI.HorizontalAlignment.Stretch, VerticalAlignment = DigitalRune.Game.UI.VerticalAlignment.Stretch };
             LoadContent();

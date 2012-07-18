@@ -24,7 +24,7 @@ namespace MasterOfCentauri.UIControls
             ImageControl = new Image();
 
             _content = (ContentController)services.GetService(typeof(ContentController));
-            ImageControl.Texture = _content.GetContent<Texture2D>(@"PlanetView\Planet1");
+            ImageControl.Texture = _content.GetContent<Texture2D>(@"SystemMap\Planet1");
             Content = ImageControl;
             RenderScale = new Vector2F(Scale);
             

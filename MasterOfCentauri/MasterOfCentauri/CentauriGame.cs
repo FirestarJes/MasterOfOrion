@@ -92,7 +92,7 @@ namespace MasterOfCentauri
                 VerticalAlignment = VerticalAlignment.Stretch
             };
 
-            var planetMap = new UIControls.SystemMapControl(Game.Services)
+            var systemMap = new UIControls.SystemMapControl(Game.Services)
             {
                 Opacity = 5,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -146,7 +146,7 @@ namespace MasterOfCentauri
             };
 
             mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Star map" }, TabPage = maprender });
-            mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Planet map" }, TabPage = planetMap });
+            mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Planet map" }, TabPage = systemMap });
 
             _console = new ConsoleWindow(_consoleManager);
 
