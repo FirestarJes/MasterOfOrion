@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework;
 
 namespace MasterOfCentauri.UIControls
 {
-    class PlanetMapControl : ContentControl, IConsoleCommandHost
+    class SystemMapControl : ContentControl, IConsoleCommandHost
     {
         private readonly IServiceProvider _services;
         Texture2D _sun;
@@ -24,10 +24,10 @@ namespace MasterOfCentauri.UIControls
         private ConsoleManager _console;
         private ContentController _content;
 
-        public PlanetMapControl(IServiceProvider services)
+        public SystemMapControl(IServiceProvider services)
         {
             _services = services;
-            Name = "PlanetMap";
+            Name = "SystemMap";
             _content = (ContentController)services.GetService(typeof(ContentController));
             _console = ((ConsoleManager)services.GetService(typeof(ConsoleManager)));
             Background = Color.Black;

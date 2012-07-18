@@ -92,7 +92,7 @@ namespace MasterOfCentauri
                 VerticalAlignment = VerticalAlignment.Stretch
             };
 
-            var planetMap = new UIControls.PlanetMapControl(Game.Services)
+            var planetMap = new UIControls.SystemMapControl(Game.Services)
             {
                 Opacity = 5,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
