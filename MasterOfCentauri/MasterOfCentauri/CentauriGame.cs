@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MasterOfCentauri.Managers;
 using MasterOfCentauri.Model;
+using MasterOfCentauri.Model.SystemMap;
 using MasterOfCentauri.UIControls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -97,50 +98,50 @@ namespace MasterOfCentauri
                 Opacity = 5,
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
-                ViewData = new PlanetMapViewModel() { Rings = new[]
+                ViewData = new SystemMapViewModel() { Rings = new[]
                                                                   {
-                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                      new SystemMapRingViewModel() { Planets = new[]
                                                                                                                    {
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 1", Scale = 1},
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 1 - Moon", Scale = 0.4f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 1", Scale = 1},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 1 - Moon", Scale = 0.4f},
                                                                                                                    }},
-                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                      new SystemMapRingViewModel() { Planets = new[]
                                                                                                                    {
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 2", Scale = 0.5f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 2", Scale = 0.5f},
                                                                                                                    }},
-                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                      new SystemMapRingViewModel() { Planets = new[]
                                                                                                                    {
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 3", Scale = 0.7f},
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 3 - Moon 1", Scale = 0.3f},
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 3 - Moon 2", Scale = 0.3f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 3", Scale = 0.7f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 3 - Moon 1", Scale = 0.3f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 3 - Moon 2", Scale = 0.3f},
                                                                                                                    }},
-                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                      new SystemMapRingViewModel() { Planets = new[]
                                                                                                                    {
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 4", Scale = 0.2f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 4", Scale = 0.2f},
                                                                                                                    }},
-                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                      new SystemMapRingViewModel() { Planets = new[]
                                                                                                                    {
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 5", Scale = 0.9f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 5", Scale = 0.9f},
                                                                                                                    }},
-                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                      new SystemMapRingViewModel() { Planets = new[]
                                                                                                                    {
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 6", Scale = 0.6f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 6", Scale = 0.6f},
                                                                                                                    }},
-                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                      new SystemMapRingViewModel() { Planets = new[]
                                                                                                                    {
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 7", Scale = 0.3f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 7", Scale = 0.3f},
                                                                                                                    }},
-                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                      new SystemMapRingViewModel() { Planets = new[]
                                                                                                                    {
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 8", Scale = 0.5f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 8", Scale = 0.5f},
                                                                                                                    }},
-                                                                      new PlanetMapRingViewModel() { Planets = new[]
+                                                                      new SystemMapRingViewModel() { Planets = new[]
                                                                                                                    {
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 9", Scale = 0.8f},
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 9 - Moon 1", Scale = 0.2f},
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 9 - Moon 2", Scale = 0.2f},
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 9 - Moon 3", Scale = 0.2f},
-                                                                                                                       new PlanetMapPlanetViewModel() { Name = "Planet 9 - Moon 4", Scale = 0.3f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 9", Scale = 0.8f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 9 - Moon 1", Scale = 0.2f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 9 - Moon 2", Scale = 0.2f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 9 - Moon 3", Scale = 0.2f},
+                                                                                                                       new SystemMapPlanetViewModel() { Name = "Planet 9 - Moon 4", Scale = 0.3f},
                                                                                                                    }}
                                                                   }}
             };

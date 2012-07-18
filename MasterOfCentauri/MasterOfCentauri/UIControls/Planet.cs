@@ -3,6 +3,7 @@ using DigitalRune.Game.UI;
 using DigitalRune.Game.UI.Controls;
 using DigitalRune.Mathematics.Algebra;
 using MasterOfCentauri.Model;
+using MasterOfCentauri.Model.SystemMap;
 using MasterOfCentauri.UIControls.Base;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,7 +17,7 @@ namespace MasterOfCentauri.UIControls
         private ContentController _content;
         protected Image ImageControl;
 
-        public Planet(IServiceProvider services, PlanetMapPlanetViewModel viewModel)
+        public Planet(IServiceProvider services, SystemMapPlanetViewModel viewModel)
         {
             ViewModel = viewModel;
             Scale = ViewModel.Scale;
@@ -30,7 +31,7 @@ namespace MasterOfCentauri.UIControls
             
         }
 
-        public PlanetMapPlanetViewModel ViewModel { get; set; }
+        public SystemMapPlanetViewModel ViewModel { get; set; }
 
         public float CenterX
         {
