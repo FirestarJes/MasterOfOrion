@@ -5,6 +5,7 @@ using System.Text;
 using DigitalRune.Game.UI;
 using DigitalRune.Game.UI.Controls;
 using DigitalRune.Game.UI.Rendering;
+using MasterOfCentauri.Helpers;
 using MasterOfCentauri.Managers;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
@@ -90,24 +91,24 @@ namespace MasterOfCentauri.UIControls
 
             renderer.EndBatch();
 
-            graphicsDevice.Viewport = new Viewport(viewport);
+            using(new ViewportScope(graphicsDevice, new Viewport(viewport)))
+            {
+                _spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap, null, null);
+                _spritebatch.Draw(_black, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), Color.White);
+                _spritebatch.Draw(_textureBackground, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(1 * (int)-scrollX), (int)(1 * (int)-scrollY), _textureBackground.Width, _textureBackground.Height), Color.White);
+                _spritebatch.Draw(_textureParallax, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(_parallax1SpeedMod * (int)-scrollX), (int)(_parallax1SpeedMod * (int)-scrollY), _textureParallax.Width, _textureParallax.Height), Color.White);
+                _spritebatch.Draw(_textureParallax2, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(_parallax2SpeedMod * (int)-scrollX), (int)(_parallax2SpeedMod * (int)-scrollY), _textureParallax2.Width, _textureParallax2.Height), Color.White);
+                _spritebatch.DrawString(arialFont, "mousepos in world coords: " + (int)_mousePos.X + " (X) - " + (int)_mousePos.Y + " (Y)", Vector2.Zero, Color.White);
+                _spritebatch.DrawString(arialFont, "delta: " + (int)_mousePosMoved.X + " (X) - " + (int)_mousePosMoved.Y + " (Y)", new Vector2(0, 20), Color.White);
+                _spritebatch.DrawString(arialFont, "test: " + teststring , new Vector2(0, 40), Color.White);
+                _spritebatch.End();
 
-            _spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap, null, null);
-            _spritebatch.Draw(_black, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), Color.White);
-            _spritebatch.Draw(_textureBackground, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(1 * (int)-scrollX), (int)(1 * (int)-scrollY), _textureBackground.Width, _textureBackground.Height), Color.White);
-            _spritebatch.Draw(_textureParallax, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(_parallax1SpeedMod * (int)-scrollX), (int)(_parallax1SpeedMod * (int)-scrollY), _textureParallax.Width, _textureParallax.Height), Color.White);
-            _spritebatch.Draw(_textureParallax2, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(_parallax2SpeedMod * (int)-scrollX), (int)(_parallax2SpeedMod * (int)-scrollY), _textureParallax2.Width, _textureParallax2.Height), Color.White);
-            _spritebatch.DrawString(arialFont, "mousepos in world coords: " + (int)_mousePos.X + " (X) - " + (int)_mousePos.Y + " (Y)", Vector2.Zero, Color.White);
-            _spritebatch.DrawString(arialFont, "delta: " + (int)_mousePosMoved.X + " (X) - " + (int)_mousePosMoved.Y + " (Y)", new Vector2(0, 20), Color.White);
-            _spritebatch.DrawString(arialFont, "test: " + teststring , new Vector2(0, 40), Color.White);
-            _spritebatch.End();
+                //Render Gasses
 
-            //Render Gasses
+                //Render Stars
+                RenderStars();
 
-            //Render Stars
-            RenderStars();
-
-            graphicsDevice.Viewport = new Viewport(originalViewport);
+            }
 
             base.OnRender(context);
 
