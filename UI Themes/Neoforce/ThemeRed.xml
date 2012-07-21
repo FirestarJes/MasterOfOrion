@@ -881,5 +881,14 @@
       <State Name="Disabled" />
     </Style>
 
+
+    <Style Name="MiniMapWindow" Inherits="ContentControl">
+      <Padding>6,6,6,6</Padding>
+      <State Name="Default">
+        <Image Name="Background" Source="196,180,1,1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Image Name="Border" Source="716,179,8,8" Border="3,3,3,3" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+      </State>
+    </Style>
+
   </Styles>
 </Theme>
