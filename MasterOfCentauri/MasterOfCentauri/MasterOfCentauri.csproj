@@ -151,6 +151,8 @@
     <Compile Include="Managers\ConsoleToolWindow.cs" />
     <Compile Include="Managers\ContentController.cs" />
     <Compile Include="Managers\GalaxyManager.cs" />
+    <Compile Include="Managers\GameContentManager.cs" />
+    <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\GameScreenManager.cs" />
     <Compile Include="Managers\IConsoleCommandHost.cs" />
     <Compile Include="Model\Galaxy.cs" />
@@ -175,7 +177,9 @@
     <Compile Include="UIControls\Base\ClickableContentControl.cs" />
     <Compile Include="UIControls\ConsoleWindow.cs" />
     <Compile Include="UIControls\CustomRenderingContentControl.cs" />
-    <Compile Include="UIControls\MapRender.cs" />
+    <Compile Include="UIControls\GalaxyMapControl.cs" />
+    <Compile Include="UIControls\MinimapControl.cs" />
+    <Compile Include="UIControls\MiniMapWindow.cs" />
     <Compile Include="UIControls\Planet.cs" />
     <Compile Include="UIControls\PlanetMapControl.cs" />
     <Compile Include="UIControls\SystemMapControl.cs" />

@@ -22,14 +22,14 @@ namespace MasterOfCentauri.Camera
         protected int _worldHeight;
         public Rectangle? _limits;
 
-        public Camera2D(ConsoleManager console)
+        public Camera2D(ConsoleManager console, bool addToConsole)
         {
             _zoom = 1.0f;
             _minZoom = 0.1f;
             _rotation = 0.0f;
             _pos = Vector2.Zero;
-
-            console.HookInto(this);
+            if (addToConsole)
+                console.HookInto(this);
         }
 
         public Rectangle? Limits
@@ -37,7 +37,7 @@ namespace MasterOfCentauri.Camera
             set
             {
                 _limits = value;
-                ValidatePosition();
+                validatePosition();
             }
         }
 
@@ -45,7 +45,7 @@ namespace MasterOfCentauri.Camera
         public float Zoom
         {
             get { return _zoom; }
-            set { _zoom = value; if (_zoom < _minZoom) _zoom = _minZoom; if (_zoom > _maxZoom) _zoom = _maxZoom; ValidateZoom(); ValidatePosition(); } // Negative zoom will flip image
+            set { _zoom = value; if (_zoom < _minZoom) _zoom = _minZoom; if (_zoom > _maxZoom) _zoom = _maxZoom; validateZoom(); validatePosition(); } // Negative zoom will flip image
         }
 
         public float MaxZoom
@@ -70,7 +70,7 @@ namespace MasterOfCentauri.Camera
         public bool Move(Vector2 amount)
         {
             _pos += amount;
-            return ValidatePosition();
+            return validatePosition();
         }
         // Get set position
         public Vector2 Pos
@@ -79,8 +79,8 @@ namespace MasterOfCentauri.Camera
             set
             {
                 _pos = value;
-                ValidateZoom();
-                ValidatePosition();
+                validateZoom();
+                validatePosition();
             }
         }
 
@@ -112,23 +112,23 @@ namespace MasterOfCentauri.Camera
         {
             get
             {
-                return get_transformation();
+                return getTransformation();
             }
         }
 
-        public float GetCamScaleX()
+        public float getCamScaleX()
         {
             float scaleToFitWidth = (float)CamViewPortWidth / (float)CamWorldWidth;
             return scaleToFitWidth;
         }
 
-        public float GetCamScaleY()
+        public float getCamScaleY()
         {
             float scaleToFitHeight = (float)CamViewPortHeight / (float)CamWorldHeight;
             return scaleToFitHeight;
         }
 
-        private void ValidateZoom()
+        private void validateZoom()
         {
             if (_limits.HasValue)
             {
@@ -139,7 +139,7 @@ namespace MasterOfCentauri.Camera
         }
 
 
-        private bool ValidatePosition()
+        private bool validatePosition()
         {
             if (_limits.HasValue)
             {
@@ -161,31 +161,31 @@ namespace MasterOfCentauri.Camera
             return true;
         }
 
-        public float GetWorldViewY()
+        public float getWorldViewY()
         {
              Vector2 cameraWorldMin = Vector2.Transform(Vector2.Zero, Matrix.Invert(ViewMatrix));
              return cameraWorldMin.Y; 
         }
 
-        public float GetWorldViewX()
+        public float getWorldViewX()
         {
             Vector2 cameraWorldMin = Vector2.Transform(Vector2.Zero, Matrix.Invert(ViewMatrix));
             return cameraWorldMin.X;
         }
 
-        public float GetWorldViewWidth()
+        public float getWorldViewWidth()
         {
             Vector2 cameraSize = new Vector2(CamWorldWidth, CamWorldHeight) / _zoom;
             return cameraSize.X;
         }
 
-        public float GetWorldviewHeight()
+        public float getWorldviewHeight()
         {
             Vector2 cameraSize = new Vector2(CamWorldWidth, CamWorldHeight) / _zoom;
             return cameraSize.Y;
         }
 
-        public Matrix get_transformation()
+        public Matrix getTransformation()
         {
 
             _transform =       
@@ -194,6 +194,12 @@ namespace MasterOfCentauri.Camera
                                          Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *
                                          Matrix.CreateTranslation(new Vector3(CamWorldWidth * 0.5f, CamWorldHeight * 0.5f, 0)) ;
             return _transform;
+        }
+
+        public Matrix getScale()
+        {
+            Matrix scale = Matrix.CreateScale(getCamScaleX(), getCamScaleY(), 1f);
+            return scale;
         }
 
         public IEnumerable<ConsoleCommand> Commands { get { return Enumerable.Empty<ConsoleCommand>(); } }

@@ -80,14 +80,44 @@ namespace MasterOfCentauri
                 Background = new Color(0, 0, 0, 0),
 
             };
-
-            var maprender = new UIControls.MapRender(Game.Services)
+            var test = new Canvas()
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
                 VerticalAlignment = VerticalAlignment.Stretch,
             };
 
-
+            var maprender = new UIControls.GalaxyMapControl(Game.Services)
+            {
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch,
+            };
+            var minimap = new UIControls.MinimapControl(Game.Services);
+            var miniMapWindow = new MiniMapWindow()
+            {
+                Height = 256,
+                Width = 256,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                Name = "MiniMap"
+            };
+            var controlButtonPanel = new StackPanel()
+            {
+                Orientation = Orientation.Horizontal,
+                VerticalAlignment = VerticalAlignment.Bottom,
+                HorizontalAlignment = HorizontalAlignment.Left
+            };
+            var testButton = new Button()
+            {
+                Height = 40,
+                Width = 200
+            };
+            controlButtonPanel.Children.Add(testButton);
+            miniMapWindow.Content = minimap;
+            test.Children.Add(maprender);
+            test.Children.Add(controlButtonPanel);
+            test.Children.Add(miniMapWindow);
+            
+            
             var mainTabPanel = new TabControl
             {
                 HorizontalAlignment = HorizontalAlignment.Stretch,
@@ -163,7 +193,7 @@ namespace MasterOfCentauri
                                }
             };
 
-            mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Star map" }, TabPage = maprender });
+            mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Star map" }, TabPage = test });
             mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "System map" }, TabPage = systemMap });
             mainTabPanel.Items.Add(new TabItem() { Content = new TextBlock() { Text = "Planet map" }, TabPage = planetMap });
 
@@ -171,6 +201,7 @@ namespace MasterOfCentauri
 
             _screen.Children.Add(mainTabPanel);
             _screen.Children.Add(_console);
+            //_screen.Children.Add(miniMapWindow);
             //_screen.Children.Add(maprender);
 
             // Add the screen to the UI service.

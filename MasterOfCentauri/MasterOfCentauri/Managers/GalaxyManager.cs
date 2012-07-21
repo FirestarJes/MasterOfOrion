@@ -125,7 +125,7 @@ namespace MasterOfCentauri.Managers
         }
 
 
-        public Model.Galaxy  GenerateIrregularGalaxy(int numStars, int width)
+        public Model.Galaxy GenerateIrregularGalaxy(int numStars, int width)
         {
 
             width = width * STAR_WIDTH;
