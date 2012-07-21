@@ -883,10 +883,23 @@
 
 
     <Style Name="MiniMapWindow" Inherits="ContentControl">
-      <Padding>6,6,6,6</Padding>
+      <Padding>5,5,5,5</Padding>
       <State Name="Default">
-        <Image Name="Background" Source="196,180,1,1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-        <Image Name="Border" Source="716,179,8,8" Border="3,3,3,3" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <Image VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,0,0" Border="0,0,0,0" Source="752,180,5,16" TileMode="TileY"/>
+        <!-- Right border -->
+        <Image VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,0,0" Border="0,0,0,0" Source="752,180,5,16" TileMode="TileY"/>
+        <!-- Top border -->
+        <Image VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,0,0,0" Border="0,0,0,0" Source="758,180,16,5" TileMode="TileX"/>
+        <!-- Bottom border -->
+        <Image VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,0" Border="0,0,0,0" Source="758,180,16,5" TileMode="TileX"/>
+
+        <!--<Image VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,0" Border="0,0,0,0" Source="794,195,22,5"/>
+        --><!-- Right/top ornament --><!--
+        <Image VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,0,0" Border="0,0,0,0" Source="794,188,22,5"/>
+        --><!-- Left/bottom ornament --><!--
+        <Image VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="-16,-18,-17,-18" Border="0,0,0,0" Source="172,97,92,92"/>
+        --><!-- Right/bottom ornament --><!--
+        <Image VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="-17,-18,-17,-18" Border="0,0,0,0" Source="267,97,92,92"/>-->
       </State>
     </Style>
 

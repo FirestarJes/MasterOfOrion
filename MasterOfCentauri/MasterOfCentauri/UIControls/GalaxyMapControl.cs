@@ -133,7 +133,7 @@ namespace MasterOfCentauri.UIControls
                 //Here we can handle all checks against world coordinates.
                 if (InputService.MouseWheelDelta != 0)
                 {
-                    _gameManager.GalaxyCam.Zoom += InputService.MouseWheelDelta > 1 ? 0.01f : -0.04f;
+                    _gameManager.GalaxyCam.Zoom += InputService.MouseWheelDelta > 1 ? 0.04f : -0.04f;
                     InputService.IsMouseOrTouchHandled = true;
                 }
                 if (InputService.IsDown(MouseButtons.Left))
