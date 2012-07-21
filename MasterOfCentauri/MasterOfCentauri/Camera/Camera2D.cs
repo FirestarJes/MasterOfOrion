@@ -161,6 +161,30 @@ namespace MasterOfCentauri.Camera
             return true;
         }
 
+        public float GetWorldViewY()
+        {
+             Vector2 cameraWorldMin = Vector2.Transform(Vector2.Zero, Matrix.Invert(ViewMatrix));
+             return cameraWorldMin.Y; 
+        }
+
+        public float GetWorldViewX()
+        {
+            Vector2 cameraWorldMin = Vector2.Transform(Vector2.Zero, Matrix.Invert(ViewMatrix));
+            return cameraWorldMin.X;
+        }
+
+        public float GetWorldViewWidth()
+        {
+            Vector2 cameraSize = new Vector2(CamWorldWidth, CamWorldHeight) / _zoom;
+            return cameraSize.X;
+        }
+
+        public float GetWorldviewHeight()
+        {
+            Vector2 cameraSize = new Vector2(CamWorldWidth, CamWorldHeight) / _zoom;
+            return cameraSize.Y;
+        }
+
         public Matrix get_transformation()
         {
 
