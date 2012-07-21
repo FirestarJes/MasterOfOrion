@@ -156,6 +156,7 @@
     <Compile Include="Model\Galaxy.cs" />
     <Compile Include="Model\GalaxySector.cs" />
     <Compile Include="Model\Gamesetup.cs" />
+    <Compile Include="Model\PlanetMap\BuildingCellViewModel.cs" />
     <Compile Include="Model\PlanetMap\PlanetMapViewModel.cs" />
     <Compile Include="Model\Ship.cs" />
     <Compile Include="Model\Star.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="SpritesheetPacker\RectanglePacker.cs" />
     <Compile Include="UIControls\Base\ClickableContentControl.cs" />
     <Compile Include="UIControls\ConsoleWindow.cs" />
+    <Compile Include="UIControls\CustomRenderingContentControl.cs" />
     <Compile Include="UIControls\MapRender.cs" />
     <Compile Include="UIControls\Planet.cs" />
     <Compile Include="UIControls\PlanetMapControl.cs" />

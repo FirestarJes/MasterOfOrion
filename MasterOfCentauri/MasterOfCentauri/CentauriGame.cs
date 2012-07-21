@@ -153,7 +153,13 @@ namespace MasterOfCentauri
                 VerticalAlignment = VerticalAlignment.Stretch,
                 ViewData = new PlanetMapViewModel()
                                {
-                                   Name = "Earth"
+                                   Name = "Earth",
+                                   BuildingCells = new[,]
+                                                       {
+                                                           { new BuildingCellViewModel(), new BuildingCellViewModel(), new BuildingCellViewModel() },
+                                                           { new BuildingCellViewModel(), new BuildingCellViewModel(), new BuildingCellViewModel() },
+                                                           { new BuildingCellViewModel(), new BuildingCellViewModel(), new BuildingCellViewModel() }
+                                                       }
                                }
             };
 
