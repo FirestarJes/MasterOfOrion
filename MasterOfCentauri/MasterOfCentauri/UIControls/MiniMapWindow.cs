@@ -16,7 +16,7 @@ namespace MasterOfCentauri.UIControls
         /// </summary>
         [Browsable(false)]
         public static readonly int IsDownPropertyId = CreateProperty(
-          typeof(ButtonBase), "IsDown", GamePropertyCategories.Default, null, false,
+          typeof(MiniMapWindow), "IsDown", GamePropertyCategories.Default, null, false,
           UIPropertyOptions.AffectsRender);
 
         /// <summary>
