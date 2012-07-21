@@ -30,6 +30,6 @@ namespace MasterOfCentauri.UIControls
 
         }
 
-        public virtual void OnCustomRendering() {}
+        protected virtual void OnCustomRendering() {}
     }
 }
