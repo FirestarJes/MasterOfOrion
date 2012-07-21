@@ -163,6 +163,7 @@
     <Compile Include="Model\PlanetMap\PlanetMapViewModel.cs" />
     <Compile Include="Model\Ship.cs" />
     <Compile Include="Model\Star.cs" />
+    <Compile Include="Model\StarType.cs" />
     <Compile Include="Model\SystemMap\SystemMapPlanetViewModel.cs" />
     <Compile Include="Model\SystemMap\SystemMapRingViewModel.cs" />
     <Compile Include="Model\SystemMap\SystemMapViewModel.cs" />
