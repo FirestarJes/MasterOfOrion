@@ -78,6 +78,17 @@ namespace MasterOfCentauri.UIControls
             localSpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, miniCam.getTransformation() * miniCam.getScale());
             Texture2D starTexture;
             localSpriteBatch.Draw(_black, new Rectangle(0, 0, miniCam.CamWorldWidth, miniCam.CamWorldHeight), Color.White);
+
+            foreach (Model.GalaxyDecoration decor in _gameManager.Galaxy.Decorations)
+            {
+                Util.TextureAtlas atlas = _content.getGalaxyDecorationAtlasFromTextureName(decor.TextureName);
+                if (atlas != null)
+                {
+                    localSpriteBatch.Draw(atlas.AtlasTexture, new Rectangle((int)decor.Position.X, (int)decor.Position.Y, decor.Width, decor.Height), atlas.AtlasCoords[decor.TextureName], Color.White);
+                }
+            }
+                
+
             foreach (Model.Star star in _gameManager.Galaxy.Stars)
             {
                 Util.TextureAtlas atlas = _content.getStarAtlasFromTextureName(star.StarTexture);

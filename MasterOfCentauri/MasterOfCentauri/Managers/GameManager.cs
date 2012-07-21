@@ -53,7 +53,7 @@ namespace MasterOfCentauri.Managers
 
         private void SetupGalaxy()
         {
-            _gameGalaxy = _galaxyManager.GenerateIrregularGalaxy(500, 200);
+            _gameGalaxy = _galaxyManager.GenerateIrregularGalaxy(80, 4096);
         }
 
         private void SetupGalaxyCamera()

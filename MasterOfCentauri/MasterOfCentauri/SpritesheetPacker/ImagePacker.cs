@@ -286,7 +286,7 @@ namespace sspack
 		{
 			try
 			{
-				Bitmap outputImage = new Bitmap(outputWidth, outputHeight, PixelFormat.Format32bppArgb);
+				Bitmap outputImage = new Bitmap(outputWidth, outputHeight, PixelFormat.Format32bppPArgb);
 
 				// draw all the images into the output image
 				foreach (var image in files)

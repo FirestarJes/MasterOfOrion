@@ -121,74 +121,90 @@
     <Folder Include="DensityMaps\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Base\Stars\StarDisk_133.png">
-      <Name>StarDisk_133</Name>
+    <None Include="Base\xml\PlanetTypes.xml">
+      <Name>PlanetTypes</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Base\xml\StarTypes.xml">
+      <Name>StarTypes</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Base\GalaxyDecoration\gaseous01.png">
+      <Name>gaseous01</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Base\Stars\StarDisk_134.png">
-      <Name>StarDisk_134</Name>
+    <None Include="Base\GalaxyDecoration\gaseous02.png">
+      <Name>gaseous02</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Base\Stars\StarDisk_135.png">
-      <Name>StarDisk_135</Name>
+    <None Include="Base\GalaxyDecoration\gaseous03.png">
+      <Name>gaseous03</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Base\Stars\StarDisk_136.png">
-      <Name>StarDisk_136</Name>
+    <None Include="Base\GalaxyDecoration\gaseous04.png">
+      <Name>gaseous04</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Base\Stars\StarDisk_137.png">
-      <Name>StarDisk_137</Name>
+    <None Include="Base\GalaxyDecoration\gaseous05.png">
+      <Name>gaseous05</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Base\Stars\StarDisk_138.png">
-      <Name>StarDisk_138</Name>
+    <None Include="Base\GalaxyDecoration\gaseous10.png">
+      <Name>gaseous10</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Base\Stars\StarDisk_139.png">
-      <Name>StarDisk_139</Name>
+    <None Include="Base\GalaxyDecoration\gaseous13.png">
+      <Name>gaseous13</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Base\Stars\StarDisk_140.png">
-      <Name>StarDisk_140</Name>
+    <None Include="Base\GalaxyDecoration\gaseous14.png">
+      <Name>gaseous14</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Base\Stars\StarDisk_141.png">
-      <Name>StarDisk_141</Name>
+    <None Include="Base\GalaxyDecoration\gaseous15.png">
+      <Name>gaseous15</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Base\Stars\StarDisk_142.png">
-      <Name>StarDisk_142</Name>
+    <None Include="Base\GalaxyDecoration\gaseous16.png">
+      <Name>gaseous16</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Base\Stars\StarDisk_143.png">
-      <Name>StarDisk_143</Name>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Base\Stars\neutron01.png">
+      <Name>neutron01</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Base\Stars\StarDisk_144.png">
-      <Name>StarDisk_144</Name>
+    <None Include="Base\Stars\orange01.png">
+      <Name>orange01</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

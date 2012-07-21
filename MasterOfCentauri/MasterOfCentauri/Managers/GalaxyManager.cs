@@ -13,8 +13,8 @@ namespace MasterOfCentauri.Managers
         private MersenneRandom _rand = new MersenneRandom((uint)DateTime.Now.Ticks);
         private readonly ContentController _content;
         //Constants
-        const int STAR_WIDTH = 64; //This is the stars width including halo in worldunits
-        const int MinDistanceBetweenStars = STAR_WIDTH * 4; //in worldunits so that stars aren't placed to close
+        const int STAR_WIDTH = 128; //This is the stars width including halo in worldunits
+        const int MinDistanceBetweenStars = STAR_WIDTH * 2; //in worldunits so that stars aren't placed to close
         const int MaxAttemptsToPlaceStar = 100;
 
         public GalaxyManager(IServiceProvider services)
@@ -24,8 +24,8 @@ namespace MasterOfCentauri.Managers
 
         public Model.Galaxy GenerateSpiralGalaxy(int arms, int width, int height, int numStars)
         {
-            width = width * STAR_WIDTH;
-            height = height * STAR_WIDTH;
+            width = width;
+            height = height;
             Model.Galaxy gal = new Model.Galaxy();
             gal.Height = height;
             gal.Width = width;
@@ -128,12 +128,13 @@ namespace MasterOfCentauri.Managers
         public Model.Galaxy GenerateIrregularGalaxy(int numStars, int width)
         {
 
-            width = width * STAR_WIDTH;
+            width = width;
             Model.Galaxy gal = new Model.Galaxy();
             gal.Height = width;
             gal.Width = width;
             gal.StarsCount = numStars;
             gal.Stars = new List<Model.Star>();
+            gal.Decorations = new List<Model.GalaxyDecoration>();
             List<Model.GalaxySector> sectors = new List<Model.GalaxySector>();
 
             //Generate sectors
@@ -188,11 +189,25 @@ namespace MasterOfCentauri.Managers
 
                 //Create Star
                 attempts = 0;
-                string starTexture = _rand.NextDouble() > 0.5 ? "StarDisk_133" : "StarDisk_136";
+                string starTexture = _rand.NextDouble() > 0.5 ? "neutron01" : "orange01";
                 sec.Stars.Add(new Model.Star { X = (int)x, Y = (int)y, BoundingBox = new Microsoft.Xna.Framework.Rectangle((int)x, (int)y, STAR_WIDTH, STAR_WIDTH), StarTexture = starTexture });
                 gal.Stars.Add(new Model.Star { X = (int)x, Y = (int)y, BoundingBox = new Microsoft.Xna.Framework.Rectangle((int)x, (int)y, STAR_WIDTH, STAR_WIDTH), StarTexture = starTexture });
             }
             SortStarListAfterTexture(gal);
+
+            //Add Decoration
+            for (int j = 0; j < 10; j++)
+            {
+                Model.GalaxyDecoration decor = new Model.GalaxyDecoration();
+                double x = _rand.NextDouble() * width;
+                double y = _rand.NextDouble() * width;
+                decor.Position = new Vector2((int)x, (int)y);
+                decor.Width = 2000;
+                decor.Height = 2000;
+                decor.Rotation = 0;
+                decor.TextureName = "gaseous01";
+                gal.Decorations.Add(decor);
+            }
             return gal;
         }
 

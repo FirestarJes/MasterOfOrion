@@ -84,10 +84,23 @@ namespace MasterOfCentauri.UIControls
                 _spritebatch.Draw(_textureParallax2, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(_parallax2SpeedMod * (int)-scrollX), (int)(_parallax2SpeedMod * (int)-scrollY), _textureParallax2.Width, _textureParallax2.Height), Color.White);
                 _spritebatch.End();
 
-                //Render Gasses
-
+                _spritebatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, _gameManager.GalaxyCam.getTransformation() * _gameManager.GalaxyCam.getScale());
+                //Render Decoration
+                foreach (Model.GalaxyDecoration decor in _gameManager.Galaxy.Decorations)
+                {
+                    Util.TextureAtlas atlas = _content.getGalaxyDecorationAtlasFromTextureName(decor.TextureName);
+                    if (atlas != null)
+                    {
+                        _spritebatch.Draw(atlas.AtlasTexture, new Rectangle((int)decor.Position.X, (int)decor.Position.Y, decor.Width, decor.Height), atlas.AtlasCoords[decor.TextureName], Color.White);
+                        //_spritebatch.Draw(testtest, new Rectangle((int)decor.Position.X, (int)decor.Position.Y, decor.Width*5, decor.Height*5), Color.White);
+                    }
+                }
+                
                 //Render Stars
                 RenderStars();
+
+                _spritebatch.End();
+
             }
 
             base.OnRender(context);
@@ -96,7 +109,6 @@ namespace MasterOfCentauri.UIControls
 
         private void RenderStars()
         {
-            _spritebatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, _gameManager.GalaxyCam.getTransformation() * _gameManager.GalaxyCam.getScale());
             foreach (Model.Star star in _gameManager.Galaxy.Stars)
             {
                 Util.TextureAtlas atlas = _content.getStarAtlasFromTextureName(star.StarTexture);
@@ -105,7 +117,6 @@ namespace MasterOfCentauri.UIControls
                     _spritebatch.Draw(atlas.AtlasTexture, star.BoundingBox, atlas.AtlasCoords[star.StarTexture], Color.White);
                 }
             }
-            _spritebatch.End();
         }
 
 

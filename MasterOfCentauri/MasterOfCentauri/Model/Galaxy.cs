@@ -11,6 +11,7 @@ namespace MasterOfCentauri.Model
         protected int _width;
         protected int _height;
         private List<Star> _stars;
+        private List<GalaxyDecoration> _decorations;
 
 
         public int Width
@@ -36,6 +37,12 @@ namespace MasterOfCentauri.Model
         {
             get { return _stars; }
             set { _stars = value; }
+        }
+
+        public List<GalaxyDecoration> Decorations
+        {
+            get { return _decorations; }
+            set { _decorations = value; }
         }
         
     }
