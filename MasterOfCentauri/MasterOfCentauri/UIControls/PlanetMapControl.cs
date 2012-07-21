@@ -32,7 +32,7 @@ namespace MasterOfCentauri.UIControls
             ClipContent = true;
         }
 
-        public override void OnCustomRendering()
+        protected override void OnCustomRendering()
         {
             _spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap, null, null);
 
