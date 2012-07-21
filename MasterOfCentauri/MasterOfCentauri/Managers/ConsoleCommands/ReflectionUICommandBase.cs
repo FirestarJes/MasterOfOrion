@@ -48,7 +48,7 @@ namespace MasterOfCentauri.Managers.ConsoleCommands
                        {
                            if (y.Property.Name == "Value")
                            {
-                               propertyInfo.SetValue(CommandHost, y.Property.Value, null);
+                               propertyInfo.SetValue(CommandHost, Convert.ChangeType(y.Property.Value, propertyInfo.PropertyType), null);
                                onValueChanged((float)y.Property.Value);
                                
                                if (autoCall != null)
