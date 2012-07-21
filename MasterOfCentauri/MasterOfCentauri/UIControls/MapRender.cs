@@ -16,12 +16,12 @@ using MasterOfCentauri.UIControls.Base;
 
 namespace MasterOfCentauri.UIControls
 {
-    class MapRender : UIControl
+    class GalaxyMapControl : UIControl
     {
         SpriteBatch _spritebatch;
         Texture2D _black;
         float scrollX, scrollY;
-        private Texture2D _textureBackground, _textureParallax, _textureParallax2, testTexture;
+        private Texture2D _textureBackground, _textureParallax, _textureParallax2, _minimap, _miniMapWithOverlay, _test;
         private SpriteFont arialFont;
         private float _parallax1SpeedMod, _parallax2SpeedMod;
         private Camera.Camera2D cam;
@@ -31,11 +31,12 @@ namespace MasterOfCentauri.UIControls
         private GalaxyManager _galaxyManager;
         private Model.Galaxy _testGalaxy;
         private GraphicsDevice _graphicsDevice;
+        private ConsoleManager _consoleManager;
         private string teststring;
         protected bool IsClicked { get; set; }
         protected bool IsDown { get; set; }
 
-        public MapRender(IServiceProvider services)
+        public GalaxyMapControl(IServiceProvider services)
         {
             Name = "GameViewControl";
             MinWidth = 400;
@@ -45,13 +46,14 @@ namespace MasterOfCentauri.UIControls
             _spritebatch = (SpriteBatch)services.GetService(typeof(SpriteBatch));
             _content = (ContentController)services.GetService(typeof(ContentController));
             _galaxyManager = (GalaxyManager)services.GetService(typeof(GalaxyManager));
-            cam = new Camera.Camera2D((ConsoleManager)services.GetService(typeof(ConsoleManager)));
+            _consoleManager = (ConsoleManager)services.GetService(typeof(ConsoleManager));
+            cam = new Camera.Camera2D(_consoleManager);
 
             _parallax1SpeedMod = 1.5f;
             _parallax2SpeedMod = 2f;
             cam.MaxZoom = 1.0f;
             cam.MinZoom = 0.07f;
-            cam.Limits = new Rectangle(-300, -300, 210*64, 210*64);
+            cam.Limits = new Rectangle(0, 0, 200*64, 200*64);
             cam.Pos = new Vector2(0, 0);
             cam.CamWorldHeight = 800;
             cam.CamWorldWidth = 1280;
@@ -63,9 +65,9 @@ namespace MasterOfCentauri.UIControls
             _textureBackground = _content.GetContent<Texture2D>(@"StarFields\starfield1");
             _textureParallax = _content.GetContent<Texture2D>(@"StarFields\starfield2");
             _textureParallax2 = _content.GetContent<Texture2D>(@"StarFields\starfield3");
-            testTexture = _content.GetContent<Texture2D>(@"StarFields\test");
             arialFont = _content.GetContent<SpriteFont>(@"Fonts\Spritefont1");
             _black = _content.GetContent<Texture2D>(@"StarFields\black");
+            _test = _content.GetContent<Texture2D>(@"StarFields\test");
             base.OnLoad();
         }
 
@@ -77,13 +79,24 @@ namespace MasterOfCentauri.UIControls
         protected override void OnRender(UIRenderContext context)
         {
             IUIRenderer renderer = Screen.Renderer;
-            GraphicsDevice graphicsDevice = renderer.GraphicsDevice;
+            _graphicsDevice = renderer.GraphicsDevice;
 
+            //Render minimap if not done yet.
+            if (_minimap == null)
+            {
+                Camera.Camera2D minimapCam = new Camera.Camera2D(_consoleManager);
+                minimapCam.CamViewPortHeight = 256;
+                minimapCam.CamViewPortWidth = 256;
+                minimapCam.CamWorldHeight = 64 * 200;
+                minimapCam.CamWorldWidth = 64 * 200;
+                minimapCam.Pos = new Vector2(minimapCam.CamWorldWidth / 2, minimapCam.CamWorldHeight / 2);
 
+                _minimap = RenderMinimap(minimapCam);
+            }
             cam.CamViewPortHeight = (int)ActualHeight;
             cam.CamViewPortWidth = (int)ActualWidth;
 
-            Rectangle originalViewport = graphicsDevice.Viewport.Bounds;
+            Rectangle originalViewport = _graphicsDevice.Viewport.Bounds;
             Rectangle viewport = new Rectangle((int)ActualX, (int)ActualY, (int)ActualWidth, (int)ActualHeight);
             if (viewport.Width == 0 || viewport.Height == 0)
                 return;
@@ -91,8 +104,9 @@ namespace MasterOfCentauri.UIControls
 
             renderer.EndBatch();
 
-            using(new ViewportScope(graphicsDevice, new Viewport(viewport)))
+            using (new ViewportScope(_graphicsDevice, new Viewport(viewport)))
             {
+
                 _spritebatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap, null, null);
                 _spritebatch.Draw(_black, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), Color.White);
                 _spritebatch.Draw(_textureBackground, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(1 * (int)-scrollX), (int)(1 * (int)-scrollY), _textureBackground.Width, _textureBackground.Height), Color.White);
@@ -107,11 +121,57 @@ namespace MasterOfCentauri.UIControls
 
                 //Render Stars
                 RenderStars();
+                RenderMinimapWithOverlay();
 
             }
 
+            //Render GUI
+            //_spritebatch.Begin();
+            //_spritebatch.Draw(_miniMapWithOverlay, new Rectangle((int)(ActualWidth - 256), (int)(ActualHeight - 256), 256, 256), Color.White);
+            //_spritebatch.End();
+
             base.OnRender(context);
 
+        }
+
+        private void RenderMinimapWithOverlay()
+        {
+            float percX, percY, percWidth, percHeight, worldViewWidth, worldViewHeight;
+            percX = (cam.Pos.X - (cam.GetWorldViewWidth() / 2)) / (200 * 64);
+            percY = (cam.Pos.Y - (cam.GetWorldviewHeight() / 2)) / (200 * 64);
+            worldViewWidth = cam.GetWorldViewWidth();
+            worldViewHeight = cam.GetWorldviewHeight();
+            percWidth = cam.GetWorldViewWidth() / (200 * 64);
+            percHeight = cam.GetWorldviewHeight() / (200 * 64);
+            _spritebatch.Begin();
+            _spritebatch.Draw(_minimap, new Rectangle((int)(ActualWidth - 256), (int)(ActualHeight - 256), 256, 256), Color.White);
+            _spritebatch.Draw(_test, new Rectangle((int)(ActualWidth - 256) + (int)(256*percX), (int)(ActualHeight - 256)+(int)(256*percY), (int)(256*percWidth), (int)(256*percHeight)), Color.White);
+            _spritebatch.End();
+        }
+
+        private Texture2D RenderMinimap(Camera.Camera2D miniCam)
+        {
+            RenderTarget2D mini = new RenderTarget2D(_graphicsDevice, 256, 256);
+            _graphicsDevice.SetRenderTarget(mini);
+            _spritebatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, miniCam.get_transformation() * Matrix.CreateScale(miniCam.GetCamScaleX(), miniCam.GetCamScaleY(), 1f));
+            Texture2D starTexture;
+            _spritebatch.Draw(_black, new Rectangle(0, 0, miniCam.CamWorldWidth, miniCam.CamWorldHeight), Color.White);
+            foreach (Model.Star star in _testGalaxy.Stars)
+            {
+                Util.TextureAtlas atlas = _content.getStarAtlasFromTextureName(star.StarTexture);
+                if (atlas != null)
+                {
+                    starTexture = atlas.AtlasTexture;
+                    _spritebatch.Draw(starTexture, star.BoundingBox, atlas.AtlasCoords[star.StarTexture], Color.White);
+                }
+
+            }
+            Util.TextureAtlas atlas2 = _content.getStarAtlasFromTextureName(@"stars\red.png");
+            starTexture = _content.GetContent<Texture2D>(@"starfields/test");
+            _spritebatch.Draw(starTexture, new Rectangle(0, 0, 256, 256), Color.White);
+            _spritebatch.End();
+            _graphicsDevice.SetRenderTarget(null);
+            return mini; 
         }
 
         private void RenderStars()
