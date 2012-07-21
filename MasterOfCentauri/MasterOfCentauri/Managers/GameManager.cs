@@ -53,7 +53,7 @@ namespace MasterOfCentauri.Managers
 
         private void SetupGalaxy()
         {
-            _gameGalaxy = _galaxyManager.GenerateIrregularGalaxy(80, 4096);
+            _gameGalaxy = _galaxyManager.GenerateIrregularGalaxy(80, 2048);
         }
 
         private void SetupGalaxyCamera()
@@ -68,8 +68,8 @@ namespace MasterOfCentauri.Managers
             //Temporary, should set position to current homeworld (not implemented yet)
             _galaxyCam.Pos = new Vector2(0, 0);
             
-            _galaxyCam.CamWorldHeight = 800;
-            _galaxyCam.CamWorldWidth = 1280;
+            _galaxyCam.CamWorldHeight = 400;
+            _galaxyCam.CamWorldWidth = 640;
             _galaxyCam.Zoom = 1.0f;
 
         }

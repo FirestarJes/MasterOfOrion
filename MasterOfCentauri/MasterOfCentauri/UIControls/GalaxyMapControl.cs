@@ -19,8 +19,7 @@ namespace MasterOfCentauri.UIControls
     class GalaxyMapControl : ContentControl
     {
         private SpriteBatch _spritebatch;
-        private Texture2D _textureBackground, _textureParallax, _textureParallax2, _test, _black;
-        private SpriteFont arialFont;
+        private Texture2D _textureBackground, _textureParallax, _textureParallax2, _black;
         private float _parallax1SpeedMod, _parallax2SpeedMod, scrollX, scrollY;
         private Vector2 _mousePos, _mousePosMoved;
         private ContentController _content;
@@ -46,8 +45,6 @@ namespace MasterOfCentauri.UIControls
             _textureParallax = _content.GetContent<Texture2D>(@"StarFields\starfield2");
             _textureParallax2 = _content.GetContent<Texture2D>(@"StarFields\starfield3");
             _black = _content.GetContent<Texture2D>(@"StarFields\black");
-            arialFont = _content.GetContent<SpriteFont>(@"Fonts\Spritefont1");
-            _test = _content.GetContent<Texture2D>(@"StarFields\test");
             base.OnLoad();
         }
 
@@ -92,7 +89,6 @@ namespace MasterOfCentauri.UIControls
                     if (atlas != null)
                     {
                         _spritebatch.Draw(atlas.AtlasTexture, new Rectangle((int)decor.Position.X, (int)decor.Position.Y, decor.Width, decor.Height), atlas.AtlasCoords[decor.TextureName], Color.White);
-                        //_spritebatch.Draw(testtest, new Rectangle((int)decor.Position.X, (int)decor.Position.Y, decor.Width*5, decor.Height*5), Color.White);
                     }
                 }
                 

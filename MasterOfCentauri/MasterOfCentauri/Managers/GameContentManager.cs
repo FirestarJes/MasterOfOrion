@@ -10,5 +10,13 @@ namespace MasterOfCentauri.Managers
     /// </summary>
     class GameContentManager
     {
+        private List<Model.StarType> _starTypes;
+
+        public GameContentManager()
+        {
+            _starTypes = new List<Model.StarType>();
+        }
     }
+
+
 }

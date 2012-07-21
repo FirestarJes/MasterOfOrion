@@ -13,7 +13,7 @@ namespace MasterOfCentauri.Managers
         private MersenneRandom _rand = new MersenneRandom((uint)DateTime.Now.Ticks);
         private readonly ContentController _content;
         //Constants
-        const int STAR_WIDTH = 128; //This is the stars width including halo in worldunits
+        const int STAR_WIDTH = 64; //This is the stars width including halo in worldunits
         const int MinDistanceBetweenStars = STAR_WIDTH * 2; //in worldunits so that stars aren't placed to close
         const int MaxAttemptsToPlaceStar = 100;
 
@@ -202,8 +202,8 @@ namespace MasterOfCentauri.Managers
                 double x = _rand.NextDouble() * width;
                 double y = _rand.NextDouble() * width;
                 decor.Position = new Vector2((int)x, (int)y);
-                decor.Width = 2000;
-                decor.Height = 2000;
+                decor.Width = 256;
+                decor.Height = 256;
                 decor.Rotation = 0;
                 decor.TextureName = "gaseous01";
                 gal.Decorations.Add(decor);
