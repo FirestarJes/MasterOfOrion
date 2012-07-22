@@ -21,6 +21,7 @@ namespace MasterOfCentauri.Camera
         protected int _worldWidth;
         protected int _worldHeight;
         public Rectangle? _limits;
+        public Rectangle _bounds;
 
         public Camera2D(ConsoleManager console, bool addToConsole)
         {
@@ -183,6 +184,12 @@ namespace MasterOfCentauri.Camera
         {
             Vector2 cameraSize = new Vector2(CamWorldWidth, CamWorldHeight) / _zoom;
             return cameraSize.Y;
+        }
+
+        public Rectangle getWorldBounds()
+        {
+            _bounds = new Rectangle((int)getWorldViewX(), (int)getWorldViewY(), (int)getWorldViewWidth(), (int)getWorldviewHeight());  
+            return _bounds; 
         }
 
         public Matrix getTransformation()

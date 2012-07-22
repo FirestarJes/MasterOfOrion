@@ -60,7 +60,7 @@ namespace MasterOfCentauri.UIControls
             IUIRenderer renderer = Screen.Renderer;
             _graphicsDevice = renderer.GraphicsDevice;
 
-           
+
             _gameManager.GalaxyCam.CamViewPortHeight = (int)ActualHeight;
             _gameManager.GalaxyCam.CamViewPortWidth = (int)ActualWidth;
 
@@ -93,7 +93,7 @@ namespace MasterOfCentauri.UIControls
                         _spritebatch.Draw(atlas.AtlasTexture, new Rectangle((int)decor.Position.X, (int)decor.Position.Y, decor.Width, decor.Height), atlas.AtlasCoords[decor.TextureName], Color.White);
                     }
                 }
-                
+
                 //Render Stars
                 RenderStars();
 
@@ -110,16 +110,19 @@ namespace MasterOfCentauri.UIControls
             Dictionary<Util.TextureAtlas, List<Model.Star>> sortedStars = new Dictionary<Util.TextureAtlas, List<Model.Star>>();
             foreach (Model.GalaxySector sec in _gameManager.Galaxy.Sectors)
             {
-                foreach (Model.Star star in sec.Stars)
+                if (_gameManager.GalaxyCam.getWorldBounds().Intersects(sec.BoundingBox))
                 {
-                    Util.TextureAtlas atlas = _content.getStarAtlasFromTextureName(star.StarTexture);
-                    if (atlas != null)
+                    foreach (Model.Star star in sec.Stars)
                     {
-                        if (!sortedStars.ContainsKey(atlas))
+                        Util.TextureAtlas atlas = _content.getStarAtlasFromTextureName(star.StarTexture);
+                        if (atlas != null)
                         {
-                            sortedStars.Add(atlas, new List<Model.Star>());
+                            if (!sortedStars.ContainsKey(atlas))
+                            {
+                                sortedStars.Add(atlas, new List<Model.Star>());
+                            }
+                            sortedStars[atlas].Add(star);
                         }
-                        sortedStars[atlas].Add(star);
                     }
                 }
             }
@@ -128,7 +131,7 @@ namespace MasterOfCentauri.UIControls
                 foreach (Model.Star star in sortedStars[textureAtlas])
                 {
                     _spritebatch.Draw(textureAtlas.AtlasTexture, star.BoundingBox, textureAtlas.AtlasCoords[star.StarTexture], Color.White);
-                    Vector2 textPosition = new Vector2(star.X+32, star.Y + 64);
+                    Vector2 textPosition = new Vector2(star.X + 32, star.Y + 64);
                     Vector2 stringCenter = _starNameFont.MeasureString(star.Name) * 0.5f;
                     _spritebatch.DrawString(_starNameFont, star.Name, new Vector2(textPosition.X + 1, textPosition.Y + 1), Color.Black, 0, stringCenter, 0.6f, SpriteEffects.None, 0f);
                     _spritebatch.DrawString(_starNameFont, star.Name, textPosition, Color.RoyalBlue, 0, stringCenter, 0.6f, SpriteEffects.None, 0f);
@@ -214,7 +217,7 @@ namespace MasterOfCentauri.UIControls
                             }
                         }
                     }
-                   
+
                 }
             }
             base.OnHandleInput(context);

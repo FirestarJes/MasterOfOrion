@@ -94,8 +94,8 @@ namespace MasterOfCentauri
             var minimap = new UIControls.MinimapControl(Game.Services);
             var miniMapWindow = new MiniMapWindow()
             {
-                Height = 256,
-                Width = 256,
+                Height = 200,
+                Width = 200,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Bottom,
                 Name = "MiniMap"
