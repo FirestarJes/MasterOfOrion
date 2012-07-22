@@ -86,6 +86,10 @@ namespace MasterOfCentauri
             _contentController.LoadContent();
             Services.AddService(typeof(ContentController), _contentController);
 
+            _gameContentManager = new GameContentManager(Services);
+            _gameContentManager.LoadGameContent();
+            Services.AddService(typeof(GameContentManager), _gameContentManager);
+
             _galaxyManager = new GalaxyManager(Services);
             Services.AddService(typeof(GalaxyManager), _galaxyManager);
 
@@ -93,9 +97,6 @@ namespace MasterOfCentauri
             _gameManager.NewGame();
             Services.AddService(typeof(GameManager), _gameManager);
 
-            _gameContentManager = new GameContentManager(Services);
-            _gameContentManager.LoadGameContent();
-            Services.AddService(typeof(GameContentManager), _gameContentManager);
             // ----- Add GameComponents
             // The component that shows the individual screen.
             Components.Add(new CentauriGame(this));

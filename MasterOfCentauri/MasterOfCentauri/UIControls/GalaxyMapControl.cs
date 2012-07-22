@@ -25,6 +25,7 @@ namespace MasterOfCentauri.UIControls
         private ContentController _content;
         private GraphicsDevice _graphicsDevice;
         private GameManager _gameManager;
+        private SpriteFont _starNameFont;
         protected bool IsClicked { get; set; }
         protected bool IsDown { get; set; }
 
@@ -45,6 +46,7 @@ namespace MasterOfCentauri.UIControls
             _textureParallax = _content.GetContent<Texture2D>(@"StarFields\starfield2");
             _textureParallax2 = _content.GetContent<Texture2D>(@"StarFields\starfield3");
             _black = _content.GetContent<Texture2D>(@"StarFields\black");
+            _starNameFont = _content.GetContent<SpriteFont>(@"Fonts\SpriteFont1");
             base.OnLoad();
         }
 
@@ -105,12 +107,31 @@ namespace MasterOfCentauri.UIControls
 
         private void RenderStars()
         {
-            foreach (Model.Star star in _gameManager.Galaxy.Stars)
+            Dictionary<Util.TextureAtlas, List<Model.Star>> sortedStars = new Dictionary<Util.TextureAtlas, List<Model.Star>>();
+            foreach (Model.GalaxySector sec in _gameManager.Galaxy.Sectors)
             {
-                Util.TextureAtlas atlas = _content.getStarAtlasFromTextureName(star.StarTexture);
-                if (atlas != null)
+                foreach (Model.Star star in sec.Stars)
                 {
-                    _spritebatch.Draw(atlas.AtlasTexture, star.BoundingBox, atlas.AtlasCoords[star.StarTexture], Color.White);
+                    Util.TextureAtlas atlas = _content.getStarAtlasFromTextureName(star.StarTexture);
+                    if (atlas != null)
+                    {
+                        if (!sortedStars.ContainsKey(atlas))
+                        {
+                            sortedStars.Add(atlas, new List<Model.Star>());
+                        }
+                        sortedStars[atlas].Add(star);
+                    }
+                }
+            }
+            foreach (Util.TextureAtlas textureAtlas in sortedStars.Keys)
+            {
+                foreach (Model.Star star in sortedStars[textureAtlas])
+                {
+                    _spritebatch.Draw(textureAtlas.AtlasTexture, star.BoundingBox, textureAtlas.AtlasCoords[star.StarTexture], Color.White);
+                    Vector2 textPosition = new Vector2(star.X+32, star.Y + 64);
+                    Vector2 stringCenter = _starNameFont.MeasureString(star.Name) * 0.5f;
+                    _spritebatch.DrawString(_starNameFont, star.Name, new Vector2(textPosition.X + 1, textPosition.Y + 1), Color.Black, 0, stringCenter, 0.6f, SpriteEffects.None, 0f);
+                    _spritebatch.DrawString(_starNameFont, star.Name, textPosition, Color.RoyalBlue, 0, stringCenter, 0.6f, SpriteEffects.None, 0f);
                 }
             }
         }
@@ -147,20 +168,23 @@ namespace MasterOfCentauri.UIControls
                 }
                 if (InputService.IsDoubleClick(MouseButtons.Left))
                 {
-                    foreach (Model.Star star in _gameManager.Galaxy.Stars)
+                    foreach (Model.GalaxySector sec in _gameManager.Galaxy.Sectors)
                     {
-                        if (star.BoundingBox.Intersects(new Rectangle((int)TransformedMousePos.X, (int)TransformedMousePos.Y, 1, 1)))
+                        foreach (Model.Star star in sec.Stars)
                         {
-                            //teststring = "double Clicked Star";
-                            break;
+                            if (star.BoundingBox.Intersects(new Rectangle((int)TransformedMousePos.X, (int)TransformedMousePos.Y, 1, 1)))
+                            {
+                                //teststring = "double Clicked Star";
+                                break;
+                            }
+                            else
+                            {
+                                //teststring = "empty";
+                            }
                         }
-                        else
-                        {
-                            //teststring = "empty";
-                        }
+                        InputService.IsMouseOrTouchHandled = true;
+                        return;
                     }
-                    InputService.IsMouseOrTouchHandled = true;
-                    return;
                 }
 
                 IsClicked = false;
@@ -175,18 +199,22 @@ namespace MasterOfCentauri.UIControls
 
                 if (IsClicked)
                 {
-                    foreach (Model.Star star in _gameManager.Galaxy.Stars)
+                    foreach (Model.GalaxySector sec in _gameManager.Galaxy.Sectors)
                     {
-                        if (star.BoundingBox.Intersects(new Rectangle((int)TransformedMousePos.X, (int)TransformedMousePos.Y, 1, 1)))
+                        foreach (Model.Star star in sec.Stars)
                         {
-                            //teststring = "Clicked Star";
-                            break;
-                        }
-                        else
-                        {
-                            //teststring = "empty";
+                            if (star.BoundingBox.Intersects(new Rectangle((int)TransformedMousePos.X, (int)TransformedMousePos.Y, 1, 1)))
+                            {
+                                //teststring = "Clicked Star";
+                                break;
+                            }
+                            else
+                            {
+                                //teststring = "empty";
+                            }
                         }
                     }
+                   
                 }
             }
             base.OnHandleInput(context);

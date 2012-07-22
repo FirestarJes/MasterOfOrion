@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MasterOfOrion.Classes.Misc
+namespace MasterOfCentauri.Util
 {
     class MersenneRandom : Random
     {

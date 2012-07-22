@@ -10,7 +10,7 @@ namespace MasterOfCentauri.Model
         protected int _numStars;
         protected int _width;
         protected int _height;
-        private List<Star> _stars;
+        private List<GalaxySector> _sectors;
         private List<GalaxyDecoration> _decorations;
 
 
@@ -33,10 +33,10 @@ namespace MasterOfCentauri.Model
             set { _numStars = value; }
         }
 
-        public List<Star> Stars
+        public List<GalaxySector> Sectors
         {
-            get { return _stars; }
-            set { _stars = value; }
+            get { return _sectors; }
+            set { _sectors = value; }
         }
 
         public List<GalaxyDecoration> Decorations

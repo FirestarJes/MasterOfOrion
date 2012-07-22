@@ -161,6 +161,7 @@
     <Compile Include="Model\Gamesetup.cs" />
     <Compile Include="Model\PlanetMap\BuildingCellViewModel.cs" />
     <Compile Include="Model\PlanetMap\PlanetMapViewModel.cs" />
+    <Compile Include="Model\PlanetType.cs" />
     <Compile Include="Model\Ship.cs" />
     <Compile Include="Model\Star.cs" />
     <Compile Include="Model\StarType.cs" />

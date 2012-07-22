@@ -3,7 +3,7 @@
 		<ID>STAR_NEUTRON</ID> <!-- This is the ID of this startype, used to reference this startype in other files, must be unique but can be overriden in a mod -->
 		<Name>#STAR_STRING_1</Name> <!--Entry in the strings.xml file, which is used for translations --> 
 		<Flavor>#STAR_FLAVOR_1</Flavor>  <!--Entry in the strings.xml file, which is used for translations, used for flavor text describing a star system --> 
-		<Graphics>StarDisk_133</Graphics> <!--This the name of the texture used for this star, must be located in (base/Stars) or (*modname*/Stars), if this is not found the first file from base/stars will be used-->
+		<Graphics>orange01</Graphics> <!--This the name of the texture used for this star, must be located in (base/Stars) or (*modname*/Stars), if this is not found the first file from base/stars will be used-->
 		<PlanetProbabilities>
 			<PlanetProbability>
 				<PlanetTypeID>PLANET_TERRAN</PlanetTypeID> <!--This the ID of the planet type (located in planettypes.xml) if this ID is not found in that file, the entry is discarded -->
@@ -23,7 +23,7 @@
 		<ID>STAR_YELLOW</ID>
 		<Name>#STAR_STRING_YELLOW</Name>
 		<Flavor>#STAR_FLAVOR_YELLOW</Flavor>  <!--Entry in the strings.xml file, which is used for translations, used for flavor text describing a star system --> 
-		<Graphics>StarDisk_133</Graphics> <!--This the name of the texture used for this star, must be located in (base/Stars) or (*modname*/Stars), if this is not found the first file from base/stars will be used-->
+		<Graphics>neutron01</Graphics> <!--This the name of the texture used for this star, must be located in (base/Stars) or (*modname*/Stars), if this is not found the first file from base/stars will be used-->
 		<PlanetProbabilities>
 			<PlanetProbability>
 				<PlanetTypeID>PLANET_TERRAN</PlanetTypeID> <!--This the ID of the planet type (located in planettypes.xml) if this ID is not found in that file, the entry is discarded -->

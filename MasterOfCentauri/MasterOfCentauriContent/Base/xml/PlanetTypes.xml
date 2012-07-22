@@ -3,6 +3,12 @@
 		<ID>PLANET_TERRAN</ID> <!-- The id of this planettype, is used as a reference in other files -->
 		<Name>#PLANET_TERRAN</Name> <!-- entry in strings.xml for translation -->
 		<Flavor>#PLANET_TERRAN_FLAVOR</Flavor> <!-- entry in strings.xml for flavor text for this planettype -->
+    <Textures>
+      <Texture>Terran.png</Texture>
+      <Texture>Terran2.png</Texture>
+      <Texture>Terran3.png</Texture>
+      <Texture>Terran4.png</Texture>
+    </Textures>
 		<IsUnique>False</IsUnique> <!-- Whether this is a unique planet type, unique planet types will only allow one of them in the galaxy -->
 		<BasePopulation> <!-- The limites of the base population of this planetype in x millions -->
 			<Min>80</Min>
@@ -13,8 +19,8 @@
 			<Max>10</Max>
 		</BaseProductionPerPop>
 		<BasePopGrowth> <!-- The base population growth for this planettype -->
-			<Min>2</Min>
-			<Max>10</Max>
+			<Min>0.2</Min>
+			<Max>0.1</Max>
 		</BasePopGrowth>
 		<AttributeProbabilites> <!-- this is a list of all attributes that can appear on this planettype, found in planet_attributes.xml, currently a planet can only have on attribute -->
 			<AttributeProbability>
@@ -36,6 +42,12 @@
 		<Name>#PLANET_DEAD</Name>
 		<IsUnique>False</IsUnique>
 		<Flavor>#PLANET_DEAD_FLAVOR</Flavor>
+    <Textures>
+      <Texture>Dead.png</Texture>
+      <Texture>Dead2.png</Texture>
+      <Texture>Dead3.png</Texture>
+      <Texture>Dead4.png</Texture>
+    </Textures>
 		<BasePopulation>
 			<Min>10</Min>
 			<Max>30</Max>
@@ -65,9 +77,15 @@
 	</PlanetType>
 	<PlanetType>
 		<ID>PLANET_TOXIC</ID>
-		<Name>#PLANET_DEAD</Name>
+		<Name>#PLANET_TOXIC</Name>
 		<IsUnique>False</IsUnique>
-		<Flavor>#PLANET_DEAD_FLAVOR</Flavor>
+		<Flavor>#PLANET_TOXIC_FLAVOR</Flavor>
+    <Textures>
+      <Texture>Toxic.png</Texture>
+      <Texture>Toxic2.png</Texture>
+      <Texture>Toxic3.png</Texture>
+      <Texture>Toxic4.png</Texture>
+    </Textures>
 		<BasePopulation>
 			<Min>10</Min>
 			<Max>30</Max>

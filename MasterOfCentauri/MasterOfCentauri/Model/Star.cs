@@ -28,7 +28,7 @@ namespace MasterOfCentauri.Model
 
         public string Name
         {
-            get { return "Star"; }
+            get { return _name; }
             set { _name = value; }
         }
 

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MasterOfOrion.Classes.Misc;
 using Microsoft.Xna.Framework;
+using MasterOfCentauri.Util;
 
 namespace MasterOfCentauri.Managers
 {
@@ -12,6 +12,7 @@ namespace MasterOfCentauri.Managers
 
         private MersenneRandom _rand = new MersenneRandom((uint)DateTime.Now.Ticks);
         private readonly ContentController _content;
+        private readonly GameContentManager _gameContentManager;
         //Constants
         const int STAR_WIDTH = 64; //This is the stars width including halo in worldunits
         const int MinDistanceBetweenStars = STAR_WIDTH * 2; //in worldunits so that stars aren't placed to close
@@ -20,6 +21,7 @@ namespace MasterOfCentauri.Managers
         public GalaxyManager(IServiceProvider services)
         {
             _content = (ContentController)services.GetService(typeof(ContentController));
+            _gameContentManager = (GameContentManager)services.GetService(typeof(GameContentManager));
         }
 
         public Model.Galaxy GenerateSpiralGalaxy(int arms, int width, int height, int numStars)
@@ -30,15 +32,14 @@ namespace MasterOfCentauri.Managers
             gal.Height = height;
             gal.Width = width;
             gal.StarsCount = numStars;
-            gal.Stars = new List<Model.Star>();
-            List<Model.GalaxySector> sectors = new List<Model.GalaxySector>();
- 
+            gal.Sectors = new List<Model.GalaxySector>();
+
             //Generate sectors
             int xCounter, yCounter;
             xCounter = 0;
             yCounter = 0;
             for (int i = 0; i < 16; i++)
-            {   
+            {
                 Model.GalaxySector sec = new Model.GalaxySector();
                 sec.X = (width / 4) * xCounter;
                 sec.Y = (height / 4) * yCounter;
@@ -53,7 +54,7 @@ namespace MasterOfCentauri.Managers
                     xCounter = 0;
                     yCounter++;
                 }
-                sectors.Add(sec);
+                gal.Sectors.Add(sec);
             }
 
             //Add stars
@@ -95,7 +96,7 @@ namespace MasterOfCentauri.Managers
                     continue;
 
 
-                Model.GalaxySector sec = sectors.Find(c => (c.X < x && (c.X + c.Width > x) && c.Y < y && (c.Y + c.Height > y)));
+                Model.GalaxySector sec = gal.Sectors.Find(c => (c.X < x && (c.X + c.Width > x) && c.Y < y && (c.Y + c.Height > y)));
                 int halfDistance = MinDistanceBetweenStars / 2;
                 if (x > sec.X + halfDistance && (x < (sec.X + sec.Width) - halfDistance) && (y > sec.Y + halfDistance) && (y < (sec.Y + sec.Height) - halfDistance))
                 {
@@ -110,17 +111,16 @@ namespace MasterOfCentauri.Managers
                 }
                 else
                 {
-                     --j;
+                    --j;
                     continue;
                 }
 
                 //Create Star
-                string starTexture = _rand.NextDouble() > 0.5 ? "StarDisk_133" : "StarDisk_136";
+                Model.StarType starType = _gameContentManager.GetRandomStarType();
+                string starTexture = starType.TextureName;
                 sec.Stars.Add(new Model.Star { X = (int)x, Y = (int)y, BoundingBox = new Microsoft.Xna.Framework.Rectangle((int)x, (int)y, STAR_WIDTH, STAR_WIDTH), StarTexture = starTexture });
-                gal.Stars.Add(new Model.Star { X = (int)x, Y = (int)y, BoundingBox = new Microsoft.Xna.Framework.Rectangle((int)x, (int)y, STAR_WIDTH, STAR_WIDTH), StarTexture = starTexture });
                 attempts = 0;
             }
-            SortStarListAfterTexture(gal);
             return gal;
         }
 
@@ -133,9 +133,8 @@ namespace MasterOfCentauri.Managers
             gal.Height = width;
             gal.Width = width;
             gal.StarsCount = numStars;
-            gal.Stars = new List<Model.Star>();
             gal.Decorations = new List<Model.GalaxyDecoration>();
-            List<Model.GalaxySector> sectors = new List<Model.GalaxySector>();
+            gal.Sectors = new List<Model.GalaxySector>();
 
             //Generate sectors
             int xCounter, yCounter;
@@ -157,7 +156,7 @@ namespace MasterOfCentauri.Managers
                     xCounter = 0;
                     yCounter++;
                 }
-                sectors.Add(sec);
+                gal.Sectors.Add(sec);
             }
 
 
@@ -167,7 +166,7 @@ namespace MasterOfCentauri.Managers
                 double x = _rand.NextDouble() * width;
                 double y = _rand.NextDouble() * width;
 
-                Model.GalaxySector sec = sectors.Find(c => (c.X < x && (c.X + c.Width > x) && c.Y < y && (c.Y + c.Height > y)));
+                Model.GalaxySector sec = gal.Sectors.Find(c => (c.X < x && (c.X + c.Width > x) && c.Y < y && (c.Y + c.Height > y)));
                 int halfDistance = MinDistanceBetweenStars / 2;
 
                 if (x > sec.X + halfDistance && (x < (sec.X + sec.Width) - halfDistance) && (y > sec.Y + halfDistance) && (y < (sec.Y + sec.Height) - halfDistance))
@@ -189,11 +188,15 @@ namespace MasterOfCentauri.Managers
 
                 //Create Star
                 attempts = 0;
-                string starTexture = _rand.NextDouble() > 0.5 ? "neutron01" : "orange01";
-                sec.Stars.Add(new Model.Star { X = (int)x, Y = (int)y, BoundingBox = new Microsoft.Xna.Framework.Rectangle((int)x, (int)y, STAR_WIDTH, STAR_WIDTH), StarTexture = starTexture });
-                gal.Stars.Add(new Model.Star { X = (int)x, Y = (int)y, BoundingBox = new Microsoft.Xna.Framework.Rectangle((int)x, (int)y, STAR_WIDTH, STAR_WIDTH), StarTexture = starTexture });
+                Model.StarType starType = _gameContentManager.GetRandomStarType();
+                Model.Star starToAdd = new Model.Star();
+                starToAdd.Name = _gameContentManager.GetRandomStarName();
+                starToAdd.X = (int)x;
+                starToAdd.Y = (int)y;
+                starToAdd.StarTexture = starType.TextureName;
+                starToAdd.BoundingBox = new Microsoft.Xna.Framework.Rectangle((int)x, (int)y, STAR_WIDTH, STAR_WIDTH);
+                sec.Stars.Add(starToAdd);
             }
-            SortStarListAfterTexture(gal);
 
             //Add Decoration
             for (int j = 0; j < 10; j++)
@@ -248,7 +251,7 @@ namespace MasterOfCentauri.Managers
 
         public int GetDistanceToClosestStar(Model.GalaxySector sec, int x, int y)
         {
-            
+
             if (sec != null)
             {
                 int i;
@@ -280,26 +283,5 @@ namespace MasterOfCentauri.Managers
             }
         }
 
-        public void SortStarListAfterTexture(Model.Galaxy gal)
-        {
-            Dictionary<String, List<Model.Star>> _sorted = new Dictionary<string, List<Model.Star>>();
-            foreach (Model.Star star in gal.Stars)
-            {
-                Util.TextureAtlas atlas = _content.getStarAtlasFromTextureName(star.StarTexture);
-                if (!_sorted.ContainsKey(atlas.Name))
-                {
-                    _sorted[atlas.Name] = new List<Model.Star>();
-                }
-                _sorted[atlas.Name].Add(star);
-            }
-            gal.Stars.Clear();
-            foreach (string key in _sorted.Keys)
-            {
-                foreach (Model.Star star in _sorted[key])
-                {
-                    gal.Stars.Add(star);
-                }
-            }
-        }
     }
 }

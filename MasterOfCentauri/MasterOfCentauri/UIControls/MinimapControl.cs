@@ -87,18 +87,31 @@ namespace MasterOfCentauri.UIControls
                     localSpriteBatch.Draw(atlas.AtlasTexture, new Rectangle((int)decor.Position.X, (int)decor.Position.Y, decor.Width, decor.Height), atlas.AtlasCoords[decor.TextureName], Color.White);
                 }
             }
-                
 
-            foreach (Model.Star star in _gameManager.Galaxy.Stars)
+            Dictionary<Util.TextureAtlas, List<Model.Star>> sortedStars = new Dictionary<Util.TextureAtlas, List<Model.Star>>();
+            foreach (Model.GalaxySector sec in _gameManager.Galaxy.Sectors)
             {
-                Util.TextureAtlas atlas = _content.getStarAtlasFromTextureName(star.StarTexture);
-                if (atlas != null)
+                foreach (Model.Star star in sec.Stars)
                 {
-                    starTexture = atlas.AtlasTexture;
-                    localSpriteBatch.Draw(starTexture, star.BoundingBox, atlas.AtlasCoords[star.StarTexture], Color.White);
+                    Util.TextureAtlas atlas = _content.getStarAtlasFromTextureName(star.StarTexture);
+                    if (atlas != null)
+                    {
+                        if (!sortedStars.ContainsKey(atlas))
+                        {
+                            sortedStars.Add(atlas, new List<Model.Star>());
+                        }
+                        sortedStars[atlas].Add(star);
+                    }
                 }
-
             }
+            foreach (Util.TextureAtlas textureAtlas in sortedStars.Keys)
+            {
+                foreach (Model.Star star in sortedStars[textureAtlas])
+                {
+                    localSpriteBatch.Draw(textureAtlas.AtlasTexture, star.BoundingBox, textureAtlas.AtlasCoords[star.StarTexture], Color.White);
+                }
+            }
+
             localSpriteBatch.End();
             graphicsDevice.SetRenderTarget(null);
             return mini;
