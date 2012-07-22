@@ -19,6 +19,7 @@ namespace MasterOfCentauri.Managers
         List<Util.TextureAtlas> _starTextureAtlases;
         List<Util.TextureAtlas> _galaxyDecorationTextureAtlases;
         BlendState _blendColor, _blendAlpha;
+        string _currentMod;
         
         const string _BASE_MOD_DIR = "mods";
 
@@ -48,6 +49,16 @@ namespace MasterOfCentauri.Managers
 
             _blendAlpha.AlphaSourceBlend = Blend.One;
             _blendAlpha.ColorSourceBlend = Blend.One;
+        }
+
+        public string ContentDir
+        {
+            get { return _content.RootDirectory; }
+        }
+
+        public string ModDir
+        {
+            get { return System.IO.Path.Combine(_BASE_MOD_DIR, _currentMod); }
         }
 
         public T GetContent<T>(string contentName)

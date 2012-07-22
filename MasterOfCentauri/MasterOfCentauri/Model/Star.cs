@@ -11,9 +11,8 @@ namespace MasterOfCentauri.Model
         private string _name;
         private int _x, _y;
         private Rectangle _boundingBox;
-        private string _gasTexture;
-        private double _gasRotation;
         private string _starTexture;
+        
 
         public int X
         {
@@ -38,20 +37,6 @@ namespace MasterOfCentauri.Model
             get { return _starTexture; }
             set { _starTexture = value; }
         }
-
-
-        public string GasTexture
-        {
-            get { return _gasTexture; }
-            set { _gasTexture = value; }
-        }
-
-        public double GasRotation
-        {
-            get { return _gasRotation; }
-            set { _gasRotation = value; }
-        }
-
 
          public Rectangle BoundingBox
         {
