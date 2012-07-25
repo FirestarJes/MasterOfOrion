@@ -53,7 +53,7 @@ namespace MasterOfCentauri.Managers
 
         private void SetupGalaxy()
         {
-            _gameGalaxy = _galaxyManager.GenerateIrregularGalaxy(80, 2048);
+            _gameGalaxy = _galaxyManager.GenerateIrregularGalaxy(new Model.GalaxySetup() { Height = 2048, Width = 2048, Sectors = 16, Stars = 200});
         }
 
         private void SetupGalaxyCamera()
@@ -63,10 +63,10 @@ namespace MasterOfCentauri.Managers
             //Setup the limits, depends on the galaxy size
             _galaxyCam.MaxZoom = 1.0f;
             _galaxyCam.MinZoom = 0.07f;
-            _galaxyCam.Limits = new Rectangle(0, 0, _gameGalaxy.Width, _gameGalaxy.Height);
+            _galaxyCam.Limits = new Rectangle( 0 - (_gameGalaxy.Width / 2), 0 -( _gameGalaxy.Height / 2), _gameGalaxy.Width *2, _gameGalaxy.Height *2);
             
             //Temporary, should set position to current homeworld (not implemented yet)
-            _galaxyCam.Pos = new Vector2(0, 0);
+            _galaxyCam.Pos = _gameGalaxy.Sectors[0].Stars[0].Position + new Vector2(Model.Constants.STAR_WIDTH / 2, Model.Constants.STAR_WIDTH / 2);
             
             _galaxyCam.CamWorldHeight = 400;
             _galaxyCam.CamWorldWidth = 640;

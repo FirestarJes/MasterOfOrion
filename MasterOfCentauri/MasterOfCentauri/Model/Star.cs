@@ -9,23 +9,16 @@ namespace MasterOfCentauri.Model
     class Star
     {
         private string _name;
-        private int _x, _y;
+        private Vector2  _position;
         private Rectangle _boundingBox;
         private string _starTexture;
-        
 
-        public int X
+
+        public Vector2 Position
         {
-            get { return _x; }
-            set { _x = value; }
+            get { return _position; }
+            set { _position = value; }
         }
-
-        public int Y
-        {
-            get { return _y; }
-            set { _y = value; }
-        }
-
         public string Name
         {
             get { return _name; }
@@ -44,7 +37,7 @@ namespace MasterOfCentauri.Model
             {
                 if (_boundingBox == null)
                 {
-                    _boundingBox = new Rectangle(X, Y, 256, 256);
+                    _boundingBox = new Rectangle((int)Position.X, (int)Position.Y, Model.Constants.STAR_WIDTH, Model.Constants.STAR_WIDTH);
                 }
                 return _boundingBox; 
             }

@@ -81,6 +81,8 @@ namespace MasterOfCentauri.UIControls
                 _spritebatch.Draw(_textureBackground, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(1 * (int)-scrollX), (int)(1 * (int)-scrollY), _textureBackground.Width, _textureBackground.Height), Color.White);
                 _spritebatch.Draw(_textureParallax, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(_parallax1SpeedMod * (int)-scrollX), (int)(_parallax1SpeedMod * (int)-scrollY), _textureParallax.Width, _textureParallax.Height), Color.White);
                 _spritebatch.Draw(_textureParallax2, new Rectangle(0, 0, (int)ActualWidth, (int)ActualHeight), new Rectangle((int)(_parallax2SpeedMod * (int)-scrollX), (int)(_parallax2SpeedMod * (int)-scrollY), _textureParallax2.Width, _textureParallax2.Height), Color.White);
+                _spritebatch.DrawString(_starNameFont, _mousePos.X + " / " + _mousePos.Y, Vector2.Zero, Color.White);
+                _spritebatch.DrawString(_starNameFont, _gameManager.GalaxyCam.Pos.X + " / " + _gameManager.GalaxyCam.Pos.Y, Vector2.Zero + new Vector2(0, 20), Color.White);
                 _spritebatch.End();
 
                 _spritebatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, _gameManager.GalaxyCam.getTransformation() * _gameManager.GalaxyCam.getScale());
@@ -131,7 +133,7 @@ namespace MasterOfCentauri.UIControls
                 foreach (Model.Star star in sortedStars[textureAtlas])
                 {
                     _spritebatch.Draw(textureAtlas.AtlasTexture, star.BoundingBox, textureAtlas.AtlasCoords[star.StarTexture], Color.White);
-                    Vector2 textPosition = new Vector2(star.X + 32, star.Y + 64);
+                    Vector2 textPosition = star.Position + new Vector2(32, 64);
                     Vector2 stringCenter = _starNameFont.MeasureString(star.Name) * 0.5f;
                     _spritebatch.DrawString(_starNameFont, star.Name, new Vector2(textPosition.X + 1, textPosition.Y + 1), Color.Black, 0, stringCenter, 0.6f, SpriteEffects.None, 0f);
                     _spritebatch.DrawString(_starNameFont, star.Name, textPosition, Color.RoyalBlue, 0, stringCenter, 0.6f, SpriteEffects.None, 0f);
@@ -150,13 +152,14 @@ namespace MasterOfCentauri.UIControls
                 Vector2 TransformedMousePos = Vector2.Transform(new Vector2(context.MousePosition.X - ActualX, context.MousePosition.Y - ActualY), Matrix.Invert(_gameManager.GalaxyCam.getTransformation() * _gameManager.GalaxyCam.getScale()));
                 Vector2 TransformedMouseDeltaPos = Vector2.Transform(new Vector2((context.MousePosition.X - context.MousePositionDelta.X) - ActualX, (context.MousePosition.Y - context.MousePositionDelta.Y) - ActualY), Matrix.Invert(_gameManager.GalaxyCam.getTransformation() * _gameManager.GalaxyCam.getScale()));
 
-                _mousePos = new Vector2(TransformedMousePos.X, TransformedMousePos.Y);
+                _mousePos = TransformedMousePos;
                 _mousePosMoved = TransformedMouseDeltaPos;
                 var _mousePosMovedDelta = TransformedMousePos - TransformedMouseDeltaPos;
 
                 //Here we can handle all checks against world coordinates.
                 if (InputService.MouseWheelDelta != 0)
                 {
+                    //_gameManager.GalaxyCam.Pos = TransformedMousePos;
                     _gameManager.GalaxyCam.Zoom += InputService.MouseWheelDelta > 1 ? 0.04f : -0.04f;
                     InputService.IsMouseOrTouchHandled = true;
                 }

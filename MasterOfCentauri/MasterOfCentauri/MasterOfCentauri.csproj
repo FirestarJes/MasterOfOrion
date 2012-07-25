@@ -155,9 +155,11 @@
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\GameScreenManager.cs" />
     <Compile Include="Managers\IConsoleCommandHost.cs" />
+    <Compile Include="Model\Constants.cs" />
     <Compile Include="Model\Galaxy.cs" />
     <Compile Include="Model\GalaxyDecoration.cs" />
     <Compile Include="Model\GalaxySector.cs" />
+    <Compile Include="Model\GalaxySetup.cs" />
     <Compile Include="Model\Gamesetup.cs" />
     <Compile Include="Model\PlanetMap\BuildingCellViewModel.cs" />
     <Compile Include="Model\PlanetMap\PlanetMapViewModel.cs" />
