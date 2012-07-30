@@ -84,6 +84,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Resources\Libraries\DigitalRune.Mathematics.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
       <Private>False</Private>
     </Reference>
@@ -150,11 +151,14 @@
     <Compile Include="Managers\ConsoleManager.cs" />
     <Compile Include="Managers\ConsoleToolWindow.cs" />
     <Compile Include="Managers\ContentController.cs" />
+    <Compile Include="Managers\EventManager.cs" />
+    <Compile Include="Managers\EventType.cs" />
     <Compile Include="Managers\GalaxyManager.cs" />
     <Compile Include="Managers\GameContentManager.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Managers\GameScreenManager.cs" />
     <Compile Include="Managers\IConsoleCommandHost.cs" />
+    <Compile Include="Managers\IEventListener.cs" />
     <Compile Include="Model\Constants.cs" />
     <Compile Include="Model\Galaxy.cs" />
     <Compile Include="Model\GalaxyDecoration.cs" />
@@ -188,6 +192,7 @@
     <Compile Include="UIControls\Planet.cs" />
     <Compile Include="UIControls\PlanetMapControl.cs" />
     <Compile Include="UIControls\SystemMapControl.cs" />
+    <Compile Include="UIControls\SystemMapPlanetClicked.cs" />
     <Compile Include="Util\AtlasedTexture.cs" />
     <Compile Include="Util\MersenneRandom.cs" />
     <Compile Include="Util\TextureAtlas.cs" />

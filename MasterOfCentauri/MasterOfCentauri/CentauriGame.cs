@@ -34,6 +34,7 @@ namespace MasterOfCentauri
         private readonly SpriteBatch _spritebatch;
         private readonly ConsoleManager _consoleManager;
         private readonly ContentController _content;
+        private readonly EventManager _eventManager;
 
         // The UI screen renders our controls, such as text labels, buttons, etc.
         private UIScreen _screen;
@@ -48,6 +49,7 @@ namespace MasterOfCentauri
             _spritebatch = (SpriteBatch)game.Services.GetService(typeof(SpriteBatch));
             _consoleManager = (ConsoleManager)game.Services.GetService(typeof(ConsoleManager));
             _content = (ContentController)game.Services.GetService(typeof(ContentController));
+            _eventManager = (EventManager) game.Services.GetService(typeof (EventManager));
         }
 
         /// <summary>
@@ -221,6 +223,9 @@ namespace MasterOfCentauri
                 _console.IsVisible = !_console.IsVisible;
                 _inputService.IsKeyboardHandled = true;
             }
+
+            _eventManager.Execute(EventType.Update);
+
             base.Update(gameTime);
         }
 
@@ -229,6 +234,8 @@ namespace MasterOfCentauri
         public override void Draw(GameTime gameTime)
         {
             _screen.Draw(gameTime);
+
+            _eventManager.Execute(EventType.Frame);
 
             base.Draw(gameTime);
         }

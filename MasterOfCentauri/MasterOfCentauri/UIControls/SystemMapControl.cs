@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework;
 
 namespace MasterOfCentauri.UIControls
 {
-    class SystemMapControl : ContentControl, IConsoleCommandHost
+    class SystemMapControl : ContentControl, IConsoleCommandHost, IEventListener<SystemMapPlanetClicked>
     {
         private readonly IServiceProvider _services;
         Texture2D _sun;
@@ -24,6 +24,7 @@ namespace MasterOfCentauri.UIControls
         private TextBlock _testLabel;
         private ConsoleManager _console;
         private ContentController _content;
+        private EventManager _eventManager;
 
         public SystemMapControl(IServiceProvider services)
         {
@@ -31,10 +32,13 @@ namespace MasterOfCentauri.UIControls
             Name = "SystemMap";
             _content = (ContentController)services.GetService(typeof(ContentController));
             _console = ((ConsoleManager)services.GetService(typeof(ConsoleManager)));
+            _eventManager = ((EventManager)services.GetService(typeof(EventManager)));
             Background = Color.Black;
             ClipContent = true;
             BaseRadius = 1210f;
             BaseDegrees = 60;
+
+            _eventManager.Subscribe<SystemMapPlanetClicked>(this);
         }
 
         public SystemMapViewModel ViewData { get; set; }
@@ -101,9 +105,7 @@ namespace MasterOfCentauri.UIControls
         private void Clicked(object sender, EventArgs eventArgs)
         {
             var planet = (Planet) sender;
-            _testLabel.Text = planet.ViewModel.Name;
-
-            _console.WriteLine(planet.ViewModel.Name + " Selected");
+            _eventManager.Queue(EventType.Update, new SystemMapPlanetClicked(planet));
         }
 
         private float GetY(float degrees, float radius)
@@ -120,7 +122,7 @@ namespace MasterOfCentauri.UIControls
         {
             get
             {
-                return new ConsoleCommand[]
+                return new[]
                            {
                                new ConsoleCommand("Test", "Test", x=> Debug.WriteLine("Testing"))
                            };
@@ -131,5 +133,12 @@ namespace MasterOfCentauri.UIControls
         public float BaseDegrees { get; set; }
 
         public event EventHandler RemoveCommands;
+
+        public void EventRaised(SystemMapPlanetClicked eventObject)
+        {
+            _testLabel.Text = eventObject.Planet.ViewModel.Name;
+
+            _console.WriteLine(eventObject.Planet.ViewModel.Name + " Selected");
+        }
     }
 }

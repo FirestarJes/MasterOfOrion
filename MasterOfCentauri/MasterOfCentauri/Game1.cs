@@ -30,6 +30,7 @@ namespace MasterOfCentauri
         private GalaxyManager _galaxyManager;
         private GameManager _gameManager;
         private GameContentManager _gameContentManager;
+        private EventManager _eventManager;
 
         private readonly TimeSpan SampleInterval = new TimeSpan(0, 0, 0, 1);
         private TimeSpan _sampleTime;
@@ -96,6 +97,9 @@ namespace MasterOfCentauri
             _gameManager = new GameManager(Services);
             _gameManager.NewGame();
             Services.AddService(typeof(GameManager), _gameManager);
+
+            _eventManager = new EventManager();
+            Services.AddService(typeof(EventManager), _eventManager);
 
             // ----- Add GameComponents
             // The component that shows the individual screen.
