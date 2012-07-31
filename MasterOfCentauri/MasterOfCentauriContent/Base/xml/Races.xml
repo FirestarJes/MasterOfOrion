@@ -1,0 +1,10 @@
+<Races>
+	<Race>
+		<Name>Eldarans</Name>
+		<Traits>
+			<Trait>
+				<TraitID>TRAIT_POP_GROWTH</TraitID>
+			</Trait>
+		</Traits>
+	</Race>
+</Races>
