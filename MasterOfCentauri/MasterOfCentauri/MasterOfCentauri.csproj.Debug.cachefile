@@ -24,6 +24,7 @@ Content\StarFields\Black.xnb
 Content\SystemMap\Sun.xnb
 Content\SystemMap\Planet1.xnb
 Content\SystemMap\PlanetRings.xnb
+Content\UI\StartScreenBG.xnb
 Content\TextureAtlases\galaxy2.atlas
 Content\TextureAtlases\galaxy.atlas
 Content\Base\xml\PlanetTypes.xml

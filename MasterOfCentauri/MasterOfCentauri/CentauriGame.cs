@@ -19,6 +19,7 @@ using DigitalRune.Animation;
 using DigitalRune.Game.UI.Controls;
 using DigitalRune.Game.UI.Rendering;
 using DigitalRune.Mathematics.Algebra;
+using MasterOfCentauri.GameScreens;
 
 
 namespace MasterOfCentauri
@@ -201,8 +202,13 @@ namespace MasterOfCentauri
 
             _console = new ConsoleWindow(_consoleManager);
 
-            _screen.Children.Add(mainTabPanel);
-            _screen.Children.Add(_console);
+            StartMenuScreen start = new StartMenuScreen(Game.Services);
+            start.Init();
+            _screen.Children.Add(start);
+
+
+            //_screen.Children.Add(mainTabPanel);
+            //_screen.Children.Add(_console);
             //_screen.Children.Add(miniMapWindow);
             //_screen.Children.Add(maprender);
 
