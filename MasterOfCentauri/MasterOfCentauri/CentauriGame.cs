@@ -189,9 +189,9 @@ namespace MasterOfCentauri
                                    Name = "Earth",
                                    BuildingCells = new[,]
                                                        {
-                                                           { new BuildingCellViewModel(), new BuildingCellViewModel(), new BuildingCellViewModel() },
-                                                           { new BuildingCellViewModel(), new BuildingCellViewModel(), new BuildingCellViewModel() },
-                                                           { new BuildingCellViewModel(), new BuildingCellViewModel(), new BuildingCellViewModel() }
+                                                           { new BuildingCellViewModel(), new BuildingCellViewModel { Type = CellMultiplier.ExtraEnergy }, new BuildingCellViewModel() },
+                                                           { new BuildingCellViewModel(), new BuildingCellViewModel(), new BuildingCellViewModel { Type = CellMultiplier.ExtraEnergy } },
+                                                           { new BuildingCellViewModel { Type = CellMultiplier.ExtraEnergy }, new BuildingCellViewModel(), new BuildingCellViewModel() }
                                                        }
                                }
             };

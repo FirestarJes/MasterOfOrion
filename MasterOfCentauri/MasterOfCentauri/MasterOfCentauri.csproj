@@ -167,6 +167,7 @@
     <Compile Include="Model\GalaxySetup.cs" />
     <Compile Include="Model\Gamesetup.cs" />
     <Compile Include="Model\PlanetMap\BuildingCellViewModel.cs" />
+    <Compile Include="Model\PlanetMap\CellMultiplier.cs" />
     <Compile Include="Model\PlanetMap\PlanetMapViewModel.cs" />
     <Compile Include="Model\PlanetType.cs" />
     <Compile Include="Model\Ship.cs" />
@@ -184,6 +185,8 @@
     <Compile Include="SpritesheetPacker\MiscHelper.cs" />
     <Compile Include="SpritesheetPacker\OutOfSpaceException.cs" />
     <Compile Include="SpritesheetPacker\RectanglePacker.cs" />
+    <Compile Include="TileSet\ITile.cs" />
+    <Compile Include="TileSet\TileSet.cs" />
     <Compile Include="UIControls\Base\ClickableContentControl.cs" />
     <Compile Include="UIControls\Base\SpacedStackPanel.cs" />
     <Compile Include="UIControls\ConsoleWindow.cs" />
